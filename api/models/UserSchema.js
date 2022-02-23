@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     followersCount: {
-        type: Number
+        type: Number,
+        default: 0
     }
 });
 
