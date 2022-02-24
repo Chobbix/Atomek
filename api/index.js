@@ -11,6 +11,7 @@ const postRouter = require("./routes/PostRoutes");
 const categoryRouter = require("./routes/CategoryRoutes");
 const communityRouter = require("./routes/CommunityRoutes");
 const streakRouter = require("./routes/StreakRoutes");
+const tagRouter = require("./routes/TagRouter");
 
 const app = express();
 const port = 5000;
@@ -22,6 +23,7 @@ app.use("/api", postRouter);
 app.use("/api", categoryRouter);
 app.use("/api", communityRouter);
 app.use("/api", streakRouter);
+app.use("/api", tagRouter);
 
 app.listen(port, () => {
     console.log("Application listening port: " + port);
