@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
     },
     _community: {
         type: mongoose.Schema.Types.ObjectId,
-        // TODO: ref: "community"
+        ref: "community"
     }
 });
 

@@ -8,6 +8,8 @@ require("./models/connection");
 
 const userRouter = require("./routes/UserRoutes");
 const postRouter = require("./routes/PostRoutes");
+const categoryRouter = require("./routes/CategoryRoutes");
+const communityRouter = require("./routes/CommunityRoutes");
 
 const app = express();
 const port = 5000;
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 
 app.use("/api", userRouter);
 app.use("/api", postRouter);
+app.use("/api", categoryRouter);
+app.use("/api", communityRouter);
 
 app.listen(port, () => {
     console.log("Application listening port: " + port);
