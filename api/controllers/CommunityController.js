@@ -24,7 +24,7 @@ exports.communityCreate = async (req, res) => {
         console.log("Succesful community creation");
     })
     .catch(() => {
-        console.log("Could not create a user");
+        console.log("Could not create a community");
     });
 
     res.send(community);
