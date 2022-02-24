@@ -11,8 +11,8 @@ const postRouter = require("./routes/PostRoutes");
 const categoryRouter = require("./routes/CategoryRoutes");
 const communityRouter = require("./routes/CommunityRoutes");
 const streakRouter = require("./routes/StreakRoutes");
-const tagRouter = require("./routes/TagRouter");
-const subscriptionRouter = require("./routes/SubscriptionRouter");
+const tagRouter = require("./routes/TagRoutes");
+const subscriptionRouter = require("./routes/SubscriptionRoutes");
 
 const app = express();
 const port = 5000;
