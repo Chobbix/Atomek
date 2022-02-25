@@ -31,6 +31,35 @@ exports.communityCreate = async (req, res) => {
     res.send(community);
 }
 
+exports.communityUpdate = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const community = await Community.findById(id);
+
+    if (community) {
+        await community.updateOne(body)
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Community not found. Could not update data"});
+    }
+};
+
+exports.communityDelete = async (req, res) => {
+    const { id } = req.params;
+
+    const community = await Community.findById(id);
+
+    if (community) {
+        await community.deleteOne();
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Community not found. Could not delete data"});
+    }
+};
+
 exports.communityGetAmountOfUsers = async (req, res) => {
     var { id } = req.params;
 
