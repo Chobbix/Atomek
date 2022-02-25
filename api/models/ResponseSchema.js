@@ -16,13 +16,11 @@ const responseSchema = new mongoose.Schema({
         required: false,
         maxlength: 100
     },
-    _subscription: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "subscription"
-        }
-    ]
+    _subscription: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: "subscription"
+    }
 });
 
 const Response = mongoose.model("response", responseSchema);

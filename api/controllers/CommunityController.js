@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Community = require("../models/CommunitySchema");
 
 exports.communityGetById = async (req, res) => {
@@ -29,3 +30,21 @@ exports.communityCreate = async (req, res) => {
 
     res.send(community);
 }
+
+exports.communityGetAmountOfUsers = async (req, res) => {
+    var { id } = req.params;
+
+    id = mongoose.Types.ObjectId(id);
+    const community = await Community
+        .aggregate([
+            { $match: { _id: id } },
+            { $project: { amount_users: { $size: "$_users" } } }
+        ]);
+
+    if (community) {
+        res.send(community);
+    }
+    else {
+        res.status(404).send({message: "Community not found"});
+    }
+};
