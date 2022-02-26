@@ -29,3 +29,32 @@ exports.responseCreate = async (req, res) => {
 
     res.send(response);
 }
+
+exports.responseUpdate = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const response = await Response.findById(id);
+
+    if (response) {
+        await response.updateOne(body)
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Response not found. Could not update data"});
+    }
+};
+
+exports.responseDelete = async (req, res) => {
+    const { id } = req.params;
+
+    const response = await Response.findById(id);
+
+    if (response) {
+        await response.deleteOne();
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Response not found. Could not delete data"});
+    }
+};

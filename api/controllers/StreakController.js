@@ -29,3 +29,32 @@ exports.streakCreate = async (req, res) => {
 
     res.send(streak);
 }
+
+exports.streakUpdate = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const streak = await Streak.findById(id);
+
+    if (streak) {
+        await streak.updateOne(body)
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Streak not found. Could not update data"});
+    }
+};
+
+exports.streakDelete = async (req, res) => {
+    const { id } = req.params;
+
+    const streak = await Streak.findById(id);
+
+    if (streak) {
+        await streak.deleteOne();
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Streak not found. Could not delete data"});
+    }
+};

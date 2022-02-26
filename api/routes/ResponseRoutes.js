@@ -5,5 +5,7 @@ const responseController = require("../controllers/ResponseController");
 
 router.get("/response/:id", responseController.responseGetById);
 router.post("/response", responseController.responseCreate);
+router.put("/response/:id", responseController.responseUpdate);
+router.delete("/response/:id", responseController.responseDelete);
 
 module.exports = router;

@@ -29,3 +29,32 @@ exports.subscriptionCreate = async (req, res) => {
 
     res.send(subscription);
 }
+
+exports.subscriptionUpdate = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const subscription = await Subscription.findById(id);
+
+    if (subscription) {
+        await subscription.updateOne(body)
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Subscription not found. Could not update data"});
+    }
+};
+
+exports.subscriptionDelete = async (req, res) => {
+    const { id } = req.params;
+
+    const subscription = await Subscription.findById(id);
+
+    if (subscription) {
+        await subscription.deleteOne();
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Subscription not found. Could not delete data"});
+    }
+};

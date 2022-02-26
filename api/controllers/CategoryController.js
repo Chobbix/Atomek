@@ -29,3 +29,32 @@ exports.categoryCreate = async (req, res) => {
 
     res.send(category);
 }
+
+exports.categoryUpdate = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const category = await Category.findById(id);
+
+    if (category) {
+        await category.updateOne(body)
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Community not found. Could not update data"});
+    }
+};
+
+exports.categoryDelete = async (req, res) => {
+    const { id } = req.params;
+
+    const category = await Category.findById(id);
+
+    if (category) {
+        await category.deleteOne();
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Category not found. Could not delete data"});
+    }
+};
