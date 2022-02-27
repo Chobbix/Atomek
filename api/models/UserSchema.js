@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema({
         minlength: 4,
         maxlength: 20
     },
+    date_create: { 
+        type : Date, 
+        default: Date.now 
+    },
     name: {
         type: String,
         required: true,
