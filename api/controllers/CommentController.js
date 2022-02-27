@@ -3,7 +3,7 @@ const Comment = require("../models/CommentSchema");
 exports.commentGetAll = async (req, res) => {
     const { postId } = req.params;
 
-    const comments = await Comment.find({_post: postId});
+    const comments = await Comment.find({_post: postId}).populate("_user", "username image");
     
     res.send(comments);
 };
@@ -47,7 +47,7 @@ exports.commentDelete = async (req, res) => {
     const comment = await Comment.findById(id);
 
     if (comment) {
-        await comment.deleteOne(body);
+        await comment.deleteOne();
 
         res.send();
     } else {
