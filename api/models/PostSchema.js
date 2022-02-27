@@ -4,6 +4,10 @@ const postSchema = new mongoose.Schema({
     body: {
         type: String
     },
+    likesCount: {
+        type: Number,
+        default: 0
+    },
     _user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"

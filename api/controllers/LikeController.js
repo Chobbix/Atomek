@@ -9,12 +9,14 @@ exports.likeGetAll = async (req, res) => {
 
     if (!post) {
         res.status(404).send({message: "Post not found"});
+        return;
     }
 
     const like = await Like.findOne({_post: postId}).populate("_users", "username image");
 
     if (like) {
         res.send(like._users);
+        return;
     }
 
     res.send([]);
@@ -63,18 +65,20 @@ exports.likeAdd = async (req, res) => {
 
 exports.likeRemove = async (req, res) => {
     const { postId } = req.params;
-    const { body } = req;
+    const { userId } = req.params;
 
     const post = await Post.findById(postId);
 
     if (!post) {
         res.status(404).send({message: "Post not found"});
+        return;
     }
 
-    const user = await User.findById(body._user);
+    const user = await User.findById(userId);
 
     if (!user) {
         res.status(400).send({message: "Invalid User Id"});
+        return;
     }
 
     let like = await Like.findOne({_post: postId});
