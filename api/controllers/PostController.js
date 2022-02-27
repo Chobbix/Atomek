@@ -3,7 +3,7 @@ const Post = require("../models/PostSchema");
 exports.postGetById = async (req, res) => {
     const { id } = req.params;
 
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate("_user", "username image");
 
     if (post) {
         res.send(post);
@@ -15,7 +15,7 @@ exports.postGetById = async (req, res) => {
 exports.postGetAll = async (req, res) => {
     const { communityId } = req.params;
 
-    const posts = await Post.find({_community: communityId});
+    const posts = await Post.find({_community: communityId}).populate("_user", "username image");
 
     res.send(posts);
 };
