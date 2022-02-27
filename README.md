@@ -1,18 +1,22 @@
 # Programacion-Web-2
 
-Integrantes:
-Victor Francisco Perez Martell 1848625
-Bryan Emmanuel Duarte Lozano 1877435
-Angel Corona Esquivel 1851121
-Brenda Hernández García 1843135
+<h3>Integrantes: <br></h3>
+Victor Francisco Perez Martell 1848625 <br>
+Bryan Emmanuel Duarte Lozano 1877435 <br>
+Angel Corona Esquivel 1851121 <br>
+Brenda Hernández García 1843135 <br><br>
 
-Atomek
+<h3>Atomek <br></h3>
 Una aplicacion web enfocada en la creacion de rachas, estas rachas pueden ser peronales o con una comunidad, podrás conocer gente, publicar tus avances,
-seguir personas entre otras cosas.
+seguir personas entre otras cosas. <br>
 
-Carpetas:
-    * api: Donde esta ubicado todo el servicio backend de la aplicacion, aqui se pueden encontrar desde el diseño de la base de datos, hasta los controladores
-        - controllers: Donde estan ubicados todos los controladores de nuestra aplicacion, estos sirven para controlar los datos de la base de datos, puede ser agregar
-                       informacion, obtener informacion, eliminar o actualizar.
-        - models: Donde estan todos los modelos utilizados en la base de datos, aqui es donde se puede ver como es que esta estructurada toda la base de datos.
-        - routes: Donde estan ubicadas todas las rutas de nuestra aplicacion, estar servirán para acceder a los metodos creados en los controladores de nuestra aplicacion.
+Carpetas: <br>
+<ul>
+<li><b>api:</b> Donde esta ubicado todo el servicio backend de la aplicacion, aqui se pueden encontrar desde el diseño de la base de datos, hasta los controladores <br></li>
+   <ul>
+   <li><b>controllers:</b> Donde estan ubicados todos los controladores de nuestra aplicacion, estos sirven para controlar los datos de la base de datos, puede ser agregar
+                       informacion, obtener informacion, eliminar o actualizar. <br></li>
+   <li><b>models:</b> Donde estan todos los modelos utilizados en la base de datos, aqui es donde se puede ver como es que esta estructurada toda la base de datos. <br></li>
+   <li><b>routes:</b> Donde estan ubicadas todas las rutas de nuestra aplicacion, estar servirán para acceder a los metodos creados en los controladores de nuestra aplicacion. <br></li>
+   </ul>
+</ul>
