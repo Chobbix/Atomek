@@ -11,6 +11,10 @@ const responseSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    date_create: { 
+        type : Date, 
+        default: Date.now 
+    },
     note: {
         type: String,
         required: false,
@@ -22,6 +26,11 @@ const responseSchema = new mongoose.Schema({
         ref: "subscription"
     }
 });
+
+//responseSchema.pre('save', function(next){
+//    console.log("previo a guardar");
+//    next();
+//});
 
 const Response = mongoose.model("response", responseSchema);
 module.exports = Response;

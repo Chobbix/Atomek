@@ -9,6 +9,10 @@ const subscriptionSchema = new mongoose.Schema({
         minlength: 4,
         maxlength: 15
     },
+    date_create: { 
+        type : Date, 
+        default: Date.now 
+    },
     _user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

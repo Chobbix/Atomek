@@ -58,3 +58,16 @@ exports.responseDelete = async (req, res) => {
         res.status(404).send({message: "Response not found. Could not delete data"});
     }
 };
+
+exports.responsesGetByIdSubscription = async (req, res) => {
+    const { id } = req.params;
+
+    const response = await Response.find({_subscription: id});
+
+    if (response) {
+        res.send(response);
+    }
+    else {
+        res.status(404).send({message: "responses not found"});
+    }
+};

@@ -7,7 +7,11 @@ const categorySchema = new mongoose.Schema({
         unique: true,
         minlength: 4,
         maxlength: 15
-    }
+    },
+    date_create: { 
+        type : Date, 
+        default: Date.now 
+    },
 });
 
 const Category = mongoose.model("category", categorySchema);
