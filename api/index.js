@@ -14,6 +14,9 @@ const streakRouter = require("./routes/StreakRoutes");
 const tagRouter = require("./routes/TagRoutes");
 const subscriptionRouter = require("./routes/SubscriptionRoutes");
 const responseRouter = require("./routes/ResponseRoutes");
+const likeRouter = require("./routes/LikeRoutes");
+const followRouter = require("./routes/FollowRoutes");
+const commentRouter = require("./routes/CommentRoutes");
 
 const app = express();
 const port = 5000;
@@ -28,6 +31,9 @@ app.use("/api", streakRouter);
 app.use("/api", tagRouter);
 app.use("/api", subscriptionRouter);
 app.use("/api", responseRouter);
+app.use("/api", likeRouter);
+app.use("/api", followRouter);
+app.use("/api", commentRouter);
 
 app.listen(port, () => {
     console.log("Application listening port: " + port);
