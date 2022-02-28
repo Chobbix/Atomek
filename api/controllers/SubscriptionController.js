@@ -21,13 +21,13 @@ exports.subscriptionCreate = async (req, res) => {
     await subscription
     .save()
     .then(() => {
+        res.send(subscription);
         console.log("Succesful subscription creation");
     })
-    .catch(() => {
-        console.log("Could not create a subscription");
+    .catch((err) => {
+        console.log("Could not create a subscription", err);
+        res.status(500).send({message: "Could not create a streak", err});
     });
-
-    res.send(subscription);
 }
 
 exports.subscriptionUpdate = async (req, res) => {
