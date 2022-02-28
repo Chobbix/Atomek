@@ -22,13 +22,13 @@ exports.communityCreate = async (req, res) => {
     await community
     .save()
     .then(() => {
+        res.send(community);
         console.log("Succesful community creation");
     })
-    .catch(() => {
-        console.log("Could not create a community");
+    .catch((err) => {
+        console.log("Could not create a community", err);
+        res.status(500).send({message: "Could not create a community", err});
     });
-
-    res.send(community);
 }
 
 exports.communityUpdate = async (req, res) => {
@@ -75,5 +75,47 @@ exports.communityGetAmountOfUsers = async (req, res) => {
     }
     else {
         res.status(404).send({message: "Community not found"});
+    }
+};
+
+exports.communityAddUser = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const community = await Community.findById(id);
+
+    if (community) {
+        await community.updateOne(
+            { 
+                $addToSet: { 
+                    _users: body 
+                } 
+            }
+        );
+        res.send(community);
+    }
+    else {
+        res.status(404).send({message: "Community not found. Could not update data"});
+    }
+};
+
+exports.communityAddCategory = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const community = await Community.findById(id);
+
+    if (community) {
+        await community.updateOne(
+            { 
+                $addToSet: { 
+                    _category: body 
+                } 
+            }
+        );
+        res.send(community);
+    }
+    else {
+        res.status(404).send({message: "Community not found. Could not update data"});
     }
 };

@@ -9,6 +9,7 @@ exports.categoryGetById = async (req, res) => {
         res.send(category);
     }
     else {
+        console.log("category not found");
         res.status(404).send({message: "category not found"});
     }
 };
@@ -21,13 +22,13 @@ exports.categoryCreate = async (req, res) => {
     await category
     .save()
     .then(() => {
+        res.send(category);
         console.log("Succesful category creation");
     })
-    .catch(() => {
-        console.log("Could not create a user");
+    .catch((err) => {
+        console.log("Could not create a category", err);
+        res.status(500).send({message: "Could not create a category", err});
     });
-
-    res.send(category);
 }
 
 exports.categoryUpdate = async (req, res) => {

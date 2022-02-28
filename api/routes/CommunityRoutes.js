@@ -9,5 +9,7 @@ router.put("/community/:id", communityController.communityUpdate);
 router.delete("/community/:id", communityController.communityDelete);
 
 router.get("/community/amount-users/:id", communityController.communityGetAmountOfUsers);
+router.put("/community/add-user/:id", communityController.communityAddUser);
+router.put("/community/add-category/:id", communityController.communityAddCategory);
 
 module.exports = router;

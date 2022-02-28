@@ -21,13 +21,13 @@ exports.responseCreate = async (req, res) => {
     await response
     .save()
     .then(() => {
+        res.send(response);
         console.log("Succesful response creation");
     })
-    .catch(() => {
-        console.log("Could not create a response");
+    .catch((err) => {
+        console.log("Could not create a response", err);
+        res.status(500).send({message: "Could not create a response", err});
     });
-
-    res.send(response);
 }
 
 exports.responseUpdate = async (req, res) => {

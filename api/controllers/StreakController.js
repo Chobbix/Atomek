@@ -21,13 +21,13 @@ exports.streakCreate = async (req, res) => {
     await streak
     .save()
     .then(() => {
+        res.send(streak);
         console.log("Succesful streak creation");
     })
-    .catch(() => {
-        console.log("Could not create a streak");
+    .catch((err) => {
+        console.log("Could not create a streak", err);
+        res.status(500).send({message: "Could not create a streak", err});
     });
-
-    res.send(streak);
 }
 
 exports.streakUpdate = async (req, res) => {
