@@ -1,0 +1,10 @@
+
+body{
+    background: rgb(45, 70, 138);
+    background: linear-gradient(to right, rgb(23, 7, 80), rgb(107, 158, 216));
+}
+
+.bg{
+    background-image: url(../../Imagenes/Icono_ATOMEAK2.0.png);
+    background-position: center center;
+}
