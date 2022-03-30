@@ -1,0 +1,35 @@
+.navbar{
+    background-color: rgb(28, 30, 39);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.logodesing{
+    width: 80%;
+}
+.log, .Loggin{
+    color: rgb(24, 93, 110);
+    padding: 5px;
+}
+.caja_log{
+    justify-content: right;
+    display: flex;
+}
+.Content_log{
+    border-bottom-left-radius: 150px;
+    width: 98%;
+    background-color: rgb(198, 229, 236);
+    text-align: right;
+    justify-content: right;
+    display: flex;
+}
+.Loggin{
+    text-decoration: none;
+}
+.Loggin:hover{
+    color: rgb(210, 186, 216);
+    cursor: pointer;
+}

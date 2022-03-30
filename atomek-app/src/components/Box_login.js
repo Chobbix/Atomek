@@ -3,6 +3,7 @@ import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import fb from '../Imagenes/fb_icon.png'
 import google from '../Imagenes/google_icon.png'
 import './Estilos/Box_login_style.css'
+import './Estilos/Scroll_style.css'
 
 const Box_login = () => {
     return(

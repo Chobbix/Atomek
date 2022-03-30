@@ -8,6 +8,7 @@ import dormir from '../Imagenes/dormir.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faWrench} from '@fortawesome/free-solid-svg-icons'
 import './Estilos/ContPerfil_style.css'
+import './Estilos/Scroll_style.css'
 
 const ContPerfil = () => {
     return(
