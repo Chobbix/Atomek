@@ -1,0 +1,65 @@
+
+.tarjetamuro{
+    font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;
+    margin-top: 20px;
+    background-color: rgb(96, 120, 143);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.cardheader{
+    display: flex;
+    justify-content: left;
+}
+.perfil{
+    width: 70px;
+    height: 70px;
+    border-radius: 10%; 
+    margin-right: 5px;
+}
+.grupo{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+   
+}
+
+.cardfooter{
+    border-top: 1px solid rgb(86, 93, 94);
+   padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+.botones{
+    display: flex ;
+    justify-content: space-between;
+    width: 60%;
+}
+.btn_reaccion{
+    border: none;
+    background-color: rgb(206, 218, 252);
+    padding: 6px;
+    border-radius: 3px;
+    width: 49%;
+}
+.btn_reaccion:hover{
+    background-color: rgb(133, 123, 161);
+}
+.btn_reaccion:active{
+    transform: translateY(1px);
+   
+}
+.informacion{
+    display: flex;
+}
+.usuario, .Fecha{
+    font-size: 15px;
+    color: rgb(162, 175, 189);
+
+}
+.cardtext{
+    color: rgb(255, 255, 255);
+}
+.contenidoimagenes{
+    max-width: 25%;
+}

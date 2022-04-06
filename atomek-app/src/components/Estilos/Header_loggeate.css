@@ -1,10 +1,18 @@
 .navbar{
     background-color: rgb(28, 30, 39);
     height: 150px;
-    display: flex;
-    align-items: center;
+    width: 100%;
+    display: flex;    
     align-content: center;
     justify-content: center;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    
+}
+.containernav{
+    margin: auto;
+    
 }
 
 .logodesing{
@@ -26,6 +34,7 @@
     justify-content: right;
     display: flex;
 }
+
 .Loggin{
     text-decoration: none;
 }

@@ -2,16 +2,15 @@
     width: 95%;
     display: flex;
     margin-left: 5%;
-}
-.ContainerAux{
     
+}
+.ContainerAux{    
     margin-top: 3%;
 }
 
 .Tarjeta{
     background-color: rgba(247, 217, 248, 0.479);
-    width: 30%;
-   
+    width: 30%;   
     margin-left: 15px;
     border-radius: 5px;
     
@@ -48,5 +47,5 @@
     text-align: right;
 }
 .Time_user{
-    color: rgb(154, 179, 207)
+    color: rgb(28, 81, 141)
 }

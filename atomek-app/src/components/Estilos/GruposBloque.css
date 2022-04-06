@@ -1,0 +1,23 @@
+.cardbody{
+    text-align: center;
+}
+.btn_unirse{
+    border: none;
+    background-color: rgb(206, 218, 252);
+    padding: 3px;
+    font-size: 12px;
+    border-radius: 3px;
+    width: 90%;
+    margin-bottom: 2px;
+}
+.btn_unirse:hover{
+    background-color: rgb(133, 123, 161);
+}
+.btn_unirse:active{
+    transform: translateY(1px);
+   
+}
+.text{
+    text-align: left;
+    font-size: 15px;
+}

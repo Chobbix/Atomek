@@ -8,11 +8,7 @@ const Header_loggeate = () => {
       <nav class="navbar ">
         <div class="containernav">
           <a class="Nav" href="#">
-            <img
-              src={require("../Imagenes/Atomeak LOGO.png")}
-              alt=""
-              className="logodesing"
-            />
+            <img              src={require("../Imagenes/Atomeak LOGO.png")}alt=""className="logodesing"            />
           </a>
         </div>
       </nav>

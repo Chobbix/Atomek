@@ -7,13 +7,12 @@ import Login from './pages/Login';
 import CC from './pages/CrearCuenta';
 import Perfil from './pages/Perfil';
 import Muro from './pages/Muro';
-
-
+import Publicacion from './components/Publicacion';
 
 function App() {
   return (
     <React.Fragment>    
-      <Lobby/>
+      <Muro/>
     </React.Fragment>
   );
 }
