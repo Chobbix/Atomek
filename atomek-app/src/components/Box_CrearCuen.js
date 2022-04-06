@@ -5,10 +5,10 @@ import fb from '../Imagenes/fb_icon.png'
 import google from '../Imagenes/google_icon.png'
 import './Estilos/Box_crearcuent_style.css'
 import './Estilos/Scroll_style.css'
-
+import { Link } from "react-router-dom";
 const Box_login = () => {
     return(
-      <body>
+      <body id='fondobackground'>
       <div className="container w-75 mt-5 rounded shadow">
       <div className="row align-items-stretch">
           <div className="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
@@ -19,7 +19,7 @@ const Box_login = () => {
            </div> 
       <h2 className="fw-bold text-center" id='textobien'>¡Crea tu cuenta ahora!</h2>
       
-    <form action="#" id="crearcuent">
+    <Link to="/atomek/Muro">
         <div class="mb-4">
             <label for="name" class="form-label">Nombre completo</label>
             <input type="text" class="form-control" name="name" id="name"></input>
@@ -37,13 +37,14 @@ const Box_login = () => {
             <label for="connected" class="form-check-label">Mantenerme conectado</label>
         </div>
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+        
+            <button type="submit" class="btn btn-primary">Crear Cuenta </button>
         </div>
 
         <div class="my-3">
-            <span>Ya tienes cuenta? <a href="#">Ingresa aquí</a></span><br></br>
+            <span>Ya tienes cuenta? <Link to="/atomek/login">Ingresa aquí</Link></span><br></br>
         </div>
-    </form>
+    </Link>
   
           <div className="container w-100 my-4">
               <div className="row text-center">

@@ -7,7 +7,7 @@ const header = () => {
       <h3 className="Desc">Testimonios de algunos usuarios:</h3>
       <div className="containersupremo">
         <div class="Tarjeta">
-          <div class="Container">
+          <div class="ContainerTestimonio">
             <div class="Container1 ">
               <img
                 src={require("../Imagenes/picture_perfil.jpg")}
@@ -26,10 +26,12 @@ const header = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div>          
         </div>
+        
+
         <div class="Tarjeta">
-          <div class="Container">
+          <div class="ContainerTestimonio">
             <div class="Container1 ">
               <img
                 src={require("../Imagenes/picture_perfil.jpg")}
@@ -48,10 +50,11 @@ const header = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div>          
         </div>
+        
         <div class="Tarjeta">
-          <div class="Container">
+          <div class="ContainerTestimonio">
             <div class="Container1 ">
               <img
                 src={require("../Imagenes/picture_perfil.jpg")}
@@ -70,8 +73,9 @@ const header = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div>          
         </div>
+
       </div>
     </div>
   );

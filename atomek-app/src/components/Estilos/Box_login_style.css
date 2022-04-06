@@ -19,7 +19,7 @@ margin-right: auto;
     background-color: rgb(136, 117, 66);
 }
 
-body{
+body #fondobackground{
     background: rgb(45, 70, 138);
     background: linear-gradient(to right, rgb(23, 7, 80), rgb(107, 158, 216));
 }

@@ -5,9 +5,10 @@ import google from '../Imagenes/google_icon.png'
 import './Estilos/Box_login_style.css'
 import './Estilos/Scroll_style.css'
 
+import { Link } from "react-router-dom";
 const Box_login = () => {
     return(
-      <body>
+      <body id='fondobackground'>
       <div className="container w-75 mt-5 rounded shadow">
       <div className="row align-items-stretch">
           <div className="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
@@ -17,7 +18,7 @@ const Box_login = () => {
            <img src={logo} width="200" alt=""></img>
            </div> 
       <h2 className="fw-bold text-center" id='textobien'> ¡Bienvendio de nuevo!</h2>
-      <form action="#">
+      <Link to="/atomek/Muro">
           <div className="mb-1">
               <label for="email" className="form-label">Correo electrónico</label>
               <input type="email" className="form-control" name="email"></input>
@@ -35,10 +36,10 @@ const Box_login = () => {
           </div>
   
           <div className="my-3">
-              <span>No tienes cuenta? <a href="#">Registrate</a></span><br></br>
+              <span>No tienes cuenta? <Link to="/atomek/Crear">Registrate</Link></span><br></br>
               <span><a href="#">Recuperar contraseña</a></span>
           </div>
-      </form>
+      </Link>
   
           <div className="container w-100 my-4">
               <div className="row text-center">

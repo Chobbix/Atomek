@@ -7,7 +7,7 @@ import { faAlignJustify } from '@fortawesome/free-solid-svg-icons'
 import GruposBloque_style from "./GruposBloque_style";
 const Slider = () => {
     return (
-        <body id="containerslider">
+        <body id="fonditobonito" className="fonditobonito">
             <div className="Container">
                 <div className="Grupo">
                     <button class="btn_muro " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
@@ -81,12 +81,9 @@ const Slider = () => {
                         </p>
                     </div>
 
+      
                 </div>
-
-                <div>
-
-                </div>
-                <div className="Muro">
+             <div className="Muro">
                     <div class="collapse " id="Muro">
                         <div class=" cardbody">
                             <Publicacion />

@@ -7,15 +7,15 @@ const Header_loggeate = () => {
     <div className="background">
       <nav class="navbar ">
         <div class="containernav">
-          <Link class="Nav" to="">
+          <a class="Nav" href="#">
             <img src={require("../Imagenes/Atomeak LOGO.png")}alt=""className="logodesing"/>
-          </Link>
+          </a>
         </div>
       </nav>
       <div className="caja_log">
         <div className="Content_log">
           
-          <h4 className="log">  <Link className="Loggin" to="/atomek/login"> Inicia sesion </Link></h4>
+          <h4 className="log">  <a className="Loggin"> Inicia sesion </a></h4>
            <h4 className="log">¿No tienes cuenta?     
                   
             <Link className="Loggin" to="/atomek/Crear " >  Registrate</Link>
