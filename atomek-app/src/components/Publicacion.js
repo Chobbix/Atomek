@@ -23,11 +23,14 @@ const Publicacion = () => {
             </div>
             <div class="card-body">
                 <div className='card-title'>
+                    <div>
                     <p class="cardtext">With supporting text below as a natural lead-in to additional content.</p>
-                   
                     <div>
                         <Carrousel_publicacion/>
-                    </div>                  
+                    </div>      
+                    </div>
+                    
+                              
                 </div>
             </div>
             <div className='informacion'> 

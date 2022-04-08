@@ -5,130 +5,185 @@ import Crear_grupo from "./Crear_grupo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlignJustify } from '@fortawesome/free-solid-svg-icons'
 import GruposBloque_style from "./GruposBloque_style";
+import Publicar from "./Publicar";
 const Slider = () => {
     return (
         <body id="fonditobonito" className="fonditobonito">
-            <div className="Container">
-                <div className="Grupo">
-                    <button class="btn_muro " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                        <h5 className="btn_name">
-                            <FontAwesomeIcon icon={faAlignJustify} />
-                        </h5>
-                    </button>
-                    <div class="canvas2" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
-                        <div>
-                            <p>
-                                <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Muro" aria-expanded="false" >
-                                    Tu Muro
-                                </button>
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Grupos" aria-expanded="false" aria-controls="collapseWidthExample">
-                                    Descubrir
-                                </button>
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#NewGroup" aria-expanded="false" aria-controls="collapseWidthExample">
-                                    Crear grupo
-                                </button>
-                            </p>
-                        </div>
-                        <div>
-                            <h1 className="subtitulo"> Grupos recientes</h1>
-                        </div>
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Muro" aria-expanded="false" aria-controls="collapseWidthExample">
-                                Los artistas desnutridos
-                            </button>
-                        </p>
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Muro" aria-expanded="false" aria-controls="collapseWidthExample">
-                                Domilones
-                            </button>
-                        </p>
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Muro" aria-expanded="false" aria-controls="collapseWidthExample">
-                                no puedo subir las escaleras
-                            </button>
-                        </p>
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Muro" aria-expanded="false" aria-controls="collapseWidthExample">
-                                Mi abuelita no me eseño a coser
-                            </button>
-                        </p>
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Grupos" aria-expanded="false" aria-controls="collapseWidthExample">
+            <div class="Container">
+                <div class="menus">
+                    <input type="radio" id="Muro" name="categoria" value="preguntas" checked />
+                    <input type="radio" id="Descubrir" name="categoria" value="Respuestas" />
+                    <input type="radio" id="Crear" name="categoria" value="diplomas" />
+                    <input type="radio" id="Grupos" name="categoria" value="guardado" />
+
+                    <input type="radio" id="Grupo1" name="categoria" value="guardado" />
+                    <input type="radio" id="Grupo2" name="categoria" value="guardado" />
+                    <input type="radio" id="Grupo3" name="categoria" value="guardado" />
+                    <input type="radio" id="Grupo4" name="categoria" value="guardado" />
+                    <input type="radio" id="Grupo5" name="categoria" value="guardado" />
+                    <input type="radio" id="GrupoAll" name="categoria" value="guardado" />
+
+                    <input type="radio" id="TuGrupo2" name="categoria" value="guardado" />
+                    <input type="radio" id="TuGrupo3" name="categoria" value="guardado" />
+                    <input type="radio" id="TuGrupo4" name="categoria" value="guardado" />
+                    <input type="radio" id="TuGrupo5" name="categoria" value="guardado" />
+                    <input type="radio" id="TuGrupoAll" name="categoria" value="guardado" />
+
+                    <div className="Grupo">
+                        <div class="canvas2">
+                            <label for="Muro" className="item grupo1">
+                                Tu Muro
+                            </label>
+                            <label for="Descubrir" className="item grupo1">
+                                <h4 >Descubrir</h4>
+                            </label>
+                            <label for="Crear" className="item grupo1">
+                                <h4 >Crear Grupo</h4>
+                            </label>
+                            <h1 className="subtitulo">Grupos recientes</h1>
+
+                            <label for="Grupo1" className="item grupo1">
+                                <h6> Los artistas desnutridos</h6>
+                            </label>
+                            <label for="Grupo2" className="item grupo1">
+                                <h6> Dormilones</h6>
+                            </label>
+                            <label for="Grupo4" className="item grupo1">
+                                <h6> no puedo subir las escaleras </h6>
+                            </label>
+                            <label for="Grupo5" className="item grupo1">
+                                <h6>   Mi abuelita no me eseño a coser</h6>
+                            </label>
+                            <label for="GrupoAll" className="item grupo1">
                                 <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
-                            </button>
-                        </p>
-                        <div>
+                            </label>
                             <h1 className="subtitulo"> Tus Grupos </h1>
-                        </div>
 
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Muro" aria-expanded="false" aria-controls="collapseWidthExample">
-                                amantes de la procrastinación
-                            </button>
-                        </p>
-                        <p>
-                            <button class="item grupo1" data-bs-toggle="collapse" data-bs-target="#Grupos" aria-expanded="false" aria-controls="collapseWidthExample">
+
+                            <label for="TuGrupo2" className="item grupo1">
+                                <h6> Los musicos  desafinados</h6>
+                            </label>
+                            <label for="TuGrupo4" className="item grupo1">
+                                <h6> Quemamos la cocina </h6>
+                            </label>
+                            <label for="TuGrupo5" className="item grupo1">
+                                <h6>   Bodypaint </h6>
+                            </label>
+                            <label for="TuGrupoAll" className="item grupo1">
                                 <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
-                            </button>
-                        </p>
+                            </label>
+
+
+                        </div>
                     </div>
 
-      
+
+                    <div class="Muro" id="Registro">
+
+                        <div class="bloque-contenido">
+
+                            <div class="contenedor_Muro bloque_contenedor_cursos">
+                                <Publicar />
+
+                                <Publicacion />
+                                <Publicacion />
+                                <Publicacion />
+
+
+                            </div>
+                            <div class="contenedor_Descubrir  " id="Registro">
+                                <br></br>
+                                <h3>Te puede gustar</h3>
+                                <div class="hileras">
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                </div>
+                                <div class="hileras">
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contenedor_Crear " id="Registro">
+                                < Crear_grupo />
+                            </div>
+                            <div class="contenedor_Grupos  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_Grupo1  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_Grupo2  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                                <Publicacion />
+                                <Publicacion />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_Grupo4  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_Grupo5  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_GrupoAll  " id="Registro">
+                                <div class="hileras">
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                    <div className="bloque">
+                                        <GruposBloque_style />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contenedor_TuGrupo2  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                                <Publicacion />
+                                <Publicacion />
+
+
+                            </div>
+                            <div class="contenedor_TuGrupo4  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_TuGrupo5  " id="Registro">
+                                <Publicar />
+                                <Publicacion />
+                            </div>
+                            <div class="contenedor_TuGrupoAll  " id="Registro">
+                                rito
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-             <div className="Muro">
-                    <div class="collapse " id="Muro">
-                        <div class=" cardbody">
-                            <Publicacion />
-                            <Publicacion />
-                            <Publicacion />
-                        </div>
-                    </div>
-                    <div class="collapse " id="Grupos">
-                        <br></br>
-                        <h3>Te puede gustar</h3>
-                        <div class="hileras">
-                            <div className="bloque">
-                                <GruposBloque_style />
-                            </div>
-                            <div className="bloque">
-                                <GruposBloque_style />
-                            </div>
-                            <div className="bloque">
-                                <GruposBloque_style />
-                            </div>
-                        </div>
-                        <div class="hileras">
-                            <div className="bloque">
-                                <GruposBloque_style />
-                            </div>
-                            <div className="bloque">
-                                <GruposBloque_style />
-                            </div>
-                            <div className="bloque">
-                                <GruposBloque_style />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="collapse " id="NewGroup">
-                        <div class=" cardbody">
-                            < Crear_grupo />
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
-
-        </body>
+        </body >
     );
 };
 

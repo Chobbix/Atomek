@@ -1,0 +1,15 @@
+.btn-plus {
+    background-color: plum;
+    border: none;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.col-auto{
+    display: flex;
+    align-items: center ;
+}

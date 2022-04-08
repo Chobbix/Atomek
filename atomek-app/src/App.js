@@ -26,7 +26,6 @@ function App() {
         <Route exact path="/atomek/CRacha" element={<CrearRacha />} />
         <Route exact path="/atomek/URacha" element={<UpdtRacha />} />
 
-
       </Routes>
     
     </Fragment>

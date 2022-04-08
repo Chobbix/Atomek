@@ -1,0 +1,64 @@
+.cabezera {
+    display: flex;
+    height: 70px;
+    margin-bottom: 15px;
+}
+
+.publicar {
+    margin-top: 15px;
+    background-color: rgba(80, 79, 86, 0.975);
+    padding: 26px;
+    border-radius: 5px;
+}
+
+.Forms {
+    width: 50%;
+    display: flex;
+}
+
+.size {
+    height: 100%;
+    width: 100%;
+}
+
+.Bloque {
+    margin: 5px;
+}
+
+.btn-img {
+    border: none;
+    border-radius: 5px;
+    background: rgb(115, 88, 115);
+    height: 35px;
+    color: white;
+    margin-top: 5px;
+}
+
+.inputfile {
+    position: relative;
+    display: inline-block;
+}
+
+.inputfile::before {
+    background-color: rgb(171, 149, 171);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    content: " Subir Imagen";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.grid {
+   
+    padding: 5px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
