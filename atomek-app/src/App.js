@@ -14,16 +14,16 @@ import { Routes, Route, Link } from "react-router-dom";
 function App() {
   return (
     <Fragment>
-      <Routes>
-        
-        <Route exact path="/" element={<Lobby />} />
-        <Route exact path="/atomek/login" element={<Login />} />
-        <Route exact path="/atomek/Perfil" element={<Perfil />} />
-        <Route exact path="/atomek/Muro" element={<Muro />} />
-        <Route exact path="/atomek/Crear" element={<CC />} />
-        <Route exact path="/atomek/CRacha" element={<CrearRacha />} />
+     <Routes>
 
-      </Routes>
+<Route exact path="/" element={<Lobby />} />
+<Route exact path="/atomek/login" element={<Login />} />
+<Route exact path="/atomek/Perfil" element={<Perfil />} />
+<Route exact path="/atomek/Muro" element={<Muro />} />
+<Route exact path="/atomek/Crear" element={<CC />} />
+<Route exact path="/atomek/CRacha" element={<CrearRacha />} />
+
+</Routes>
     
     </Fragment>
   );

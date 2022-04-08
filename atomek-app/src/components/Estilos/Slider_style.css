@@ -8,6 +8,10 @@
     overflow: scroll;
     width: 100%;  
 }
+.menus{
+    width: 100%;  
+    display: flex;
+}
 .Container::-webkit-scrollbar{
     display: none;
 }
@@ -22,13 +26,12 @@
     color: #ffffff;
     text-align: center;
     font-size: 25px;
+
 }
 
 
-.canvas2 {
-    
+.canvas2 {    
     background-color: aliceblue;
-
     border-radius: 3px;
     border: none;
     display: block;
@@ -80,6 +83,11 @@
     background-color: rgba(65, 67, 90, 0.007);
     color: rgb(51, 124, 108);
 }
+.todos:hover{
+    font-size: 17px;
+    background-color: rgba(65, 67, 90, 0.007);
+    color: rgb(51, 124, 108);
+}
 
 .Muro {
         margin-left: 15%;
@@ -105,4 +113,251 @@
 
 .todos {
     color: rgb(130, 121, 131);
+}
+
+/*-----------------------------------------------------------------------*/
+
+
+ input[type="radio"]{
+     display: none;
+ }
+
+ .sub-bloque-contenido{
+     background-color: white;
+ }
+
+ 
+ #Muro:checked ~ #Registro .contenedor_Descubrir,
+ #Muro:checked ~ #Registro .contenedor_Crear,
+ #Muro:checked ~ #Registro .contenedor_Grupos,
+ #Muro:checked ~ #Registro .contenedor_Grupo1,
+ #Muro:checked ~ #Registro .contenedor_Grupo2,
+ #Muro:checked ~ #Registro .contenedor_Grupo4,
+ #Muro:checked ~ #Registro .contenedor_Grupo5,
+ 
+ #Muro:checked ~ #Registro .contenedor_TuGrupo2,
+ #Muro:checked ~ #Registro .contenedor_TuGrupo4,
+ #Muro:checked ~ #Registro .contenedor_TuGrupo5,
+ #Muro:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Muro:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+ 
+ #Descubrir:checked ~ #Registro .contenedor_Muro,
+ #Descubrir:checked ~ #Registro .contenedor_Crear,
+ #Descubrir:checked ~ #Registro .contenedor_Grupos,
+ #Descubrir:checked ~ #Registro .contenedor_Grupo1,
+ #Descubrir:checked ~ #Registro .contenedor_Grupo2,
+ #Descubrir:checked ~ #Registro .contenedor_Grupo4,
+ #Descubrir:checked ~ #Registro .contenedor_Grupo5,
+  
+ #Descubrir:checked ~ #Registro .contenedor_TuGrupo2,
+ #Descubrir:checked ~ #Registro .contenedor_TuGrupo4,
+ #Descubrir:checked ~ #Registro .contenedor_TuGrupo5,
+ #Descubrir:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Descubrir:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+
+  
+ #Crear:checked ~ #Registro .contenedor_Muro,
+ #Crear:checked ~ #Registro .contenedor_Descubrir,
+ #Crear:checked ~ #Registro .contenedor_Grupos,
+ #Crear:checked ~ #Registro .contenedor_Grupo1,
+ #Crear:checked ~ #Registro .contenedor_Grupo2,
+ #Crear:checked ~ #Registro .contenedor_Grupo4,
+ #Crear:checked ~ #Registro .contenedor_Grupo5,
+
+ 
+  
+ #Crear:checked ~ #Registro .contenedor_TuGrupo2,
+ #Crear:checked ~ #Registro .contenedor_TuGrupo4,
+ #Crear:checked ~ #Registro .contenedor_TuGrupo5,
+ #Crear:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Crear:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+   
+ #Grupos:checked ~ #Registro .contenedor_Muro,
+ #Grupos:checked ~ #Registro .contenedor_Descubrir,
+ #Grupos:checked ~ #Registro .contenedor_Crear,
+ #Grupos:checked ~ #Registro .contenedor_Grupo1,
+ #Grupos:checked ~ #Registro .contenedor_Grupo2,
+ #Grupos:checked ~ #Registro .contenedor_Grupo4,
+ #Grupos:checked ~ #Registro .contenedor_Grupo5,
+
+ 
+ #Grupos:checked ~ #Registro .contenedor_TuGrupo2,
+ #Grupos:checked ~ #Registro .contenedor_TuGrupo4,
+ #Grupos:checked ~ #Registro .contenedor_TuGrupo5,
+ #Grupos:checked ~ #Registro .contenedor_TuGrupoAll,
+
+
+ #Grupos:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+ #Grupo1:checked ~ #Registro .contenedor_Muro,
+ #Grupo1:checked ~ #Registro .contenedor_Descubrir,
+ #Grupo1:checked ~ #Registro .contenedor_Crear,
+ #Grupo1:checked ~ #Registro .contenedor_Grupos,
+ #Grupo1:checked ~ #Registro .contenedor_Grupo2,
+ #Grupo1:checked ~ #Registro .contenedor_Grupo4,
+ #Grupo1:checked ~ #Registro .contenedor_Grupo5,
+
+   
+ #Grupo1:checked ~ #Registro .contenedor_TuGrupo2,
+ #Grupo1:checked ~ #Registro .contenedor_TuGrupo4,
+ #Grupo1:checked ~ #Registro .contenedor_TuGrupo5,
+ #Grupo1:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Grupo1:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+ #Grupo2:checked ~ #Registro .contenedor_Muro,
+ #Grupo2:checked ~ #Registro .contenedor_Descubrir,
+ #Grupo2:checked ~ #Registro .contenedor_Crear,
+ #Grupo2:checked ~ #Registro .contenedor_Grupos,
+ #Grupo2:checked ~ #Registro .contenedor_Grupo1,
+ #Grupo2:checked ~ #Registro .contenedor_Grupo4,
+ #Grupo2:checked ~ #Registro .contenedor_Grupo5,
+
+  
+ #Grupo2:checked ~ #Registro .contenedor_TuGrupo2,
+ #Grupo2:checked ~ #Registro .contenedor_TuGrupo4,
+ #Grupo2:checked ~ #Registro .contenedor_TuGrupo5,
+ #Grupo2:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Grupo2:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+ 
+ #Grupo4:checked ~ #Registro .contenedor_Muro,
+ #Grupo4:checked ~ #Registro .contenedor_Descubrir,
+ #Grupo4:checked ~ #Registro .contenedor_Crear,
+ #Grupo4:checked ~ #Registro .contenedor_Grupos,
+ #Grupo4:checked ~ #Registro .contenedor_Grupo2,
+ #Grupo4:checked ~ #Registro .contenedor_Grupo1,
+ #Grupo4:checked ~ #Registro .contenedor_Grupo5,
+
+ #Grupo4:checked ~ #Registro .contenedor_TuGrupo2,
+ #Grupo4:checked ~ #Registro .contenedor_TuGrupo4,
+ #Grupo4:checked ~ #Registro .contenedor_TuGrupo5,
+ #Grupo4:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Grupo4:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+
+ 
+ #Grupo5:checked ~ #Registro .contenedor_Muro,
+ #Grupo5:checked ~ #Registro .contenedor_Descubrir,
+ #Grupo5:checked ~ #Registro .contenedor_Crear,
+ #Grupo5:checked ~ #Registro .contenedor_Grupos,
+ #Grupo5:checked ~ #Registro .contenedor_Grupo2,
+ #Grupo5:checked ~ #Registro .contenedor_Grupo4,
+ #Grupo5:checked ~ #Registro .contenedor_Grupo1,
+
+ #Grupo5:checked ~ #Registro .contenedor_TuGrupo2,
+ #Grupo5:checked ~ #Registro .contenedor_TuGrupo4,
+ #Grupo5:checked ~ #Registro .contenedor_TuGrupo5,
+ #Grupo5:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #Grupo5:checked ~ #Registro .contenedor_GrupoAll{
+     display:none;
+ }
+ 
+ 
+ #GrupoAll:checked ~ #Registro .contenedor_Muro,
+ #GrupoAll:checked ~ #Registro .contenedor_Descubrir,
+ #GrupoAll:checked ~ #Registro .contenedor_Crear,
+ #GrupoAll:checked ~ #Registro .contenedor_Grupos,
+ #GrupoAll:checked ~ #Registro .contenedor_Grupo2,
+ #GrupoAll:checked ~ #Registro .contenedor_Grupo1,
+ #GrupoAll:checked ~ #Registro .contenedor_Grupo5,
+
+ #GrupoAll:checked ~ #Registro .contenedor_TuGrupo2,
+ #GrupoAll:checked ~ #Registro .contenedor_TuGrupo4,
+ #GrupoAll:checked ~ #Registro .contenedor_TuGrupo5,
+ #GrupoAll:checked ~ #Registro .contenedor_TuGrupoAll,
+
+ #GrupoAll:checked ~ #Registro .contenedor_Grupo4{
+     display:none;
+ }
+
+
+#TuGrupo2:checked ~ #Registro .contenedor_Descubrir,
+#TuGrupo2:checked ~ #Registro .contenedor_Crear,
+#TuGrupo2:checked ~ #Registro .contenedor_Grupos,
+#TuGrupo2:checked ~ #Registro .contenedor_Grupo1,
+#TuGrupo2:checked ~ #Registro .contenedor_Grupo2,
+#TuGrupo2:checked ~ #Registro .contenedor_Grupo4,
+#TuGrupo2:checked ~ #Registro .contenedor_Grupo5,
+
+#TuGrupo2:checked ~ #Registro .contenedor_Muro,
+#TuGrupo2:checked ~ #Registro .contenedor_TuGrupo4,
+#TuGrupo2:checked ~ #Registro .contenedor_TuGrupo5,
+#TuGrupo2:checked ~ #Registro .contenedor_TuGrupoAll,
+
+#TuGrupo2:checked ~ #Registro .contenedor_GrupoAll{
+    display:none;
+}
+
+#TuGrupo4:checked ~ #Registro .contenedor_Descubrir,
+#TuGrupo4:checked ~ #Registro .contenedor_Crear,
+#TuGrupo4:checked ~ #Registro .contenedor_Grupos,
+#TuGrupo4:checked ~ #Registro .contenedor_Grupo1,
+#TuGrupo4:checked ~ #Registro .contenedor_Grupo2,
+#TuGrupo4:checked ~ #Registro .contenedor_Grupo4,
+#TuGrupo4:checked ~ #Registro .contenedor_Grupo5,
+
+#TuGrupo4:checked ~ #Registro .contenedor_Muro,
+#TuGrupo4:checked ~ #Registro .contenedor_TuGrupo2,
+#TuGrupo4:checked ~ #Registro .contenedor_TuGrupo5,
+#TuGrupo4:checked ~ #Registro .contenedor_TuGrupoAll,
+
+#TuGrupo4:checked ~ #Registro .contenedor_GrupoAll{
+    display:none;
+}
+
+
+#TuGrupo5:checked ~ #Registro .contenedor_Muro,
+#TuGrupo5:checked ~ #Registro .contenedor_Descubrir,
+#TuGrupo5:checked ~ #Registro .contenedor_Crear,
+#TuGrupo5:checked ~ #Registro .contenedor_Grupos,
+#TuGrupo5:checked ~ #Registro .contenedor_Grupo1,
+#TuGrupo5:checked ~ #Registro .contenedor_Grupo2,
+#TuGrupo5:checked ~ #Registro .contenedor_Grupo4,
+#TuGrupo5:checked ~ #Registro .contenedor_Grupo5,
+#TuGrupo5:checked ~ #Registro .contenedor_TuGrupo2,
+#TuGrupo5:checked ~ #Registro .contenedor_TuGrupo4,
+#TuGrupo5:checked ~ #Registro .contenedor_TuGrupoAll,
+
+#TuGrupo5:checked ~ #Registro .contenedor_GrupoAll{
+    display:none;
+}
+
+
+#TuGrupoAll:checked ~ #Registro .contenedor_Muro,
+#TuGrupoAll:checked ~ #Registro .contenedor_Descubrir,
+#TuGrupoAll:checked ~ #Registro .contenedor_Crear,
+#TuGrupoAll:checked ~ #Registro .contenedor_Grupos,
+#TuGrupoAll:checked ~ #Registro .contenedor_Grupo1,
+#TuGrupoAll:checked ~ #Registro .contenedor_Grupo2,
+#TuGrupoAll:checked ~ #Registro .contenedor_Grupo4,
+#TuGrupoAll:checked ~ #Registro .contenedor_Grupo5,
+#TuGrupoAll:checked ~ #Registro .contenedor_TuGrupo2,
+#TuGrupoAll:checked ~ #Registro .contenedor_TuGrupo4,
+#TuGrupoAll:checked ~ #Registro .contenedor_TuGrupoAll,
+
+#TuGrupoAll:checked ~ #Registro .contenedor_TuGrupo5{
+    display:none;
 }

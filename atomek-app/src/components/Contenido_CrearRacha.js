@@ -56,9 +56,9 @@ const ContRacha = () => {
              </div>
             </div>
           </div>
-          <hr className="my-4">
+         
           <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit">CREAR RACHA</button>
-          </hr>
+  
           </main>
    
    )
