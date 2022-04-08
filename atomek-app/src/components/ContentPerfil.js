@@ -2,6 +2,7 @@ import React from 'react'
 import icono from '../Imagenes/Icono_ATOMEAK.png'
 import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import pp from '../Imagenes/picture_perfil.jpg'
+import ppug from '../Imagenes/LicPGB.jpg'
 import deporte from '../Imagenes/deporte.jpg'
 import craft from '../Imagenes/craft.jpg'
 import dormir from '../Imagenes/dormir.jpg'
@@ -17,7 +18,7 @@ const ContPerfil = () => {
         <div className="perfil-usuario-header">
           <div className="perfil-usuario-portada">
             <div className="perfil-usuario-avatar">
-              <img src={pp} alt="img-avatar" width={160} height={165}></img>
+              <img src={ppug} alt="img-avatar" width={160} height={165}></img>
               <button type="button" className="boton-avatar">
                 <FontAwesomeIcon icon={faCamera} />
               </button>
@@ -29,7 +30,7 @@ const ContPerfil = () => {
         </div>
         <div className="perfil-usuario-body">
           <div className="perfil-usuario-bio" id='info'>
-            <h3 className="titulo">Porsha</h3>
+            <h3 className="titulo">Lic PugBerto</h3>
             <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">30</p>
             <button className='Seguirbtn' id='btnseguir'>Seguir Cuenta</button>
           </div>

@@ -13,13 +13,11 @@
 
   .contenido_text{
     margin-left: 10%;
+    margin-bottom: 2%;
   }
 
   .boton_final{
     margin-bottom: 3%;
-  }
-  .calendario{
-    margin-bottom: 5%;
   }
 
   @media (min-width: 768px) {

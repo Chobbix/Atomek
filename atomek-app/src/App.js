@@ -8,6 +8,8 @@ import CC from './pages/CrearCuenta';
 import Perfil from './pages/Perfil';
 import Muro from './pages/Muro';
 import CrearRacha from './pages/Crear_racha';
+import UpdtRacha from './pages/Update_racha';
+
 
 import { Routes, Route, Link } from "react-router-dom";
 
@@ -22,6 +24,8 @@ function App() {
         <Route exact path="/atomek/Muro" element={<Muro />} />
         <Route exact path="/atomek/Crear" element={<CC />} />
         <Route exact path="/atomek/CRacha" element={<CrearRacha />} />
+        <Route exact path="/atomek/URacha" element={<UpdtRacha />} />
+
 
       </Routes>
     
