@@ -1,0 +1,32 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  .contenido{
+    background-color: rgba(241, 234, 241, 0.753);
+    border-radius: 10px;
+  }
+
+  .contenido_text{
+    margin-left: 10%;
+  }
+
+  .boton_final{
+    margin-bottom: 3%;
+  }
+  .calendario{
+    margin-bottom: 5%;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+
+  

@@ -217,4 +217,26 @@ body #CuerpoPerfil{
     margin-bottom: 0.5rem;
 }
 
+#info{
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+#info .seguidorescant{
+    font-weight:bolder;
+
+}
+
+#info .Seguirbtn{
+    background: #5cbd17;
+    border-radius: 5%;
+    border-color: rgb(183, 183, 183);
+    color: black;
+    margin-left: 2%;
+    font-weight:bolder;
+
+
+}
 

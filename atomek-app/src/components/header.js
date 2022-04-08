@@ -29,6 +29,7 @@ const header = () => {
            {/*  <li><a className="dropdown-item" href="#">New project...</a></li>
             <li><a className="dropdown-item" href="#">Settings</a></li> */}
             <li><Link className="dropdown-item" to="/atomek/Perfil">Perfil</Link></li>
+            <li><Link className="dropdown-item" to="/atomek/CRacha">Crear Rachas</Link></li>
             <li><hr className="dropdown-divider"></hr></li>
             <li><Link className="dropdown-item" to="/">Sign out</Link></li>
           </ul>

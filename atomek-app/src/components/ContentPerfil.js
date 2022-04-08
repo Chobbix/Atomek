@@ -28,9 +28,10 @@ const ContPerfil = () => {
           </div>
         </div>
         <div className="perfil-usuario-body">
-          <div className="perfil-usuario-bio">
+          <div className="perfil-usuario-bio" id='info'>
             <h3 className="titulo">Porsha</h3>
-            <p className="texto">Jovencita exitosa, promesa de México. Siempre con la mejor actitud y sacar lo mejor de mi misma. Lider de las abejas de San Diego y chica cul que se hace notar "JET-X".</p>
+            <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">30</p>
+            <button className='Seguirbtn' id='btnseguir'>Seguir Cuenta</button>
           </div>
           <div className="perfil-usuario-footer">
             <ul className="lista-datos">
@@ -55,7 +56,7 @@ const ContPerfil = () => {
             <div className="col">
               <div className="card shadow-sm">
 
-                <img src={deporte} className="imagen" alt="imagen" width="100%" height="225"></img>
+                <img src={deporte} className="imagenracha" id="imagenrach" width="100%" height="225"></img>
 
                 <div className="card-body">
                   <p className="card-text text-black" id='RachaCateg'>Racha de Deporte:</p>
@@ -70,7 +71,7 @@ const ContPerfil = () => {
             <div className="col">
               <div className="card shadow-sm">
 
-                <img src={craft} className="imagen" alt="imagen" width="100%" height="225"></img>
+                <img src={craft} className="imagenracha" id="imagenrach" width="100%" height="225"></img>
 
                 <div className="card-body">
                   <p className="card-text text-black" id='RachaCateg'>Racha de Craft:</p>
@@ -84,7 +85,7 @@ const ContPerfil = () => {
             <div className="col">
               <div className="card shadow-sm">
 
-                <img src={dormir} className="imagen" alt="imagen" width="100%" height="225"></img>
+                <img src={dormir} className="imagenracha" id="imagenrach" alt="imagen" width="100%" height="225"></img>
 
                 <div className="card-body">
                   <p className="card-text text-black" id='RachaCateg'>Racha de Sueño:</p>
