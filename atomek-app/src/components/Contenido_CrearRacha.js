@@ -43,7 +43,7 @@ const ContRacha = () => {
                 </select>
               </div>
               <div className="col-md-5">
-                <label for="country" className="form-label">Tipo de acha</label>
+                <label for="country" className="form-label">Tipo de racha</label>
                 <select className="form-select" id="country" required>
                   <option value="">Elige...</option>
                   <option>Foto</option>

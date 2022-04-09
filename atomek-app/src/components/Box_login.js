@@ -17,7 +17,7 @@ const Box_login = () => {
            <div className="text-center">
            <img src={logo} width="200" alt=""></img>
            </div> 
-      <h2 className="fw-bold text-center" id='textobien'> ¡Bienvendio de nuevo!</h2>
+      <h2 className="fw-bold text-center" id='textobien'> ¡Bienvenido de nuevo!</h2>
       <Link to="/atomek/Muro">
           <div className="mb-1">
               <label for="email" className="form-label">Correo electrónico</label>
