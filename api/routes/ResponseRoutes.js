@@ -8,6 +8,6 @@ router.post("/response", responseController.responseCreate);
 router.put("/response/:id", responseController.responseUpdate);
 router.delete("/response/:id", responseController.responseDelete);
 
-router.get("/response/subscription/:id", responseController.responsesGetByIdSubscription);
+router.get("/response/:id/subscription", responseController.responsesGetByIdSubscription);
 
 module.exports = router;
