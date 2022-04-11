@@ -1,5 +1,6 @@
 const bodyParser = require("body-parser");
 const express = require("express");
+const cors = require("cors");
 require("./models/connection");
 
 /**
@@ -19,6 +20,7 @@ const followRouter = require("./routes/FollowRoutes");
 const commentRouter = require("./routes/CommentRoutes");
 
 const app = express();
+app.use(cors());
 const port = 5000;
 
 app.use(bodyParser.json());
