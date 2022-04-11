@@ -21,7 +21,7 @@ export default class RenderizadoTipoRacha extends Component{
   constructor(props){
     super(props);
     this.state = {
-      Tipo:true,
+      Tipo:false,
     };
   }
   render(){
