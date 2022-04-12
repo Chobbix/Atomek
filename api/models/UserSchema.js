@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         maxlength: 50
     },
-    lastname: {
-        type: String,
-        maxlength: 50
-    },
     image: {
         type: String
     },
@@ -28,6 +24,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 8
     },
     followersCount: {
         type: Number,

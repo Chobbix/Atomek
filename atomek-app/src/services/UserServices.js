@@ -7,6 +7,6 @@ export const GetById = async (id) => {
         return response.data;
     } catch (err) {
         console.log(err);
-        console.log (err);
+        return err;
     }
 }

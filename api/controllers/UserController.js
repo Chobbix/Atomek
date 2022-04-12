@@ -13,6 +13,19 @@ exports.userGetById = async (req, res) => {
     }
 };
 
+exports.userLogin = async (req, res) => {
+    const { body } = req;
+
+    const user = await User.findOne({email: body.email, password: body.password});
+
+    if (user) {
+        res.send(user);
+    }
+    else {
+        res.status(404).send({message: "User not found"});
+    }
+};
+
 exports.userCreate = async (req, res) => {
     const { body } = req;
 

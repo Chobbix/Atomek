@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import icono from '../Imagenes/Icono_ATOMEAK.png'
 import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import fb from '../Imagenes/fb_icon.png'
@@ -7,6 +7,20 @@ import './Estilos/Box_crearcuent_style.css'
 import './Estilos/Scroll_style.css'
 import { Link } from "react-router-dom";
 const Box_login = () => {
+
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(name);
+        console.log(username);
+        console.log(email);
+        console.log(password);
+    }
+
     return(
       <body id='fondobackground'>
       <div className="container w-75 mt-5 rounded shadow">
@@ -19,32 +33,43 @@ const Box_login = () => {
            </div> 
       <h2 className="fw-bold text-center" id='textobien'>¡Crea tu cuenta ahora!</h2>
       
-    <Link to="/atomek/Muro">
-        <div class="mb-4">
-            <label for="name" class="form-label">Nombre completo</label>
-            <input type="text" class="form-control" name="name" id="name"></input>
-        </div>
-        <div class="mb-4">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" name="email" id="correo"></input>
-        </div>
-        <div class="mb-4">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" name="password" id="contra"></input>
-        </div>
-        <div class="mb-4 form-check">
-            <input type="checkbox" class="form-check-input" name="connected"></input>
-            <label for="connected" class="form-check-label">Mantenerme conectado</label>
-        </div>
-        <div class="d-grid">
-        
-            <button type="submit" class="btn btn-primary">Crear Cuenta </button>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div class="mb-4">
+                <label for="name" class="form-label">Nombre completo</label>
+                <input type="text" value={name} 
+                    onChange={({target}) => setName(target.value)} 
+                    class="form-control" name="name" id="name"></input>
+            </div>
+            <div class="mb-4">
+                <label for="name" class="form-label">Nombre de usuario</label>
+                <input type="text" value={username} 
+                    onChange={({target}) => setUsername(target.value)} 
+                    class="form-control" name="name" id="name"></input>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" value={email} 
+                    onChange={({target}) => setEmail(target.value)} 
+                    class="form-control" name="email" id="correo"></input>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" value={password} 
+                    onChange={({target}) => setPassword(target.value)} 
+                    class="form-control" name="password" id="contra"></input>
+            </div>
+            <div class="mb-4 form-check">
+                <input type="checkbox" class="form-check-input" name="connected"></input>
+                <label for="connected" class="form-check-label">Mantenerme conectado</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Crear Cuenta </button>
+            </div>
+        </form>
 
         <div class="my-3">
             <span>Ya tienes cuenta? <Link to="/atomek/login">Ingresa aquí</Link></span><br></br>
         </div>
-    </Link>
   
           <div className="container w-100 my-4">
               <div className="row text-center">
