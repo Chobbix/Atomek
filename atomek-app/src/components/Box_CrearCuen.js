@@ -7,6 +7,7 @@ import './Estilos/Box_crearcuent_style.css'
 import './Estilos/Scroll_style.css'
 import { Link } from "react-router-dom";
 import { Create } from '../services/UserServices'
+import { useNavigate } from 'react-router-dom'
 
 const Box_login = () => {
 
@@ -14,9 +15,10 @@ const Box_login = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
+        event.preventDefault();
         console.log(name);
         console.log(username);
         console.log(email);
@@ -31,7 +33,7 @@ const Box_login = () => {
             });
             
             localStorage.setItem('UserSession', JSON.stringify(usuario));
-            
+            navigate('/atomek/Muro');
         }
         catch(err) {
             console.log(err);
@@ -50,7 +52,7 @@ const Box_login = () => {
            </div> 
       <h2 className="fw-bold text-center" id='textobien'>¡Crea tu cuenta ahora!</h2>
       
-        <form action='/atomek/Muro' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div class="mb-4">
                 <label for="name" class="form-label">Nombre completo</label>
                 <input type="text" value={name} 

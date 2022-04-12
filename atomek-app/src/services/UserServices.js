@@ -13,7 +13,7 @@ export const GetById = async (id) => {
 
 export const Login = async (req) => {
     try {
-        const response = await axios.get(`/login`, req);
+        const response = await axios.post(`/login`, req);
         return response.data;
     } catch (err) {
         console.log(err);
