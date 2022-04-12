@@ -6,19 +6,36 @@ import google from '../Imagenes/google_icon.png'
 import './Estilos/Box_crearcuent_style.css'
 import './Estilos/Scroll_style.css'
 import { Link } from "react-router-dom";
+import { Create } from '../services/UserServices'
+
 const Box_login = () => {
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [user, setUser] = useState(null);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (event) => {
         console.log(name);
         console.log(username);
         console.log(email);
         console.log(password);
+
+        try {
+            const usuario = await Create({
+                name,
+                username,
+                email,
+                password
+            });
+            
+            localStorage.setItem('UserSession', JSON.stringify(usuario));
+            
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
 
     return(
@@ -33,7 +50,7 @@ const Box_login = () => {
            </div> 
       <h2 className="fw-bold text-center" id='textobien'>¡Crea tu cuenta ahora!</h2>
       
-        <form onSubmit={handleSubmit}>
+        <form action='/atomek/Muro' onSubmit={handleSubmit}>
             <div class="mb-4">
                 <label for="name" class="form-label">Nombre completo</label>
                 <input type="text" value={name} 
