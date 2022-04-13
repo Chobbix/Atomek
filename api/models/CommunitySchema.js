@@ -8,6 +8,10 @@ const communitySchema = new mongoose.Schema({
         minlength: 4,
         maxlength: 30
     },
+    description: {
+        type: String,
+        required: true
+    },
     date_create: { 
         type : Date, 
         default: Date.now 

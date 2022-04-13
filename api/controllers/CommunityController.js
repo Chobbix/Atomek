@@ -88,7 +88,7 @@ exports.communityAddUser = async (req, res) => {
         await community.updateOne(
             { 
                 $addToSet: { 
-                    _users: body 
+                    _users: body.id
                 } 
             }
         );
@@ -109,7 +109,7 @@ exports.communityAddCategory = async (req, res) => {
         await community.updateOne(
             { 
                 $addToSet: { 
-                    _category: body 
+                    _category: body.id
                 } 
             }
         );

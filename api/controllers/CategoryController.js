@@ -59,3 +59,14 @@ exports.categoryDelete = async (req, res) => {
         res.status(404).send({message: "Category not found. Could not delete data"});
     }
 };
+
+exports.categoryGetAll = async (req, res) => {
+    const category = await Category.find();
+
+    if (category) {
+        res.send(category);
+    }
+    else {
+        res.status(404).send({message: "No categories registred"});
+    }
+};
