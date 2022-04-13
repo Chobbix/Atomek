@@ -15,25 +15,36 @@ const Crear_grupo = () => {
     const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        async function fetchData() {
+    async function getAllCategories() {
+        try {
             const data = await CategoryGetAll();
             setCategories(data);
-
-            console.log(categories);
-        }
     
-        fetchData();
-    }, []);
-
-    const handleCreateCategory = async (event) => {
-        console.log(category_id);
-        try {
+            console.log(categories);
         }
         catch(err) {
             console.log(err);
         }
     }
+
+    const handleCreateCategory = async (event) => {
+        let title = category;
+        try {
+            await CategoryCreate({
+                title
+            });
+            getAllCategories();
+            setCategory('');
+            console.log("categoria registrada con exito");
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        getAllCategories();
+    }, []);
 
     return (
         <div className='publicar'>
