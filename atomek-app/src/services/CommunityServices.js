@@ -9,3 +9,13 @@ export const CommunityCreate = async (req) => {
         return err;
     }
 }
+
+export const communityAddUser = async (req) => {
+    try {
+        const response = await axios.put(`/community/${req.communityId}/add-user`, req);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

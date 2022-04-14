@@ -3,8 +3,7 @@ import './Estilos/Crear_grupo_syle.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { CategoryCreate, CategoryGetAll } from '../services/CategoryServices'
-import { CommunityCreate } from '../services/CommunityServices'
-import { useNavigate } from 'react-router-dom'
+import { CommunityCreate, communityAddUser } from '../services/CommunityServices'
 
 const Crear_grupo = () => {
 
@@ -14,7 +13,11 @@ const Crear_grupo = () => {
     const [category_id, setCategory_id] = useState('');
 
     const [categories, setCategories] = useState([]);
-    const navigate = useNavigate();
+    const [userSesion, setUserSesion] = useState();
+
+    async function getUserSesion() {
+        setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
+    }
 
     async function getAllCategories() {
         try {
@@ -27,10 +30,9 @@ const Crear_grupo = () => {
     }
 
     const handleCreateCategory = async (event) => {
-        let title = category;
         try {
             await CategoryCreate({
-                title
+                title: category
             });
             getAllCategories();
             setCategory('');
@@ -42,13 +44,18 @@ const Crear_grupo = () => {
     }
 
     const handleCreateCommunity = async (event) => {
-        let _category = category_id;
         try {
-            await CommunityCreate({
-                name,
-                description,
-                _category
+            const communityResponse = await CommunityCreate({
+                name: name,
+                description: description,
+                _category: category_id
             });
+
+            await communityAddUser({
+                communityId: communityResponse._id,
+                id: userSesion._id
+            });
+
             console.log("comunidad registrada con exito");
         }
         catch(err) {
@@ -58,6 +65,7 @@ const Crear_grupo = () => {
 
     useEffect(() => {
         getAllCategories();
+        getUserSesion();
     }, []);
 
     return (
