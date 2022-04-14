@@ -11,5 +11,6 @@ router.delete("/community/:id", communityController.communityDelete);
 router.get("/community/:id/amount-users", communityController.communityGetAmountOfUsers);
 router.put("/community/:id/add-user", communityController.communityAddUser);
 router.put("/community/:id/add-category", communityController.communityAddCategory);
+router.get("/users/:id/communities", communityController.communityGetComunitiesByUser);
 
 module.exports = router;

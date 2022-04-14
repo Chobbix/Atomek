@@ -19,3 +19,13 @@ export const communityAddUser = async (req) => {
         return err;
     }
 }
+
+export const communityGetComunitiesByUser = async (req) => {
+    try {
+        const response = await axios.get(`/users/${req._id}/communities`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

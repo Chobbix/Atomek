@@ -119,3 +119,16 @@ exports.communityAddCategory = async (req, res) => {
         res.status(404).send({message: "Community not found. Could not update data"});
     }
 };
+
+exports.communityGetComunitiesByUser = async (req, res) => {
+    const { id } = req.params;
+
+    const community = await Community.find({_users: id});
+
+    if (community) {
+        res.send(community);
+    }
+    else {
+        res.status(404).send({message: "Community not found"});
+    }
+};

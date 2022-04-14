@@ -5,7 +5,6 @@ const subscriptionSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         required: true,
-        unique: true,
         minlength: 4,
         maxlength: 15
     },

@@ -14,7 +14,9 @@ exports.subscriptionGetById = async (req, res) => {
 };
 
 exports.subscriptionCreate = async (req, res) => {
+    const { streakId } = req.params;
     const { body } = req;
+    body._streak = streakId;
 
     const subscription = new Subscription(body);
 
@@ -26,7 +28,7 @@ exports.subscriptionCreate = async (req, res) => {
     })
     .catch((err) => {
         console.log("Could not create a subscription", err);
-        res.status(500).send({message: "Could not create a streak", err});
+        res.status(500).send({message: "Could not create a subscription", err});
     });
 }
 

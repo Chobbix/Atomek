@@ -1,12 +1,64 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
 import './Estilos/CrearRacha_style.css'
 import { Link } from "react-router-dom";
+import { communityGetComunitiesByUser } from '../services/CommunityServices'
+import { StreakCreate } from '../services/StreakServices'
+
 
 
 const ContRacha = () => {
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
+  const [owner, setOwner] = useState('');
+  const [tag_id, setTag_id] = useState('');
+  
+  const [userSesion, setUserSesion] = useState();
+  const [communities, setCommunities] = useState([]);
+
+  async function getInitialInformation() {
+    try {
+      const userJSON = localStorage.getItem("UserSession");
+      const usuario = (JSON.parse(userJSON));
+      console.log(usuario);
+      const data = await communityGetComunitiesByUser(usuario);
+      setUserSesion(usuario);
+      setCommunities(data);
+    }
+    catch(err) {
+        console.log(err);
+    }
+  }
+
+  const handleCreateStreak = async(event) => {
+
+    try {
+      if(owner != 1) {
+        await StreakCreate({
+          title: name,
+          type: type,
+          _community: owner
+        });
+      }
+      else {
+        await StreakCreate({
+          title: name,
+          type: type,
+          _user: userSesion._id
+        });
+      }
+      console.log("streak registrado con exito");
+    }
+    catch(err) {
+        console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getInitialInformation();
+  }, []);
   return (
     
 <main> 
@@ -22,21 +74,24 @@ const ContRacha = () => {
           <div className="row g-3">
             <div className="col-12">
               <label for="text" className="form-label">Titulo de Racha</label>
-              <input type="text" className="form-control" id="titulo" placeholder="Racha de ..."></input>
+              <input type="text" value={name} 
+                onChange={({target}) => setName(target.value)} 
+                className="form-control" id="titulo" placeholder="Racha de ..."></input>
             </div>
 
             <div className="col-md-5">
               <label for="country" className="form-label">Racha</label>
-              <select className="form-select" id="country" required>
-                <option value="">Mio</option>
-                <option>Grupo de Artistas</option>
-                <option>Grupo de Programadores</option>
+              <select className="form-select" onChange={({target}) => setOwner(target.value)} id="country" required>
+                <option value="1">Mio</option>
+                {communities.map((com, index) => (
+                    <option key={index} value={com._id}>{com.name}</option>
+                ))}
               </select>
             </div>
             <div className="col-md-5">
                 <label for="country" className="form-label">Etiquetas</label>
                 <select className="form-select" id="country" required>
-                  <option value="">Elige...</option>
+                  <option selected disabled value="">Elige...</option>
                   <option>Chulisimo</option>
                   <option>Papercraft</option>
                   <option>Animación</option>
@@ -44,10 +99,10 @@ const ContRacha = () => {
               </div>
               <div className="col-md-5">
                 <label for="country" className="form-label">Tipo de racha</label>
-                <select className="form-select" id="country" required>
-                  <option value="">Elige...</option>
-                  <option>Foto</option>
-                  <option>Texto</option>
+                <select className="form-select" onChange={({target}) => setType(target.value)} id="country" required>
+                  <option selected disabled value="">Elige...</option>
+                  <option value="1">Foto</option>
+                  <option value="2">Texto</option>
                 </select>
               </div>
           </div>
@@ -56,9 +111,8 @@ const ContRacha = () => {
             </div>
             </div>
           <br></br>
-          <Link to="/atomek/URacha">
-          <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit">CREAR RACHA</button>
-          </Link>
+          <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit"
+            onClick={handleCreateStreak}>CREAR RACHA</button>
           </main>
    
    )
