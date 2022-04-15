@@ -32,7 +32,7 @@ const ContPerfil = () => {
           <div className="perfil-usuario-bio" id='info'>
             <h3 className="titulo">Lic PugBerto</h3>
             <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">30</p>
-            <button className='Seguirbtn' id='btnseguir'>Seguir Cuenta</button>
+            <button className='Seguirbtn btn' id='btnseguir'>Seguir Cuenta</button>
           </div>
           <div className="perfil-usuario-footer">
             <ul className="lista-datos">

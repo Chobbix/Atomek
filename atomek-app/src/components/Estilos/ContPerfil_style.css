@@ -1,6 +1,6 @@
 
 body #CuerpoPerfil{
-    background:rgb(240, 241, 241);
+    background:rgb(255, 255, 255);
 }
 .seccion-perfil-usuario .perfil-usuario-body,
 .seccion-perfil-usuario {
@@ -14,7 +14,6 @@ body #CuerpoPerfil{
     width: 100%;
     display: flex;
     justify-content: center;
-    background: linear-gradient(#B873FF, transparent);
     margin-bottom: 1.25rem;
 }
 
@@ -23,8 +22,9 @@ body #CuerpoPerfil{
     position: relative;
     width: 90%;
     height: 17rem;
-    background-image: linear-gradient(45deg, #BC3CFF, #317FFF);
+    background-image: linear-gradient(45deg, #1A374D, #85F4FF);
     border-radius: 0 0 20px 20px;
+    
     /*
     background-image: url('http://localhost/multimedia/png/user-portada-3.png');
     background-repeat: no-repeat;
@@ -95,10 +95,12 @@ body #CuerpoPerfil{
     width: 100%;
     font-size: 1.75em;
     margin-bottom: 0.5rem;
+    font-weight:bolder;
+    font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;    
 }
 
 .seccion-perfil-usuario .perfil-usuario-body .texto {
-    color: #848484;
+    color: #ffffff;
     font-size: 0.95em;
 }
 
@@ -107,10 +109,12 @@ body #CuerpoPerfil{
     display: flex;
     flex-wrap: wrap;
     padding: 1.5rem 2rem;
+    color: white;
     box-shadow: 0 0 12px rgba(0, 0, 0, .2);
-    background-color: rgba(255, 255, 255, 0.959);
+    background-color: #406882;
     border-radius: 15px;
     width: 100%;
+    text-align: center;
 }
 
 .seccion-perfil-usuario .perfil-usuario-bio {
@@ -125,7 +129,8 @@ body #CuerpoPerfil{
 }
 
 .lista-datos #NombreUsuario, #Nombre,#Apellido,#ContraUsuario{
-    background-color: #acaeb3a4;
+    background-color: #fffffff3;
+    color: black;
     border-radius: 4px;
     align-content: center;
     text-align: center;
@@ -170,7 +175,7 @@ body #CuerpoPerfil{
 }
 
 .seccion-perfil-usuario .boton-redes.facebook {
-    background-color: #5955FF;
+    background-color: #92A9BD;
 }
 
 .seccion-perfil-usuario .boton-redes.twitter {
@@ -226,17 +231,17 @@ body #CuerpoPerfil{
 
 #info .seguidorescant{
     font-weight:bolder;
+    margin-top: 1%;
 
 }
 
 #info .Seguirbtn{
-    background: #5cbd17;
+    background: #92A9BD;
     border-radius: 5%;
     border-color: rgb(183, 183, 183);
     color: black;
     margin-left: 2%;
     font-weight:bolder;
-
-
 }
+
 

@@ -2,7 +2,7 @@
 .tarjetamuro{
     font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;
     margin-top: 20px;
-    background-color: rgb(96, 120, 143);
+    background-color: #406882;
     border-radius: 5px;
     padding: 5px;
 }
@@ -43,14 +43,12 @@
 }
 .btn_reaccion{
     border: none;
-    background-color: rgb(206, 218, 252);
+    background-color: #92A9BD;
     padding: 6px;
     border-radius: 3px;
     width: 49%;
 }
-.btn_reaccion:hover{
-    background-color: rgb(133, 123, 161);
-}
+
 .btn_reaccion:active{
     transform: translateY(1px);
    

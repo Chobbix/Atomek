@@ -1,7 +1,6 @@
 .containersupremo{
     width: 95%;
     display: flex;
-    
     margin-left: 5%;
 }
 .ContainerAux{    
@@ -9,7 +8,7 @@
 }
 
 .Tarjeta{
-    background-color: rgba(149, 125, 150, 0.479);
+    background-color:  rgb(198, 229, 236);
     width: 30%;
     height: 150px;
     margin-left: 15px;

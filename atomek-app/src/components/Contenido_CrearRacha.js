@@ -119,7 +119,7 @@ const ContRacha = () => {
             </div>
             </div>
           <br></br>
-          <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit"
+          <button className=" boton_final w-100 btn-lg" type="submit"
             onClick={handleCreateStreak}>CREAR RACHA</button>
           </main>
    
