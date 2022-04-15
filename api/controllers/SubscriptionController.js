@@ -74,3 +74,19 @@ exports.subscriptionGetSubscriptionByStreakAndUser = async (req, res) => {
         res.status(404).send({message: "subscription not found"});
     }
 };
+
+exports.subscriptionIncreaseCounter = async (req, res) => {
+    const { id } = req.params;
+
+    const subscription = await Subscription.findById(id);
+
+    if (subscription) {
+        var counter = subscription.counter;
+        counter ++;
+        await subscription.updateOne({counter: counter});
+        res.send();
+    }
+    else {
+        res.status(404).send({message: "Subscription not found. Could not increase counter"});
+    }
+};

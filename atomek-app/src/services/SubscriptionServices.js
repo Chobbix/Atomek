@@ -19,3 +19,13 @@ export const SubscriptionGetByStreakAndUser = async (req) => {
         return err;
     }
 }
+
+export const SubscriptionIncreaseCounter = async (req) => {
+    try {
+        const response = await axios.put(`/subscription/${req._id}/increase-counter`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

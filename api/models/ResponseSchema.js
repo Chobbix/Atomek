@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const responseSchema = new mongoose.Schema({
     text: {
         type: String,
-        required: true,
+        required: false,
         minlength: 4,
         maxlength: 400
     },
@@ -17,7 +17,7 @@ const responseSchema = new mongoose.Schema({
     },
     note: {
         type: String,
-        required: false,
+        required: true,
         maxlength: 100
     },
     _subscription: {
