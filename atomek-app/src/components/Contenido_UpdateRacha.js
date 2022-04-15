@@ -1,34 +1,46 @@
-import React, {Component} from 'react'
+import React, {Component, useEffect, useState} from 'react'
 import ContTextRacha from '../components/Conten_UpdRacha_Texto';
 import ContImagRacha from '../components/Conten_UpdRacha_Imagen';
+import { StreakGetById } from '../services/StreakServices';
+import { SubscriptionGetByStreakAndUser } from '../services/SubscriptionServices';
+import { useParams } from 'react-router-dom';
 
+const RenderizadoTipoRacha = () => {
+  const [subscription, setSubscription] = useState();
+  const [tipo, setTipo] = useState(false);
+  const params = useParams();
 
-function Texto(){
-  return(
-   <ContTextRacha></ContTextRacha>
-  );
-}
+  async function getInitialInformation() {
+    try {
 
+      const userJSON = localStorage.getItem("UserSession");
+      const usuario = (JSON.parse(userJSON));
 
-function Imag(){
-  return(
-   <ContImagRacha></ContImagRacha>
-  );
-}
+      const responseSubscription = await SubscriptionGetByStreakAndUser({
+        _streak: params.id,
+        _user: usuario._id
+      });
 
-export default class RenderizadoTipoRacha extends Component{
+      if(responseSubscription._streak.type == 1) { setTipo(false); }
+      else { setTipo(true); }
 
-  constructor(props){
-    super(props);
-    this.state = {
-      Tipo:false,
-    };
+      console.log(responseSubscription);
+      setSubscription(responseSubscription);
+    }
+    catch(err) {
+        console.log(err);
+    }
   }
-  render(){
-    return(
+
+  useEffect(() => {
+    getInitialInformation();
+  }, []);
+
+  return (
     <div>
-      {this.state.Tipo?<ContTextRacha/>:  <ContImagRacha/>}
+      {tipo?<ContTextRacha propSubscription={subscription} />:  <ContImagRacha propSubscription={subscription}/>}
     </div>
-    );
-  }
+  )
 }
+
+export default RenderizadoTipoRacha

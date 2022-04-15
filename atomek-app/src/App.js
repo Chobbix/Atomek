@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/atomek/Muro" element={<Muro />} />
         <Route exact path="/atomek/Crear" element={<CC />} />
         <Route exact path="/atomek/CRacha" element={<CrearRacha />} />
-        <Route exact path="/atomek/URacha" element={<UpdtRacha />} />
+        <Route exact path="/atomek/URacha/:id" element={<UpdtRacha />} />
 
       </Routes>
     

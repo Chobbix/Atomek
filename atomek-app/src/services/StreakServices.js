@@ -9,3 +9,13 @@ export const StreakCreate = async (req) => {
         return err;
     }
 }
+
+export const StreakGetById = async (req) => {
+    try {
+        const response = await axios.get(`/streak/${req}`,);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

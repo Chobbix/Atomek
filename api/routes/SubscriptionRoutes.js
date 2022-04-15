@@ -8,4 +8,6 @@ router.post("/streak/:streakId/subscription", subscriptionController.subscriptio
 router.put("/subscription/:id", subscriptionController.subscriptionUpdate);
 router.delete("/subscription/:id", subscriptionController.subscriptionDelete);
 
+router.get("/streak/:streakId/subscription/:userId/users", subscriptionController.subscriptionGetSubscriptionByStreakAndUser);
+
 module.exports = router;

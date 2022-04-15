@@ -60,3 +60,17 @@ exports.subscriptionDelete = async (req, res) => {
         res.status(404).send({message: "Subscription not found. Could not delete data"});
     }
 };
+
+exports.subscriptionGetSubscriptionByStreakAndUser = async (req, res) => {
+    const { streakId } = req.params;
+    const { userId } = req.params;
+
+    const subscription = await Subscription.findOne({ _streak: streakId, _user: userId }).populate("_user").populate("_streak").populate("_tags");
+
+    if (subscription) {
+        res.send(subscription);
+    }
+    else {
+        res.status(404).send({message: "subscription not found"});
+    }
+};

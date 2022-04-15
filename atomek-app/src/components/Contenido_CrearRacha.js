@@ -6,14 +6,15 @@ import './Estilos/CrearRacha_style.css'
 import { Link } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
 import { StreakCreate } from '../services/StreakServices'
-
-
+import { useNavigate } from 'react-router-dom'
+import { SubscriptionCreate } from '../services/SubscriptionServices'
 
 const ContRacha = () => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [owner, setOwner] = useState('');
   const [tag_id, setTag_id] = useState('');
+  const navigate = useNavigate();
   
   const [userSesion, setUserSesion] = useState();
   const [communities, setCommunities] = useState([]);
@@ -33,22 +34,29 @@ const ContRacha = () => {
   }
 
   const handleCreateStreak = async(event) => {
-
+    var responseStreak;
     try {
       if(owner != 1) {
-        await StreakCreate({
+        responseStreak = await StreakCreate({
           title: name,
           type: type,
           _community: owner
         });
       }
       else {
-        await StreakCreate({
+        responseStreak = await StreakCreate({
           title: name,
           type: type,
           _user: userSesion._id
         });
       }
+
+      await SubscriptionCreate({
+        _id: responseStreak._id,
+        _user: userSesion._id
+      });
+
+      navigate('/atomek/URacha/' + responseStreak._id);
       console.log("streak registrado con exito");
     }
     catch(err) {

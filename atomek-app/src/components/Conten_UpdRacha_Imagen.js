@@ -6,7 +6,7 @@ import './Estilos/CrearRacha_style.css'
 import { Link } from "react-router-dom";
 
 
-const UpdateRacha = () => {
+const UpdateRacha = (props) => {
   return (
     
 <main> 
@@ -18,7 +18,7 @@ const UpdateRacha = () => {
     <div className="row g-5">
       <div className="col-md-7 col-lg-8">
         <div className="contenido_text">  
-        <h4 className="mb-3">Racha de Fotografia - 10MO DIA</h4>
+        <h4 className="mb-3">Racha de  - 10MO DIA</h4>
           <div className="row g-3">
             <div className="col-12">
               <label for="text" className="form-label">Evidencia</label>
