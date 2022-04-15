@@ -6,9 +6,10 @@
 
 .publicar {
     margin-top: 15px;
-    background-color: rgba(80, 79, 86, 0.975);
+    background-color: #1A374D;
     padding: 26px;
     border-radius: 5px;
+    color: white;
 }
 
 .Forms {
@@ -28,9 +29,9 @@
 .btn-img {
     border: none;
     border-radius: 5px;
-    background: rgb(115, 88, 115);
+    background-color: rgb(96, 120, 143);
     height: 35px;
-    color: white;
+    color: black;
     margin-top: 5px;
 }
 
@@ -40,8 +41,8 @@
 }
 
 .inputfile::before {
-    background-color: rgb(171, 149, 171);
-    color: white;
+    background-color: #92A9BD;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -57,7 +57,7 @@ const ContRacha = () => {
             </div>
           <br></br>
           <Link to="/atomek/URacha">
-          <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit">CREAR RACHA</button>
+          <button className=" boton_final w-100 btn-lg" type="submit">CREAR RACHA</button>
           </Link>
           </main>
    

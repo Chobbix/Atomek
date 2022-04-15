@@ -21,9 +21,10 @@ const UpdateRacha = () => {
         <h4 className="mb-3">Racha de Fotografia - 10MO DIA</h4>
           <div className="row g-3">
             <div className="col-12">
-              <label for="text" className="form-label">Evidencia</label>
-              <img alt= "Evidencia Pic" id="FotografiadeEviden" className="fotoEvid"></img> 
-              <input id="FotoEvidencia" type="file" name="Fotografia" placeholder="Evidencia" className="input-foto" required></input>
+              <label for="text" className="form-label">Evidencia</label> 
+                    <div class="custom-file">
+                        <input type="file" class="inputfile" id="customFile" />
+                    </div>
             </div>
             <div className="col-md-5">
             <label for="country" className="form-label">Notas</label>
@@ -36,7 +37,7 @@ const UpdateRacha = () => {
             </div>
           <br></br>
           <Link to="/atomek/Muro">
-          <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit">ACTUALIZAR RACHA</button>
+          <button className=" boton_final w-100 btn-lg" type="submit">ACTUALIZAR RACHA</button>
           </Link>
           </main>
    

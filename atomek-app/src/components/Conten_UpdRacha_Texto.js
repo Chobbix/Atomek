@@ -35,7 +35,7 @@ const UpdateRacha = () => {
             </div>
           <br></br>
           <Link to="/atomek/Muro">
-          <button className=" boton_final w-100 btn btn-outline-success btn-lg" type="submit">ACTUALIZAR RACHA</button>
+          <button className=" boton_final w-100 btn-lg" type="submit">ACTUALIZAR RACHA</button>
           </Link>
           </main>
    
