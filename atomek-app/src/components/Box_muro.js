@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "./Slider";
-import Header from "./header";
+import Header from "./Header";
 const Box_muro = () => {
   return (
     <React.Fragment>

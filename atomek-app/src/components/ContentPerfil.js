@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import icono from '../Imagenes/Icono_ATOMEAK.png'
 import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import pp from '../Imagenes/picture_perfil.jpg'
@@ -12,6 +12,17 @@ import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
 
 const ContPerfil = () => {
+  
+  const [userSesion, setUserSesion] = useState();
+
+  async function getUserSesion() {
+    setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
+  }
+
+  useEffect(() => {
+    getUserSesion();
+  }, []);
+
   return (
     <body id='CuerpoPerfil'>
       <section className="seccion-perfil-usuario">
