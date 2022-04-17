@@ -4,6 +4,16 @@ import './Estilos/header_style.css'
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const [userSesion, setUserSesion] = useState();
+
+  async function getUserSesion() {
+    setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
+  }
+
+  useEffect(() => {
+    getUserSesion();
+  }, []);
+
   return (
     <body>
       <header className="border-bottom bg-dark">
@@ -29,7 +39,7 @@ const Header = () => {
               <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                 {/*  <li><a className="dropdown-item" href="#">New project...</a></li>
             <li><a className="dropdown-item" href="#">Settings</a></li> */}
-                <li><Link className="dropdown-item" to="/atomek/Perfil">Perfil</Link></li>
+                <li><Link className="dropdown-item" to={"/atomek/Perfil/" + userSesion?._id} >Perfil</Link></li>
                 <li><Link className="dropdown-item" to="/atomek/CRacha">Crear Rachas</Link></li>
                 <li><hr className="dropdown-divider"></hr></li>
                 <li><Link className="dropdown-item" to="/">Sign out</Link></li>

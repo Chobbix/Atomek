@@ -10,17 +10,51 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
 import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
+import { useParams } from 'react-router-dom';
+import { GetById } from '../services/UserServices'
+import { FollowAddUserFollow } from '../services/FollowServices'
 
 const ContPerfil = () => {
   
+  const [userProfile, setUserProfile] = useState();
   const [userSesion, setUserSesion] = useState();
+  const [isOwner, setIsOwner] = useState();
+  const params = useParams();
 
-  async function getUserSesion() {
-    setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
+  async function getInitialInformation() {
+    let userSession = JSON.parse(localStorage.getItem("UserSession"));
+    setUserSesion(userSession);
+
+    if(params.id == userSession?._id) {
+      setIsOwner(true);
+      setUserProfile(userSession);
+    }
+    else {
+      try {
+        const responseUser = await GetById(params.id);
+        setIsOwner(false);
+        setUserProfile(responseUser);
+      }
+      catch(err) {
+        console.log(err);
+      }
+    }
+  }
+
+  const handleFollowUser = async(event) => {
+    try {
+      await FollowAddUserFollow({
+        _id: userSesion._id,
+        followUser: userProfile._id
+      })
+    }
+    catch(err) {
+      console.log(err);
+    }
   }
 
   useEffect(() => {
-    getUserSesion();
+    getInitialInformation();
   }, []);
 
   return (
@@ -41,9 +75,9 @@ const ContPerfil = () => {
         </div>
         <div className="perfil-usuario-body">
           <div className="perfil-usuario-bio" id='info'>
-            <h3 className="titulo">Lic PugBerto</h3>
-            <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">30</p>
-            <button className='Seguirbtn btn' id='btnseguir'>Seguir Cuenta</button>
+            <h3 className="titulo">{userProfile?.username}</h3>
+            <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">{userProfile?.followersCount}</p>
+            { !isOwner? <button className='Seguirbtn btn' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button>: <p></p> }
           </div>
           <div className="perfil-usuario-footer">
             <ul className="lista-datos">
@@ -56,7 +90,7 @@ const ContPerfil = () => {
             </ul>
           </div>
           <div className="herramientas">
-            <a href="" className="boton-redes facebook"><FontAwesomeIcon icon={faWrench} /></a>
+            { !isOwner? <p></p>: <a href="" className="boton-redes facebook"><FontAwesomeIcon icon={faWrench} /></a> }
           </div>
         </div>
       </section>
