@@ -1,8 +1,90 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Estilos/Publicar_style.css'
-
+import { Link, useParams } from "react-router-dom";
+import { communityGetComunitiesByUser } from '../services/CommunityServices'
+import { StreakGetByCommunity } from '../services/StreakServices';
+import { PostCreate } from '../services/PostServices';
 
 const Publicar = () => {
+
+    const [userSesion, setUserSesion] = useState();
+    const [communities, setCommunities] = useState();
+    const [streaks, setStreaks] = useState();
+
+    const [communityId, setCommunityId] = useState();
+    const [streakId, setStreakId] = useState();
+    const [body, setBody] = useState();
+    const params = useParams();
+
+    async function handleOnChangeCommunity(communityValue) {
+        setCommunityId(communityValue);
+
+        setStreaks(await StreakGetByCommunity(communityValue));
+
+        console.log(communityId);
+        console.log(streakId);
+    }
+
+    const handleSubmit = async (event) => {
+        if(params.id) {
+            try {
+                await PostCreate({
+                    _community: communityId,
+                    body: body,
+                    _user: userSesion._id,
+                    _streak: streakId
+                });
+            } 
+            catch (err) {
+                console.log(err);
+            }
+
+            console.log("registrado con exito");
+        }
+    }
+
+    function loadSelectInput(id) {
+        if(id == 'Mi-Muro') {
+            return  <>
+                    <select class="form-select" aria-label="Default select example" value={communityId} 
+                    onChange={({target}) => handleOnChangeCommunity(target.value)}>
+                        <option selected disabled>Grupo:</option>
+                        {communities?.map((com, index) => (
+                            <option key={index} value={com._id}> {com.name}</option>
+                        ))}
+                    </select>
+                    
+                    <select class="form-select" aria-label="Default select example" value={streakId} 
+                    onChange={({target}) => setStreakId(target.value)}>
+                        <option selected disabled>Racha:</option>
+                        {streaks?.map((streak, index) => (
+                            <option key={index} value={streak._id}> {streak.title}</option>
+                        ))}
+                    </select>
+                    </>
+        }
+        else {
+            return 'Juan';
+        }
+    }
+
+    async function getInitialInformation() {
+        try {
+            const userJSON = localStorage.getItem("UserSession");
+            const usuario = (JSON.parse(userJSON));
+            const data = await communityGetComunitiesByUser(usuario);
+            setUserSesion(usuario);
+            setCommunities(data);
+        }
+            catch(err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        getInitialInformation();
+    }, []);
+
     return (
         <div className='publicar'>
 
@@ -13,36 +95,25 @@ const Publicar = () => {
                 <div className='Bloque'>
                     <h5>Pedrito</h5>
                     <div className='Forms'>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Grupo:</option>
-                            <option value="1"> Los artistas desnutridos</option>
-                            <option value="2">Dormilones</option>
-                            <option value="3">no puedo subir las escaleras </option>
-                        </select>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Racha:</option>
-                            <option value="1"> Semana de ensalada</option>
-                            <option value="2">Semana oriental</option>
-                            <option value="3"> No papitas </option>
-                        </select>
+                        {loadSelectInput(params.id)}
                     </div>
                 </div>
             </div>
 
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={body} 
+                    onChange={({target}) => setBody(target.value)}/>
                 <label for="floatingTextarea">Descripcion</label>
 
                 <div class="grid ">
                     <div class="custom-file">
                         <input type="file" class="inputfile" id="customFile" />
-
                     </div>
                 </div>
 
             </div>
             <div class="d-grid gap-2">
-                <button class=" btn-img" type="button">Publicar</button>
+                <button class=" btn-img" type="button" onClick={handleSubmit}>Publicar</button>
             </div>
         </div>
     )

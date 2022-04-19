@@ -8,22 +8,24 @@ import GruposBloque_style from "./GruposBloque_style";
 import Publicar from "./Publicar";
 import { Link, useParams } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
+import { PostGetPostsByUserCommunities } from '../services/PostServices';
 
 const Slider = () => {
 
     const [userSesion, setUserSesion] = useState();
     const [communities, setCommunities] = useState([]);
+    const [posts, setPosts] = useState([]);
     const params = useParams();
     
-    function switchContentMuro(id) {
+    function loadContentMuro(id) {
         switch(id) {
             case 'Mi-Muro':
                 return  <div class="contenedor_Muro bloque_contenedor_cursos">
                             <Publicar />
 
-                            <Publicacion />
-                            <Publicacion />
-                            <Publicacion />
+                            {posts?.map((com, index) => (
+                            <Publicacion key={index}/>
+                            ))}
                         </div>;
 
             case 'Descubrir':
@@ -70,6 +72,21 @@ const Slider = () => {
             const data = await communityGetComunitiesByUser(usuario);
             setUserSesion(usuario);
             setCommunities(data);
+
+            switch(params.id) {
+                case 'Mi-Muro':
+                    setPosts(await PostGetPostsByUserCommunities(usuario._id));
+                    return;
+    
+                case 'Descubrir':
+                    return;
+    
+                case 'Crear-Grupo':
+                    return;
+
+                default:
+                    return 'Juan';
+            }
         }
             catch(err) {
             console.log(err);
@@ -153,7 +170,7 @@ const Slider = () => {
 
                     <div class="Muro" id="Registro">
                         <div class="bloque-contenido">
-                        {switchContentMuro(params.id)}
+                            {loadContentMuro(params.id)}
                         </div>
                     </div>
                 </div>

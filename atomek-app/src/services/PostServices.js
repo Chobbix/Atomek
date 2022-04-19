@@ -1,8 +1,8 @@
 import { axiosBase as axios } from "./Config";
 
-export const StreakCreate = async (req) => {
+export const PostCreate = async (req) => {
     try {
-        const response = await axios.post(`/streak`, req);
+        const response = await axios.post(`/community/${req._community}/posts`, req);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -10,9 +10,9 @@ export const StreakCreate = async (req) => {
     }
 }
 
-export const StreakGetById = async (req) => {
+export const PostGetPostsByUser = async (req) => {
     try {
-        const response = await axios.get(`/streak/${req}`,);
+        const response = await axios.get(`/users/${req}/posts`);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -20,9 +20,9 @@ export const StreakGetById = async (req) => {
     }
 }
 
-export const StreakGetByCommunity = async (req) => {
+export const PostGetPostsByUserCommunities = async (req) => {
     try {
-        const response = await axios.get(`/community/${req}/streaks`,);
+        const response = await axios.get(`/users/${req}/communities-posts`);
         return response.data;
     } catch (err) {
         console.log(err);
