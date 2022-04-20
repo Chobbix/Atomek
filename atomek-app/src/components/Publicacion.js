@@ -4,18 +4,22 @@ import pp from '../Imagenes/picture_perfil.jpg'
 import Carrousel_publicacion from './carrousel_publicacion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleCarry, faStar } from '@fortawesome/free-solid-svg-icons'
-const Publicacion = () => {
+import { Link } from "react-router-dom";
+
+const Publicacion = (props) => {
     return (
         <div class="tarjetamuro ">
             <div class="cardheader">
                 <div>
+                    <Link to={"/atomek/Perfil/" + props.propPost._user?._id}>
                     <img src={pp} alt="img-avatar" className='perfil'></img>
+                    </Link>
                 </div>
                 <div>
-                    <h4 className='grupo'>Los artistas desnutridos</h4>
+                    <h4 className='grupo'>{props.propPost._community?.name}</h4>
                     <div className='informacion'>
-                        <h5 className='usuario' >Santi</h5>
-                        <h5 className='Fecha' >2 days ago</h5>
+                        <h5 className='usuario' >{props.propPost._user?.username} </h5>
+                        <h5 className='Fecha' > {props.propPost?.date_create}</h5>
                     </div>
                 </div>
 
@@ -24,7 +28,7 @@ const Publicacion = () => {
             <div class="card-body">
                 <div className='card-title'>
                     <div>
-                    <p class="cardtext">With supporting text below as a natural lead-in to additional content.</p>
+                    <p class="cardtext">{props.propPost?.body}</p>
                     <div>
                         <Carrousel_publicacion/>
                     </div>      

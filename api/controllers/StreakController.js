@@ -58,3 +58,16 @@ exports.streakDelete = async (req, res) => {
         res.status(404).send({message: "Streak not found. Could not delete data"});
     }
 };
+
+exports.streakGetByCommunity = async (req, res) => {
+    const { communityId } = req.params;
+
+    const streak = await Streak.find({_community: communityId}).populate("_community").populate("_user");
+
+    if (streak) {
+        res.send(streak);
+    }
+    else {
+        res.status(404).send({message: "Streak not found"});
+    }
+};

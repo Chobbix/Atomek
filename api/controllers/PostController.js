@@ -1,4 +1,5 @@
 const Post = require("../models/PostSchema");
+const Community = require("../models/CommunitySchema");
 
 exports.postGetById = async (req, res) => {
     const { id } = req.params;
@@ -15,7 +16,7 @@ exports.postGetById = async (req, res) => {
 exports.postGetAll = async (req, res) => {
     const { communityId } = req.params;
 
-    const posts = await Post.find({_community: communityId}).populate("_user", "username image");
+    const posts = await Post.find({_community: communityId}).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
 
     res.send(posts);
 };
@@ -65,4 +66,28 @@ exports.postDelete = async (req, res) => {
     } else {
         res.status(404).send({message: "Post not found. Could not delete data"});
     }
+};
+
+exports.postGetPostsByUser = async (req, res) => {
+    const { userId } = req.params;
+
+    const posts = await Post.find({_user: userId}).populate("_user", "username image")
+                                                .populate("_streak", "_id title")
+                                                .populate("_community", "_id name");
+
+    res.send(posts);
+};
+
+exports.postGetPostsByUserCommunities = async (req, res) => {
+    const { userId } = req.params;
+
+    const communities = await Community.find({_users: userId}).select('_id');
+
+    const posts = await Post.find({
+        '_community': { $in: 
+            communities
+        }
+    }).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
+
+    res.send(posts);
 };

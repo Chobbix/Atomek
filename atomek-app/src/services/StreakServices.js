@@ -19,3 +19,13 @@ export const StreakGetById = async (req) => {
         return err;
     }
 }
+
+export const StreakGetByCommunity = async (req) => {
+    try {
+        const response = await axios.get(`/community/${req}/streaks`,);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

@@ -31,7 +31,7 @@ const Box_login = () => {
             else { 
                 console.log(usuario); 
                 localStorage.setItem('UserSession', JSON.stringify(usuario));
-                navigate('/atomek/Muro');
+                navigate('/atomek/Muro/Mi-Muro');
             }
         }
         catch (err) {

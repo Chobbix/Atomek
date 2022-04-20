@@ -19,6 +19,10 @@ const postSchema = new mongoose.Schema({
     _community: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "community"
+    },
+    _streak: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "streak"
     }
 });
 
