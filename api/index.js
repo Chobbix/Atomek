@@ -24,6 +24,7 @@ app.use(cors());
 const port = 5000;
 
 app.use(bodyParser.json());
+app.use(bodyParser.raw({type: "image/*", limit: "50mb"}));
 
 app.use("/api", userRouter);
 app.use("/api", postRouter);

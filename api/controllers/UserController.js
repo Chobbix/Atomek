@@ -1,4 +1,5 @@
 const User = require("../models/UserSchema");
+const ImageUploader = require("../utils/ImageUploader");
 
 exports.userGetById = async (req, res) => {
     const { id } = req.params;
@@ -72,3 +73,31 @@ exports.userDelete = async (req, res) => {
         res.status(404).send({message: "User not found. Could not delete data"});
     }
 };
+
+exports.userUpdateImage = async (req, res) => {
+    const { id } = req.params;
+    const { body, headers } = req;
+
+    if (!req.is("image/*")) {
+        return res.status(415).send({message: "Unsupported media type. Should be an image file"});
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+        return res.status(404).send({message: "User not found. Could not update image"});
+    }
+
+    const imageUploader = new ImageUploader();
+
+    const imageUrl = await imageUploader.upload(body, headers["content-type"]);
+
+    if (imageUrl) {
+        await User.updateOne({image: imageUrl});
+
+        res.send();
+    }
+    else {
+        res.status(500).send({message: "Image could not be uploaded"});
+    }
+}
