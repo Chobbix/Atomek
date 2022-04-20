@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
 import { StreakGetByCommunity } from '../services/StreakServices';
 import { PostCreate } from '../services/PostServices';
+import { useNavigate } from 'react-router-dom';
 
 const Publicar = () => {
 
@@ -15,6 +16,7 @@ const Publicar = () => {
     const [streakId, setStreakId] = useState();
     const [body, setBody] = useState();
     const params = useParams();
+    const navigate = useNavigate();
 
     async function handleOnChangeCommunity(communityValue) {
         setCommunityId(communityValue);
@@ -64,7 +66,13 @@ const Publicar = () => {
                     </>
         }
         else {
-            return 'Juan';
+            return <select class="form-select" aria-label="Default select example" value={streakId} 
+                    onChange={({target}) => setStreakId(target.value)}>
+                        <option selected disabled>Racha:</option>
+                        {streaks?.map((streak, index) => (
+                            <option key={index} value={streak._id}> {streak.title}</option>
+                        ))}
+                    </select>;
         }
     }
 
@@ -75,6 +83,11 @@ const Publicar = () => {
             const data = await communityGetComunitiesByUser(usuario);
             setUserSesion(usuario);
             setCommunities(data);
+
+            if(params.id != 'Mi-Muro') {
+                setCommunityId(params.id);
+                setStreaks(await StreakGetByCommunity(params.id));
+            }
         }
             catch(err) {
             console.log(err);
@@ -93,7 +106,7 @@ const Publicar = () => {
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="size rounded-circle"></img>
                 </div>
                 <div className='Bloque'>
-                    <h5>Pedrito</h5>
+                    <h5>{userSesion?.username}</h5>
                     <div className='Forms'>
                         {loadSelectInput(params.id)}
                     </div>

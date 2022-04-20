@@ -16,7 +16,7 @@ exports.postGetById = async (req, res) => {
 exports.postGetAll = async (req, res) => {
     const { communityId } = req.params;
 
-    const posts = await Post.find({_community: communityId}).populate("_user", "username image");
+    const posts = await Post.find({_community: communityId}).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
 
     res.send(posts);
 };
@@ -87,7 +87,7 @@ exports.postGetPostsByUserCommunities = async (req, res) => {
         '_community': { $in: 
             communities
         }
-    }).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name");;
+    }).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
 
     res.send(posts);
 };

@@ -29,3 +29,13 @@ export const PostGetPostsByUserCommunities = async (req) => {
         return err;
     }
 }
+
+export const PostGetPostsByCommunity = async (req) => {
+    try {
+        const response = await axios.get(`/community/${req}/posts`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

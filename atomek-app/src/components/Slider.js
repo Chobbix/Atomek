@@ -6,91 +6,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlignJustify } from '@fortawesome/free-solid-svg-icons'
 import GruposBloque_style from "./GruposBloque_style";
 import Publicar from "./Publicar";
+import Content_Muro from "./Box_Content_Publicaciones";
 import { Link, useParams } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
-import { PostGetPostsByUserCommunities } from '../services/PostServices';
+import { PostGetPostsByCommunity, PostGetPostsByUserCommunities } from '../services/PostServices';
 
 const Slider = () => {
 
-    const [userSesion, setUserSesion] = useState();
     const [communities, setCommunities] = useState([]);
-    const [posts, setPosts] = useState([]);
     const params = useParams();
-    
-    function loadContentMuro(id) {
-        switch(id) {
-            case 'Mi-Muro':
-                return  <div class="contenedor_Muro bloque_contenedor_cursos">
-                            <Publicar />
-
-                            {posts?.map((com, index) => (
-                            <Publicacion key={index}/>
-                            ))}
-                        </div>;
-
-            case 'Descubrir':
-                return  <div class="contenedor_Descubrir  " id="Registro">
-                            <br></br>
-                            <h3>Te puede gustar</h3>
-                            <div class="hileras">
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                            </div>
-                            <div class="hileras">
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                            </div>
-                        </div>;
-
-            case 'Crear-Grupo':
-                return  <div class="contenedor_Crear " id="Registro">
-                            < Crear_grupo />
-                        </div>;
-            default:
-                return 'Juan';
-        }
-    }
 
     async function getInitialInformation() {
         try {
             const userJSON = localStorage.getItem("UserSession");
             const usuario = (JSON.parse(userJSON));
             const data = await communityGetComunitiesByUser(usuario);
-            setUserSesion(usuario);
             setCommunities(data);
-
-            switch(params.id) {
-                case 'Mi-Muro':
-                    setPosts(await PostGetPostsByUserCommunities(usuario._id));
-                    return;
-    
-                case 'Descubrir':
-                    return;
-    
-                case 'Crear-Grupo':
-                    return;
-
-                default:
-                    return 'Juan';
-            }
         }
-            catch(err) {
+        catch(err) {
             console.log(err);
         }
+    }
+
+    function returnContentPosts() {
+        const userJSON = localStorage.getItem("UserSession");
+        const usuario = (JSON.parse(userJSON));
+        return <Content_Muro key={params?.id} propParamId={params?.id} propUserId={usuario?._id} />
     }
 
     useEffect(() => {
@@ -114,7 +55,7 @@ const Slider = () => {
                     <div className="Grupo">
                         <div class="canvas2">
 
-                            <Link to="/atomek/Muro/Mi-Muro">
+                            <Link to="/atomek/Muro/Mi-Muro" key={params.id}>
                                 <label for="Muro" className="item grupo1">
                                     <h4 >Tu Muro</h4>
                                 </label>
@@ -153,7 +94,7 @@ const Slider = () => {
 
                             <h1 className="subtitulo"> Tus Grupos </h1>
 
-                            {communities.map((com, index) => (
+                            {communities?.map((com, index) => (
                                 <Link key={index} to={"/atomek/Muro/" + com._id}>
                                     <label key={index} for={"TuGrupo" + index} className="item grupo1">
                                             <h6 key={index}>{com.name}</h6>
@@ -170,13 +111,13 @@ const Slider = () => {
 
                     <div class="Muro" id="Registro">
                         <div class="bloque-contenido">
-                            {loadContentMuro(params.id)}
+                            {returnContentPosts()}
                         </div>
                     </div>
                 </div>
             </div>
         </body>
-    );
+    )
 };
 
 export default Slider;
