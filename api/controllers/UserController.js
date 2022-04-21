@@ -93,8 +93,7 @@ exports.userUpdateImage = async (req, res) => {
     const imageUrl = await imageUploader.upload(body, headers["content-type"]);
 
     if (imageUrl) {
-        await User.updateOne({image: imageUrl});
-
+        await user.updateOne({image: imageUrl});
         res.send();
     }
     else {
