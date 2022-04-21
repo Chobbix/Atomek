@@ -31,3 +31,18 @@ export const Create = async (req) => {
         return err;
     }
 }
+
+export const SetUserImage = async (id, image) => {
+    try {
+        const response = await axios.put(`/users/${id}/image`, image, {
+            headers: {
+                'Content-Type': image.type
+            }
+        });
+        console.log(response);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
