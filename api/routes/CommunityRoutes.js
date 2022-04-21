@@ -6,6 +6,7 @@ const communityController = require("../controllers/CommunityController");
 router.get("/community/:id", communityController.communityGetById);
 router.post("/community", communityController.communityCreate);
 router.put("/community/:id", communityController.communityUpdate);
+router.put("/community/:id/image", communityController.communityUpdateImage);
 router.delete("/community/:id", communityController.communityDelete);
 
 router.get("/community/:id/amount-users", communityController.communityGetAmountOfUsers);

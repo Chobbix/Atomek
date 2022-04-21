@@ -12,6 +12,9 @@ const communitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String
+    },
     date_create: { 
         type : Date, 
         default: Date.now 

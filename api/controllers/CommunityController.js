@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Community = require("../models/CommunitySchema");
+const ImageUploader = require("../utils/ImageUploader");
 
 exports.communityGetById = async (req, res) => {
     const { id } = req.params;
@@ -43,6 +44,33 @@ exports.communityUpdate = async (req, res) => {
     }
     else {
         res.status(404).send({message: "Community not found. Could not update data"});
+    }
+};
+
+exports.communityUpdateImage = async (req, res) => {
+    const { id } = req.params;
+    const { body, headers } = req;
+
+    if (!req.is("image/*")) {
+        return res.status(415).send({message: "Unsupported media type. Should be an image file"});
+    }
+
+    const community = await Community.findById(id);
+
+    if (!community) {
+        return res.status(404).send({message: "Community not found. Could not update data"});
+    }
+
+    const imageUploader = new ImageUploader();
+
+    const imageUrl = await imageUploader.upload(body, headers["content-type"]);
+
+    if (imageUrl) {
+        await community.updateOne({image: imageUrl});
+        res.send();
+    }
+    else {
+        res.status(500).send({message: "Image could not be uploaded"});
     }
 };
 
@@ -122,8 +150,17 @@ exports.communityAddCategory = async (req, res) => {
 
 exports.communityGetComunitiesByUser = async (req, res) => {
     const { id } = req.params;
+    const { query } = req;
+    const negate = query.negate ?? false;
 
-    const community = await Community.find({_users: id});
+    let community;
+
+    if (negate) {
+        community = await Community.find({_users: {$ne: id}});
+    }
+    else {
+        community = await Community.find({_users: id});
+    }
 
     if (community) {
         res.send(community);
