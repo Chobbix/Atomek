@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import './Estilos/header_style.css'
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const Header = () => {
   const [userSesion, setUserSesion] = useState();
+  const params = useParams();
 
   async function getUserSesion() {
     setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
@@ -24,8 +26,26 @@ const Header = () => {
             </Link>
 
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-secondary">Comunidad</Link></li>
-              <li><Link to={"/atomek/Perfil/" + userSesion?._id} className="nav-link px-2 link-light">Rachas</Link></li>
+              <li>
+              { 
+                params.id == 'Mi-Muro' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
+                : params.id == 'Descubrir' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
+                : params.id == 'Crear-Grupo' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
+                : params.idUser ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
+                : <Link to={"/atomek/Muro/" + params.id} className="nav-link px-2 link-light">Publicaciones de la Comunidad</Link>
+              }
+              
+              </li>
+
+              <li>
+              { 
+                params.id == 'Mi-Muro' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
+                : params.id == 'Descubrir' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
+                : params.id == 'Crear-Grupo' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
+                : params.idUser ? <Link to="/atomek/Streaks/Community/Mi-Muro" className="nav-link px-2 link-light">Mis Rachas</Link>
+                : <Link to={"/atomek/Streaks/Community/" + params.id} className="nav-link px-2 link-light">Rachas de la Comunidad</Link>
+              }
+              </li>
             </ul>
 
             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

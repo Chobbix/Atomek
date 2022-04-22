@@ -25,13 +25,13 @@ const ContPerfil = () => {
     let userSession = JSON.parse(localStorage.getItem("UserSession"));
     setUserSesion(userSession);
 
-    if(params.id == userSession?._id) {
+    if(params.idUser == userSession?._id) {
       setIsOwner(true);
       setUserProfile(userSession);
     }
     else {
       try {
-        const responseUser = await GetById(params.id);
+        const responseUser = await GetById(params.idUser);
         setIsOwner(false);
         setUserProfile(responseUser);
       }
