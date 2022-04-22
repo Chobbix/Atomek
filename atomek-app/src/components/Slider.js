@@ -3,7 +3,7 @@ import './Estilos/Slider_style.css'
 import Publicacion from "./Publicacion";
 import Crear_grupo from "./Crear_grupo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAlignJustify } from '@fortawesome/free-solid-svg-icons'
+import { faAlignJustify, faPlus } from '@fortawesome/free-solid-svg-icons'
 import GruposBloque_style from "./GruposBloque_style";
 import Publicar from "./Publicar";
 import Content_Muro from "./Box_Content_Publicaciones";
