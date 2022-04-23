@@ -15,7 +15,7 @@ const ContRacha = () => {
   const [owner, setOwner] = useState('');
   const [tag_id, setTag_id] = useState('');
   const navigate = useNavigate();
-  
+
   const [userSesion, setUserSesion] = useState();
   const [communities, setCommunities] = useState([]);
 
@@ -28,15 +28,15 @@ const ContRacha = () => {
       setUserSesion(usuario);
       setCommunities(data);
     }
-    catch(err) {
-        console.log(err);
+    catch (err) {
+      console.log(err);
     }
   }
 
-  const handleCreateStreak = async(event) => {
+  const handleCreateStreak = async (event) => {
     var responseStreak;
     try {
-      if(owner != 1) {
+      if (owner != 1) {
         responseStreak = await StreakCreate({
           title: name,
           type: type,
@@ -59,8 +59,8 @@ const ContRacha = () => {
       navigate('/atomek/URacha/' + responseStreak._id);
       console.log("streak registrado con exito");
     }
-    catch(err) {
-        console.log(err);
+    catch (err) {
+      console.log(err);
     }
   }
 
@@ -68,62 +68,63 @@ const ContRacha = () => {
     getInitialInformation();
   }, []);
   return (
-    
-<main> 
-  
-    <div className="py-5 text-center">
-      <h2>Creación de Racha</h2>
-    </div>
-    <div className='contenido'> 
-    <div className="row g-5">
-      <div className="col-md-7 col-lg-8">
-        <div className="contenido_text">  
-        <h4 className="mb-3">Datos de la racha</h4>
-          <div className="row g-3">
-            <div className="col-12">
-              <label for="text" className="form-label">Titulo de Racha</label>
-              <input type="text" value={name} 
-                onChange={({target}) => setName(target.value)} 
-                className="form-control" id="titulo" placeholder="Racha de ..."></input>
-            </div>
 
-            <div className="col-md-5">
-              <label for="country" className="form-label">Racha</label>
-              <select className="form-select" onChange={({target}) => setOwner(target.value)} id="country" required>
-                <option value="1">Mio</option>
-                {communities.map((com, index) => (
-                    <option key={index} value={com._id}>{com.name}</option>
-                ))}
-              </select>
+    <main>
+
+      <div className="py-5 text-center">
+        <h2>Creación de Racha</h2>
+      </div>
+      <div className='contenido'>
+        <div className="row g-5">
+          <div className="col-md-7 col-lg-8">
+            <div className="contenido_text">
+              <h4 className="mb-3">Datos de la racha</h4>
+              <div className="row g-3">
+                <div className="col-12">
+                  <label for="text" className="form-label">Titulo de Racha</label>
+                  <input type="text" value={name}
+                    onChange={({ target }) => setName(target.value)}
+                    className="form-control" id="titulo" placeholder="Racha de ..."></input>
+                </div>
+
+                <div className="col-md-5">
+                  <label for="country" className="form-label">Racha</label>
+                  <select className="form-select" onChange={({ target }) => setOwner(target.value)} id="country" required>
+                    <option selected disabled value="">Elige...</option>
+                    <option value="1">Mio</option>
+                    {communities.map((com, index) => (
+                      <option key={index} value={com._id}>{com.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-md-5">
+                  <label for="country" className="form-label">Etiquetas</label>
+                  <select className="form-select" id="country" required>
+                    <option selected disabled value="">Elige...</option>
+                    <option>Chulisimo</option>
+                    <option>Papercraft</option>
+                    <option>Animación</option>
+                  </select>
+                </div>
+                <div className="col-md-5">
+                  <label for="country" className="form-label">Tipo de racha</label>
+                  <select className="form-select" onChange={({ target }) => setType(target.value)} id="country" required>
+                    <option selected disabled value="">Elige...</option>
+                    <option value="1">Foto</option>
+                    <option value="2">Texto</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <div className="col-md-5">
-                <label for="country" className="form-label">Etiquetas</label>
-                <select className="form-select" id="country" required>
-                  <option selected disabled value="">Elige...</option>
-                  <option>Chulisimo</option>
-                  <option>Papercraft</option>
-                  <option>Animación</option>
-                </select>
-              </div>
-              <div className="col-md-5">
-                <label for="country" className="form-label">Tipo de racha</label>
-                <select className="form-select" onChange={({target}) => setType(target.value)} id="country" required>
-                  <option selected disabled value="">Elige...</option>
-                  <option value="1">Foto</option>
-                  <option value="2">Texto</option>
-                </select>
-              </div>
           </div>
-            </div>
-             </div>
-            </div>
-            </div>
-          <br></br>
-          <button className=" boton_final w-100 btn-lg" type="submit"
-            onClick={handleCreateStreak}>CREAR RACHA</button>
-          </main>
-   
-   )
+        </div>
+      </div>
+      <br></br>
+      <button className=" boton_final w-100 btn-lg" type="submit"
+        onClick={handleCreateStreak}>CREAR RACHA</button>
+    </main>
+
+  )
 }
 
 export default ContRacha
