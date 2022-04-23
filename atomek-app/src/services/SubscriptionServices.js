@@ -29,3 +29,13 @@ export const SubscriptionIncreaseCounter = async (req) => {
         return err;
     }
 }
+
+export const SubscriptionGetSubscriptionsByUser = async (req) => {
+    try {
+        const response = await axios.get(`/users/${req}/subscriptions`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

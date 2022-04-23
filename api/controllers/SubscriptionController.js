@@ -90,3 +90,16 @@ exports.subscriptionIncreaseCounter = async (req, res) => {
         res.status(404).send({message: "Subscription not found. Could not increase counter"});
     }
 };
+
+exports.subscriptionGetSubscriptionsByUser = async (req, res) => {
+    const { userId } = req.params;
+
+    const subscription = await Subscription.find({ _user: userId }).populate("_streak");
+
+    if (subscription) {
+        res.send(subscription);
+    }
+    else {
+        res.status(404).send({message: "subscription not found"});
+    }
+};

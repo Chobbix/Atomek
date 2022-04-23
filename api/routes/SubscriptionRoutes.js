@@ -10,5 +10,6 @@ router.delete("/subscription/:id", subscriptionController.subscriptionDelete);
 
 router.get("/streak/:streakId/subscription/:userId/users", subscriptionController.subscriptionGetSubscriptionByStreakAndUser);
 router.put("/subscription/:id/increase-counter", subscriptionController.subscriptionIncreaseCounter);
+router.get("/users/:userId/subscriptions", subscriptionController.subscriptionGetSubscriptionsByUser);
 
 module.exports = router;
