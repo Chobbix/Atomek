@@ -26,7 +26,7 @@ const UpdateRacha = (props) => {
         _id: props.propSubscription._id
       });
 
-      navigate('/atomek/Perfil/');
+      navigate('/atomek/Streaks/Community/Mi-Muro');
       console.log("response registrado con exito");
     }
     catch (err) {

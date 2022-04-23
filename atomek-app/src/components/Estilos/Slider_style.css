@@ -118,6 +118,10 @@
 #RecuadroRachas {
     background-color: #1A374D !important;
 }
+
+.cursor-pointer {
+    cursor:pointer;
+}
 /*-----------------------------------------------------------------------*/
 
 

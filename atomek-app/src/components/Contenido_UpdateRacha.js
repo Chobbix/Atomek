@@ -17,7 +17,7 @@ const RenderizadoTipoRacha = () => {
       const usuario = (JSON.parse(userJSON));
 
       const responseSubscription = await SubscriptionGetByStreakAndUser({
-        _streak: params.id,
+        _streak: params.idStreak,
         _user: usuario._id
       });
 
