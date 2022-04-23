@@ -2,13 +2,13 @@ import React from 'react'
 import './Estilos/GruposBloque.css'
 
 
-const GruposBloque_style = () => {
+const GruposBloque_style = (props) => {
     return (
         <div>
             <div class="card" >
-                <img src={require("../Imagenes/picture_perfil.jpg")} class="cardimgtop" alt="..."/>
+                <img src={props.image} class="cardimgtop" alt={props.name}/>
                     <div class="cardbody">
-                       <h3 className='text'>No nos dejaron dibujar de niños</h3>
+                       <h3 className='text'>{props.name}</h3>
                        <button className='btn_unirse'>Unirse al grupo</button>
                     </div>
             </div>

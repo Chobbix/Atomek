@@ -103,7 +103,7 @@ const Publicar = () => {
 
             <div className='cabezera'>
                 <div className='Bloque'>
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="size rounded-circle"></img>
+                    <img src={userSesion?.image  ?? `https://avatars.dicebear.com/api/bottts/${userSesion?._id}.svg`} alt="mdo" width="32" height="32" className="size rounded-circle"></img>
                 </div>
                 <div className='Bloque'>
                     <h5>{userSesion?.username}</h5>

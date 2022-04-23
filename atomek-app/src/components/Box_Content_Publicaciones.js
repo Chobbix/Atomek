@@ -10,6 +10,7 @@ import { PostGetPostsByCommunity, PostGetPostsByUserCommunities } from '../servi
 const Content_Muro = (props) => {
 
     const [posts, setPosts] = useState([]);
+    const [communities, setCommunities] = useState([]);
 
     async function getInitialInformation() {
         try {
@@ -22,6 +23,10 @@ const Content_Muro = (props) => {
                     return;
     
                 case 'Descubrir':
+                    console.log("Descubrir");
+                    const exploreCommunities = await communityGetComunitiesByUser({_id: props?.propUserId}, true);
+                    setCommunities(exploreCommunities);
+                    console.log(exploreCommunities);
                     return;
     
                 case 'Crear-Grupo':
@@ -55,26 +60,11 @@ const Content_Muro = (props) => {
                             <br></br>
                             <h3>Te puede gustar</h3>
                             <div class="hileras">
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                            </div>
-                            <div class="hileras">
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
-                                <div className="bloque">
-                                    <GruposBloque_style />
-                                </div>
+                                {communities.map((community) => (
+                                    <div className="bloque">
+                                        <GruposBloque_style image={community.image} name={community.name} />
+                                    </div>
+                                ))}
                             </div>
                         </div>;
 

@@ -56,7 +56,7 @@ const Header = () => {
 
             <div className="dropdown text-end">
               <a href="" className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle"></img>
+                <img src={userSesion?.image  ?? `https://avatars.dicebear.com/api/bottts/${userSesion?._id}.svg`} alt="mdo" width="32" height="32" className="rounded-circle"></img>
               </a>
               <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                 {/*  <li><a className="dropdown-item" href="#">New project...</a></li>

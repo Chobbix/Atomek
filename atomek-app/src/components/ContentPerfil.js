@@ -11,7 +11,7 @@ import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
 import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
 import { useParams } from 'react-router-dom';
-import { GetById } from '../services/UserServices'
+import { GetById, SetUserImage } from '../services/UserServices'
 import { FollowAddUserFollow } from '../services/FollowServices'
 
 const ContPerfil = () => {
@@ -53,6 +53,30 @@ const ContPerfil = () => {
     }
   }
 
+  const handleChangeUserImage = () => {
+    document.getElementById("imageFileInput").click();
+  }
+
+  const handleUpdateUserImage = async (e) => {
+    const fileInput = e.target;
+    const imageFile = fileInput.files[0];
+
+    if (imageFile) {
+      await SetUserImage(userSesion?._id, imageFile);
+
+      if (params.id == userSesion?._id) {
+        try {
+          const responseUser = await GetById(params.id);
+          setUserSesion(responseUser);
+          setUserProfile(responseUser);
+          localStorage.setItem('UserSession', JSON.stringify(responseUser));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  }
+
   useEffect(() => {
     getInitialInformation();
   }, []);
@@ -63,8 +87,9 @@ const ContPerfil = () => {
         <div className="perfil-usuario-header">
           <div className="perfil-usuario-portada">
             <div className="perfil-usuario-avatar">
-              <img src={ppug} alt="img-avatar" width={160} height={165}></img>
-              <button type="button" className="boton-avatar">
+              <img src={userProfile?.image  ?? `https://avatars.dicebear.com/api/bottts/${userProfile?._id}.svg`} alt="img-avatar" width={160} height={165}></img>
+              <input id="imageFileInput" type="file" onChange={handleUpdateUserImage} style={{display: 'none'}} />
+              <button type="button" onClick={handleChangeUserImage} className="boton-avatar">
                 <FontAwesomeIcon icon={faCamera} />
               </button>
             </div>
@@ -81,12 +106,12 @@ const ContPerfil = () => {
           </div>
           <div className="perfil-usuario-footer">
             <ul className="lista-datos">
-              <li><input type="text" name="Nombre" placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario"></input></li>
-              <li><input type="text" name="Nombre" placeholder="Nombre" className="nombre" id="Nombre"></input></li>
+              <li><input type="text" name="username" value={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario"></input></li>
+              <li><input type="text" name="name" value={userProfile?.name} placeholder="Nombre" className="nombre" id="Nombre"></input></li>
             </ul>
             <ul className="lista-datos">
-              <li><input type="text" name="Apellido" placeholder="Apellido" className="apellido" id="Apellido"></input></li>
-              <li><input type="password" name="Contraseña" placeholder="Contraseña" className="input-cont" id="ContraUsuario"></input></li>
+              <li><input type="text" name="lastname" value={userProfile?.lastname} placeholder="Apellido" className="apellido" id="Apellido"></input></li>
+              <li><input type="password" name="password" placeholder="Contraseña" className="input-cont" id="ContraUsuario"></input></li>
             </ul>
           </div>
           <div className="herramientas">
