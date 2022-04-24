@@ -9,16 +9,19 @@ import { communityGetComunitiesByUser } from '../services/CommunityServices'
 import { StreakCreate } from '../services/StreakServices'
 import { useNavigate } from 'react-router-dom'
 import { SubscriptionCreate } from '../services/SubscriptionServices'
+import { TagCreate, TagGetTagsByUser } from '../services/TagServices'
 
 const ContRacha = () => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [owner, setOwner] = useState('');
-  const [tag_id, setTag_id] = useState('');
+  const [tagTitle, setTagTitle] = useState('');
+  const [tag_id, setTag_id] = useState([]);
   const navigate = useNavigate();
 
   const [userSesion, setUserSesion] = useState();
   const [communities, setCommunities] = useState([]);
+  const [tags, setTags] = useState([]);
 
   async function getInitialInformation() {
     try {
@@ -26,10 +29,34 @@ const ContRacha = () => {
       const usuario = (JSON.parse(userJSON));
       console.log(usuario);
       const data = await communityGetComunitiesByUser(usuario);
+      const tagsResponse = await TagGetTagsByUser(usuario._id);
+
+      setTags(tagsResponse);
       setUserSesion(usuario);
       setCommunities(data);
     }
     catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleChangeTagInput = async (event) => {
+    let value = Array.from(event.target.selectedOptions, option => option.value);
+    setTag_id({values: value});
+  }
+
+  const handleCreateTag = async (event) => {
+    console.log(tagTitle);
+    try {
+      await TagCreate({
+        _user: userSesion._id,
+        title: tagTitle
+      })
+
+      const tagsResponse = await TagGetTagsByUser(userSesion._id);
+      setTags(tagsResponse); 
+    }
+    catch(err) {
       console.log(err);
     }
   }
@@ -54,7 +81,8 @@ const ContRacha = () => {
 
       await SubscriptionCreate({
         _id: responseStreak._id,
-        _user: userSesion._id
+        _user: userSesion._id,
+        _tags: tags
       });
 
       navigate('/atomek/URacha/' + responseStreak._id);
@@ -108,18 +136,21 @@ const ContRacha = () => {
                 </div>
                 <div className="col-md-4">
                   <label for="country" className="form-label">Etiqueta</label>
-                  <input type="text" className="form-control" id="inputPassword2" placeholder="Crear etiqueta" />
+                  <input type="text"  value={tagTitle}
+                    onChange={({ target }) => setTagTitle(target.value)}
+                    className="form-control" id="inputPassword2" placeholder="Crear etiqueta" />
 
                 </div>
                 <div className="col-md-1">
-                  <button type="submit" class="btn-plus "><FontAwesomeIcon icon={faPlus} /> </button>
+                  <button type="submit" class="btn-plus " onClick={handleCreateTag}><FontAwesomeIcon icon={faPlus} /> </button>
                 </div>
                 <div className="col-md-5">
                   <label for="country" className="form-label">Selecciona las etiquetas</label>
-                  <select className="form-select" id="country" multiple="multiple" required >
-                    <option>Chulisimo</option>
-                    <option>Papercraft</option>
-                    <option>Animación</option>
+                  <select className="form-select"
+                    onChange={(e) => {handleChangeTagInput(e)}} id="country" multiple="multiple" required >
+                    {tags?.map((tag, index) => (
+                      <option key={index} value={tag._id}>{tag.title}</option>
+                    ))}
                   </select>
                 </div>
               </div>
