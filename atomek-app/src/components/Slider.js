@@ -71,27 +71,6 @@ const Slider = () => {
                                 </label>
                             </Link>
 
-
-
-                            <h1 className="subtitulo">Grupos recientes</h1>
-                            <label for="Grupo1" className="item grupo1">
-                                <h6> Los artistas desnutridos</h6>
-                            </label>
-                            <label for="Grupo2" className="item grupo1">
-                                <h6> Dormilones</h6>
-                            </label>
-                            <label for="Grupo4" className="item grupo1">
-                                <h6> no puedo subir las escaleras </h6>
-                            </label>
-                            <label for="Grupo5" className="item grupo1">
-                                <h6>   Mi abuelita no me eseño a coser</h6>
-                            </label>
-                            <label for="GrupoAll" className="item grupo1">
-                                <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
-                            </label>
-
-
-
                             <h1 className="subtitulo"> Tus Grupos </h1>
 
                             {communities?.map((com, index) => (
