@@ -72,7 +72,7 @@ const ListStreaks = (props) => {
                     <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
                         <div className="d-flex justify-content-between">
                             <strong className="text-light">{subscription._streak.title}</strong>
-                            <a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPlus} value={subscription._id} /></a>
+                            <Link to={'/atomek/URacha/' + subscription._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPlus} value={subscription._id} /></a></Link>
                         </div>
                         <span className="text-light">Cantidad de veces hecha: { subscription.counter }</span>
                         {
