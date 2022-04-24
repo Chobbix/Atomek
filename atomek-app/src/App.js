@@ -9,6 +9,7 @@ import Perfil from './pages/Perfil';
 import Muro from './pages/Muro';
 import CrearRacha from './pages/Crear_racha';
 import UpdtRacha from './pages/Update_racha';
+import Responses from './pages/Responses';
 
 
 import { Routes, Route, Link } from "react-router-dom";
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/atomek/Crear" element={<CC />} />
         <Route exact path="/atomek/CRacha" element={<CrearRacha />} />
         <Route exact path="/atomek/URacha" element={<UpdtRacha />} />
+        <Route exact path="/atomek/Responses/:idSubscription" element={<Responses />} />
 
       </Routes>
     
