@@ -88,7 +88,7 @@ const SliderStreaks = () => {
 
                         <h1 className="subtitulo"> Tus Grupos </h1>
 
-                        {communities?.map((com, index) => (
+                        {communities?.slice(0,5).map((com, index) => (
                             <Link key={index} to={"/atomek/Muro/" + com._id}>
                                 <label key={index} for={"TuGrupo" + index} className="item grupo1">
                                     <h6 key={index}>{com.name}</h6>

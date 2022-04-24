@@ -15,6 +15,7 @@ const ListStreaks = (props) => {
     const [titlePage, setTitlePage] = useState('');
     const [streakId, setStreakId] = useState('');
     const [userSession, setUserSession] = useState();
+    const [isUserSubscription, setIsUserSubscription] = useState(false);
     const params = useParams();
     Moment.locale('es');
 
@@ -46,6 +47,9 @@ const ListStreaks = (props) => {
                 const communityResponse = await CommunityGetComunityById(props.propParamId);
                 setTitlePage('Rachas creadas por la comunidad: ' + communityResponse?.name)
                 
+                const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(usuario._id);
+                setSubscriptions(subscriptionsResponse);
+
                 const streaksResponse = await StreakGetByCommunity(props.propParamId);
                 setStreaks(streaksResponse);
             }
@@ -90,7 +94,9 @@ const ListStreaks = (props) => {
                     <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
                         <div className="d-flex justify-content-between">
                             <strong className="text-light">{streak.title}</strong>
-                            <a className="text-light cursor-pointer" onClick={(e) => {handleCreateSubscription(e, streak._id)}}><FontAwesomeIcon icon={faPlus} value={streak._id} /></a>
+                            <a className="text-light cursor-pointer" onClick={(e) => {handleCreateSubscription(e, streak._id)}}>
+                                <FontAwesomeIcon icon={faPlus} value={streak._id} />
+                            </a>
                         </div>
                         {
                             streak.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>

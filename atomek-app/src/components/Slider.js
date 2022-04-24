@@ -101,9 +101,11 @@ const Slider = () => {
                             </Link>
                         ))}
 
-                        <label for="TuGrupoAll" className="item grupo1">
-                            <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
-                        </label>
+                        <Link to={"/atomek/Muro/All-Grupos"}>
+                            <label for="TuGrupoAll" className="item grupo1">
+                                <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
+                            </label>
+                        </Link>
                     </div>
                 </div>
 
