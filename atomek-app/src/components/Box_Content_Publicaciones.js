@@ -51,7 +51,7 @@ const Content_Muro = (props) => {
                             <Publicar />
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post}/>
+                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
                             ))}
                         </div>;
 
@@ -77,7 +77,7 @@ const Content_Muro = (props) => {
                             <Publicar />
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post}/>
+                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
                             ))}
                         </div>;
         }
