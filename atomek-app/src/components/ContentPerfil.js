@@ -93,9 +93,6 @@ const ContPerfil = () => {
                 <FontAwesomeIcon icon={faCamera} />
               </button>
             </div>
-            <button type="button" className="boton-portada">
-              <i className="far fa-image"></i> Cambiar fondo
-            </button>
           </div>
         </div>
         <div className="perfil-usuario-body">
