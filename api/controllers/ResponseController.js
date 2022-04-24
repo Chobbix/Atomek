@@ -63,7 +63,7 @@ exports.responseDelete = async (req, res) => {
 exports.responsesGetByIdSubscription = async (req, res) => {
     const { id } = req.params;
 
-    const response = await Response.find({_subscription: id});
+    const response = await Response.find({_subscription: id}).sort({date_create: -1});
 
     if (response) {
         res.send(response);

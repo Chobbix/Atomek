@@ -133,10 +133,10 @@ const ContPerfil = () => {
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
           {subscriptions?.map((subscription, index) => (
-            <div className="col">
+            <div className="col" key={index}>
               <div className="card shadow-sm">
                 <div className="card-body">
-                  <p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p>
+                  <Link to={'/atomek/Responses/' + subscription._id}><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
                   <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
                   <div className="d-flex justify-content-between align-items-center">
                     <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>

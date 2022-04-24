@@ -9,3 +9,13 @@ export const ResponseCreate = async (req) => {
         return err;
     }
 }
+
+export const ResponseGetResponsesBySubscription = async (req) => {
+    try {
+        const response = await axios.get(`/response/${req}/subscription`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
