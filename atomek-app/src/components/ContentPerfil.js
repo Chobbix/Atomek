@@ -13,17 +13,25 @@ import './Estilos/Scroll_style.css'
 import { useParams } from 'react-router-dom';
 import { GetById, SetUserImage } from '../services/UserServices'
 import { FollowAddUserFollow } from '../services/FollowServices'
+import { SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices'
+import Moment from 'moment';
+import { Link } from 'react-router-dom'
 
 const ContPerfil = () => {
   
   const [userProfile, setUserProfile] = useState();
   const [userSesion, setUserSesion] = useState();
   const [isOwner, setIsOwner] = useState();
+  const [subscriptions, setSubscriptions] = useState([]);
   const params = useParams();
+  Moment.locale('es');
 
   async function getInitialInformation() {
     let userSession = JSON.parse(localStorage.getItem("UserSession"));
     setUserSesion(userSession);
+    
+    const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(params.idUser);
+    setSubscriptions(subscriptionsResponse);
 
     if(params.idUser == userSession?._id) {
       setIsOwner(true);
@@ -122,51 +130,22 @@ const ContPerfil = () => {
 
       <div className="album py-5 bg-light" id='album'>
         <div className="container">
-
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+          {subscriptions?.map((subscription, index) => (
             <div className="col">
               <div className="card shadow-sm">
-
-                <img src={deporte} className="imagenracha" id="imagenrach" width="100%" height="225"></img>
-
                 <div className="card-body">
-                  <p className="card-text text-black" id='RachaCateg'>Racha de Deporte:</p>
-                  <p className="card-text text-black">Te haz ejercitado 10 dias seguidos</p>
+                  <p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p>
+                  <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
                   <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">12-Marzo-2022</small>
+                    <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="col">
-              <div className="card shadow-sm">
-
-                <img src={craft} className="imagenracha" id="imagenrach" width="100%" height="225"></img>
-
-                <div className="card-body">
-                  <p className="card-text text-black" id='RachaCateg'>Racha de Craft:</p>
-                  <p className="card-text text-black">Llevas 5 dias seguidos haciendo manualidades</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">12-Marzo-2022</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col">
-              <div className="card shadow-sm">
-
-                <img src={dormir} className="imagenracha" id="imagenrach" alt="imagen" width="100%" height="225"></img>
-
-                <div className="card-body">
-                  <p className="card-text text-black" id='RachaCateg'>Racha de Sueño:</p>
-                  <p className="card-text text-black">Haz dormido 8hrs durante 30 dias ¡Felicidades!</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">12-Marzo-2022</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+          ))}
+            
           </div>
         </div>
       </div>
