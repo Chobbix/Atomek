@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
 import './Estilos/CrearRacha_style.css'
 import { Link } from "react-router-dom";
@@ -33,21 +34,28 @@ const ContRacha = () => {
                 <option>Grupo de Programadores</option>
               </select>
             </div>
-            <div className="col-md-5">
-                <label for="country" className="form-label">Etiquetas</label>
-                <select className="form-select" id="country" required>
-                  <option value="">Elige...</option>
-                  <option>Chulisimo</option>
-                  <option>Papercraft</option>
-                  <option>Animación</option>
-                </select>
-              </div>
               <div className="col-md-5">
                 <label for="country" className="form-label">Tipo de racha</label>
                 <select className="form-select" id="country" required>
                   <option value="">Elige...</option>
                   <option>Foto</option>
                   <option>Texto</option>
+                </select>
+              </div>
+              <div className="col-md-4">
+                  <label for="country" className="form-label">Etiqueta</label>
+                  <input type="text" className="form-control" id="inputPassword2" placeholder="Crear etiqueta" />
+                  
+                </div>
+                <div className="col-md-1">
+                  <button type="submit" class="btn-plus "><FontAwesomeIcon icon={faPlus} /> </button>
+                </div>
+              <div className="col-md-5">
+                <label for="country" className="form-label">Selecciona las etiquetas</label>
+                <select className="form-select" id="country" multiple="multiple" required >
+                  <option>Chulisimo</option>
+                  <option>Papercraft</option>
+                  <option>Animación</option>
                 </select>
               </div>
           </div>
