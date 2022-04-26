@@ -1,0 +1,82 @@
+
+.tarjetamuro{
+    font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;
+    margin-top: 20px;
+    background-color: #406882;
+    border-radius: 5px;
+    padding: 5px;
+}
+.card-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+}
+
+.cardheader{
+    display: flex;
+    justify-content: left;
+}
+.perfil{
+    width: 70px;
+    height: 70px;
+    border-radius: 10%; 
+    margin-right: 5px;
+}
+.grupo{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
+.cardfooter{
+    border-top: 1px solid rgb(86, 93, 94);
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+.botones{
+    display: flex ;
+    justify-content: space-between;
+    width: 60%;
+}
+.btn_reaccion{
+    border: none;
+    background-color: #92A9BD;
+    padding: 6px;
+    border-radius: 3px;
+    width: 49%;
+}
+
+.btn_reaccion:active{
+    transform: translateY(1px);
+   
+}
+.informacion{
+    display: flex;
+}
+.usuario, .Fecha{
+    font-size: 15px;
+    color: rgb(162, 175, 189);
+
+}
+.cardtext{
+    color: rgb(255, 255, 255);
+}
+.contenidoimagenes{
+    max-width: 25%;
+}
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+}
+.image {
+    max-width: 50%;
+    height: auto;
+}
+.card-note {
+    color: rgb(162, 175, 189);
+}

@@ -4,7 +4,6 @@ import './Estilos/header_style.css'
 import { Link } from "react-router-dom";
 const header = () => {
     return(
-    <body>
     <header className="border-bottom bg-dark">
     <div className="container">
       <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -37,7 +36,6 @@ const header = () => {
       </div>
     </div>
   </header>
-  </body>
     )
 }
 

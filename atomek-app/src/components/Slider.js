@@ -9,7 +9,6 @@ import Publicar from "./Publicar";
 const Slider = () => {
     return (
         <body id="fonditobonito" className="fonditobonito">
-            <div class="Container">
                 <div class="menus">
                     <input type="radio" id="Muro" name="categoria" value="preguntas" checked />
                     <input type="radio" id="Descubrir" name="categoria" value="Respuestas" />
@@ -218,7 +217,6 @@ const Slider = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </body >
     );
 };

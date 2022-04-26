@@ -253,3 +253,8 @@ body #CuerpoPerfil{
  text-decoration: none;
 
 }
+.grafica-container {
+    margin-left: 27%;
+    margin-right: 27%;
+    text-align: center;
+}
