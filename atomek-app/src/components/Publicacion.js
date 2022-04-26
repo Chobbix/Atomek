@@ -3,7 +3,7 @@ import './Estilos/Publicacion_style.css'
 import pp from '../Imagenes/picture_perfil.jpg'
 import Carrousel_publicacion from './carrousel_publicacion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPeopleCarry, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faPeopleCarry, faStar, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 const Publicacion = () => {
     return (
         <div class="tarjetamuro ">
@@ -18,8 +18,19 @@ const Publicacion = () => {
                         <h5 className='Fecha' >2 days ago</h5>
                     </div>
                 </div>
-
-
+                <div id="Menupubli" className='MPubli'> 
+                <div className="dropdown text-end">
+                <a href="" className="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <FontAwesomeIcon icon={faEllipsisVertical}/>
+                </a>
+                <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    {/*  <li><a className="dropdown-item" href="#">New project...</a></li>
+                    <li><a className="dropdown-item" href="#">Settings</a></li> */}
+                    <li className="dropdown-item">Editar</li>
+                    <li className="dropdown-item">Elimiar</li>
+                </ul>
+                </div>
+                </div>
             </div>
             <div class="card-body">
                 <div className='card-title'>
