@@ -10,6 +10,20 @@ export const PostCreate = async (req) => {
     }
 }
 
+export const PostUpdateImage = async (id, image) => {
+    try {
+        const response = await axios.put(`/posts/${id}/image`, image, {
+            headers: {
+                'Content-Type': image.type
+            }
+        });
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const PostGetPostsByUser = async (req) => {
     try {
         const response = await axios.get(`/users/${req}/posts`);

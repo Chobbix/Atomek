@@ -12,7 +12,7 @@ import Grafica from './Grafica'
 import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
 import { useParams } from 'react-router-dom';
-import { GetById, SetUserImage } from '../services/UserServices'
+import { GetById, SetUserImage, Update } from '../services/UserServices'
 import { FollowAddUserFollow } from '../services/FollowServices'
 import { SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices'
 import Moment from 'moment';
@@ -86,6 +86,36 @@ const ContPerfil = () => {
     }
   }
 
+  const handleUpdateUserInfo = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const userId = form.dataset.userId;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Remove empty strings
+    Object.keys(data).forEach(key => {
+      if (data[key] === '') {
+        delete data[key];
+      }
+    });
+
+    await Update(data, userId);
+
+    try {
+      const responseUser = await GetById(userId);
+      
+      if (userId == userSesion?._id) {
+        setUserSesion(responseUser);
+        localStorage.setItem('UserSession', JSON.stringify(responseUser));
+      }
+
+      setUserProfile(responseUser);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getInitialInformation();
   }, []);
@@ -102,9 +132,6 @@ const ContPerfil = () => {
                 <FontAwesomeIcon icon={faCamera} />
               </button>
             </div>
-            <button type="button" className="boton-portada">
-              <i className="far fa-image"></i> Cambiar fondo
-            </button>
           </div>
         </div>
         <div className="perfil-usuario-body">
@@ -113,16 +140,16 @@ const ContPerfil = () => {
             <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">{userProfile?.followersCount}</p>
             { !isOwner? <button className='Seguirbtn btn' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button>: <p></p> }
           </div>
-          <div className="perfil-usuario-footer">
+          <form className="perfil-usuario-footer" onSubmit={handleUpdateUserInfo} data-user-id={userProfile?._id}>
             <ul className="lista-datos">
-              <li><input type="text" name="username" value={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario"></input></li>
-              <li><input type="text" name="name" value={userProfile?.name} placeholder="Nombre" className="nombre" id="Nombre"></input></li>
+              <li><input type="text" name="username" defaultValue={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario"></input></li>
+              <li><input type="text" name="name" defaultValue={userProfile?.name} placeholder="Nombre" className="nombre" id="Nombre"></input></li>
             </ul>
             <ul className="lista-datos">
-              <li><input type="text" name="lastname" value={userProfile?.lastname} placeholder="Apellido" className="apellido" id="Apellido"></input></li>
               <li><input type="password" name="password" placeholder="Contraseña" className="input-cont" id="ContraUsuario"></input></li>
+              <li><button type='submit'>Guardar</button></li>
             </ul>
-          </div>
+          </form>
           <div className="herramientas">
             { !isOwner? <p></p>: <a href="" className="boton-redes facebook"><FontAwesomeIcon icon={faWrench} /></a> }
           </div>
