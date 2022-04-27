@@ -7,7 +7,7 @@ const Muro = () => {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    if (validateUserSession()) { Navigate('/atomek/login') }
+    //if (validateUserSession()) { Navigate('/atomek/login') }
   }, []);
 
   return (
