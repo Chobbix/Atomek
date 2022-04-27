@@ -244,6 +244,15 @@ body #CuerpoPerfil{
     font-weight:bolder;
 }
 
+#MisRachasCtl{
+    width: 85%;
+    margin: auto;
+}
+
+.ControlRachas #iconos{
+ text-decoration: none;
+
+}
 .grafica-container {
     margin-left: 27%;
     margin-right: 27%;
