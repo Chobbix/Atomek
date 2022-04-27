@@ -3,7 +3,7 @@ import './Estilos/Publicar_style.css'
 import { Link, useParams } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
 import { StreakGetByCommunity } from '../services/StreakServices';
-import { PostCreate } from '../services/PostServices';
+import { PostCreate, PostUpdateImage } from '../services/PostServices';
 import { useNavigate } from 'react-router-dom';
 
 const Publicar = () => {
@@ -30,12 +30,20 @@ const Publicar = () => {
     const handleSubmit = async (event) => {
         if(params.id) {
             try {
-                await PostCreate({
+                const fileInput = document.getElementById('customFile');
+                const image = fileInput.files[0];
+
+                const responseData = await PostCreate({
                     _community: communityId,
                     body: body,
                     _user: userSesion._id,
                     _streak: streakId
                 });
+
+                const postId = responseData._id;
+                if (image) {
+                    await PostUpdateImage(postId, image);
+                }
             } 
             catch (err) {
                 console.log(err);

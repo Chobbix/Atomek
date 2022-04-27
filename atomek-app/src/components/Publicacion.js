@@ -1,6 +1,7 @@
 import React from 'react'
 import './Estilos/Publicacion_style.css'
-import Carrousel_publicacion from './carrousel_publicacion'
+import './Estilos/carrousel_style.css'
+// import Carrousel_publicacion from './carrousel_publicacion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleCarry, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
@@ -32,7 +33,10 @@ const Publicacion = (props) => {
                     <div>
                     <p class="cardtext">{props.propPost?.body}</p>
                     <div>
-                        <Carrousel_publicacion/>
+                        {/* <Carrousel_publicacion/> */}
+                        {(props.propPost?.image &&
+                            <img src={props.propPost?.image} class="imagen" alt='...' ></img>
+                        )}
                     </div>      
                     </div>
                     

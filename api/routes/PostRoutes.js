@@ -9,6 +9,7 @@ router.get("/users/:userId/posts", postController.postGetPostsByUser);
 router.get("/users/:userId/communities-posts", postController.postGetPostsByUserCommunities);
 router.post("/community/:communityId/posts", postController.postCreate);
 router.put("/posts/:id", postController.postUpdate);
+router.put("/posts/:id/image", postController.postUpdateImage);
 router.delete("/posts/:id", postController.postDelete);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Post = require("../models/PostSchema");
 const Community = require("../models/CommunitySchema");
+const ImageUploader = require("../utils/ImageUploader");
 
 exports.postGetById = async (req, res) => {
     const { id } = req.params;
@@ -38,6 +39,33 @@ exports.postCreate = async (req, res) => {
         res.status(500).send(e);
     }
 };
+
+exports.postUpdateImage = async (req, res) => {
+    const { id } = req.params;
+    const { body, headers } = req;
+
+    if (!req.is("image/*")) {
+        return res.status(415).send({message: "Unsupported media type. Should be an image file"});
+    }
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+        return res.status(404).send({message: "Poster not found. Could not update image"});
+    }
+
+    const imageUploader = new ImageUploader();
+
+    const imageUrl = await imageUploader.upload(body, headers["content-type"]);
+
+    if (imageUrl) {
+        await post.updateOne({image: imageUrl});
+        res.send();
+    }
+    else {
+        res.status(500).send({message: "Image could not be uploaded"});
+    }
+}
 
 exports.postUpdate = async (req, res) => {
     const { id } = req.params;
