@@ -94,7 +94,7 @@ exports.subscriptionIncreaseCounter = async (req, res) => {
 exports.subscriptionGetSubscriptionsByUser = async (req, res) => {
     const { userId } = req.params;
 
-    const subscription = await Subscription.find({ _user: userId }).populate("_streak");
+    const subscription = await Subscription.find({ _user: userId }).populate("_streak").sort({date_create: -1});
 
     if (subscription) {
         res.send(subscription);

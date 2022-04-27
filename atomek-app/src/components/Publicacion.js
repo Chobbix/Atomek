@@ -5,10 +5,24 @@ import './Estilos/carrousel_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleCarry, faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
+import { LikeAdd } from '../services/LikeServices'
 import Moment from 'moment';
 
 const Publicacion = (props) => {
     Moment.locale('es');
+
+    const handleAddLike = async (event, idPost) => {
+        console.log(idPost);
+        try {
+            await LikeAdd({
+                _post: idPost,
+                _user: props?.propUserId
+            });
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <div class="tarjetamuro ">
@@ -51,7 +65,8 @@ const Publicacion = (props) => {
             </div>
             <div class="cardfooter ">
                 <div className='botones'>
-                    <button className='btn_reaccion'> <FontAwesomeIcon icon={faStar} /> Felicitar </button>
+                    <button className='btn_reaccion'
+                        onClick={(e) => {handleAddLike(e, props.propPost?._id)}}> <FontAwesomeIcon icon={faStar} /> Felicitar </button>
                     <button className='btn_reaccion'> <FontAwesomeIcon icon={faPeopleCarry} /> Unise al reto </button>
                 </div>
             </div>

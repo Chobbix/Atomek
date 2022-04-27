@@ -32,6 +32,13 @@ const Content_Muro = (props) => {
                 case 'Crear-Grupo':
                     return;
 
+                case 'All-Grupos':
+                    console.log("Descubrir");
+                    const communitiesResponse = await communityGetComunitiesByUser({_id: props?.propUserId}, true);
+                    setCommunities(communitiesResponse);
+                    console.log(communitiesResponse);
+                    return;
+
                 default:
                     console.log("Comunidad");
                     const postsCommunity = await PostGetPostsByCommunity(props?.propParamId);
@@ -51,7 +58,7 @@ const Content_Muro = (props) => {
                             <Publicar />
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post}/>
+                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
                             ))}
                         </div>;
 
@@ -72,12 +79,26 @@ const Content_Muro = (props) => {
                 return  <div class="contenedor_Crear " id="Registro">
                             < Crear_grupo />
                         </div>;
+
+            case 'All-Grupos':
+                return  <div class="contenedor_Descubrir  " id="Registro">
+                            <br></br>
+                            <h3>Tus Grupos:</h3>
+                            <div class="hileras">
+                                {communities.map((community) => (
+                                    <div className="bloque">
+                                        <GruposBloque_style image={community.image} name={community.name} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>;
+
             default:
                 return <div class="contenedor_Muro bloque_contenedor_cursos">
                             <Publicar />
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post}/>
+                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
                             ))}
                         </div>;
         }

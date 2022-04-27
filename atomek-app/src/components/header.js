@@ -31,6 +31,7 @@ const Header = () => {
                 params.id == 'Mi-Muro' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
                 : params.id == 'Descubrir' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
                 : params.id == 'Crear-Grupo' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
+                : params.id == 'All-Grupos' ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
                 : params.idUser ? <Link to="/atomek/Muro/Mi-Muro" className="nav-link px-2 link-light">Publicaciones</Link>
                 : params.id ? <Link to={"/atomek/Muro/" + params.id} className="nav-link px-2 link-light">Publicaciones de la Comunidad</Link>
                 : <Link to={"/atomek/Muro/Mi-Muro"} className="nav-link px-2 link-light">Publicaciones</Link>
@@ -43,6 +44,7 @@ const Header = () => {
                 params.id == 'Mi-Muro' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
                 : params.id == 'Descubrir' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
                 : params.id == 'Crear-Grupo' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
+                : params.id == 'All-Grupos' ? <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
                 : params.idUser ? <Link to="/atomek/Streaks/Community/Mi-Muro" className="nav-link px-2 link-light">Mis Rachas</Link>
                 : params.id ? <Link to={"/atomek/Streaks/Community/" + params.id} className="nav-link px-2 link-light">Rachas de la Comunidad</Link>
                 : <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
