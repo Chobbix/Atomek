@@ -32,6 +32,17 @@ export const Create = async (req) => {
     }
 }
 
+export const Update = async (data, id) => {
+    try {
+        const response = await axios.put(`/users/${id}`, data);
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
 export const SetUserImage = async (id, image) => {
     try {
         const response = await axios.put(`/users/${id}/image`, image, {
