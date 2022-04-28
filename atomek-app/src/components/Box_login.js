@@ -4,26 +4,23 @@ import fb from '../Imagenes/fb_icon.png'
 import google from '../Imagenes/google_icon.png'
 import './Estilos/Box_login_style.css'
 import './Estilos/Scroll_style.css'
+import ErrorMessage from './ErrorMessage';
 import { Link } from "react-router-dom";
 import { Login } from '../services/UserServices'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form';
+import { sessionSchema } from '../validations/SessionSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Box_login = () => {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(sessionSchema)
+    });
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(email);
-        console.log(password);
-
+    const loginSubmit = async (data) => {
         try {
-            const usuario = await Login({
-                email,
-                password
-            });
+            const usuario = await Login(data);
             
             if (usuario.message) { 
                 console.log(usuario.message); 
@@ -51,19 +48,19 @@ const Box_login = () => {
                         </div>
                         <h2 className="fw-bold text-center" id='textobien'> ¡Bienvenido de nuevo!</h2>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit(loginSubmit)}>
                             <div className="mb-1">
                                 <label for="email" className="form-label">Correo electrónico</label>
-                                <input type="email" value={email}
-                                    onChange={({ target }) => setEmail(target.value)}
-                                    className="form-control" name="email"></input>
+                                <input type="email"
+                                    className="form-control" name="email" {...register("email")}></input>
+                                {errors.email && <ErrorMessage message={errors.email.message} />}
                             </div>
 
                             <div className="mb-4">
                                 <label for="password" className="form-label">Contraseña</label>
-                                <input type="password" value={password}
-                                    onChange={({ target }) => setPassword(target.value)}
-                                    className="form-control" name="password"></input>
+                                <input type="password"
+                                    className="form-control" name="password" {...register("password")}></input>
+                                {errors.password && <ErrorMessage message={errors.password.message} />}
                             </div>
 
                             <div className="mb-4 form-check">
