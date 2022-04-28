@@ -5,32 +5,23 @@ import fb from '../Imagenes/fb_icon.png'
 import google from '../Imagenes/google_icon.png'
 import './Estilos/Box_crearcuent_style.css'
 import './Estilos/Scroll_style.css'
+import ErrorMessage from './ErrorMessage';
 import { Link } from "react-router-dom";
 import { Create } from '../services/UserServices'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form';
+import { userSchema } from '../validations/UserSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Box_login = () => {
-
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(userSchema)
+    })
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(name);
-        console.log(username);
-        console.log(email);
-        console.log(password);
-
+    const registerSubmit = async (data) => {
         try {
-            const usuario = await Create({
-                name,
-                username,
-                email,
-                password
-            });
+            const usuario = await Create(data);
             
             localStorage.setItem('UserSession', JSON.stringify(usuario));
             navigate('/atomek/Muro/Mi-Muro');
@@ -52,30 +43,30 @@ const Box_login = () => {
            </div> 
       <h2 className="fw-bold text-center" id='textobien'>¡Crea tu cuenta ahora!</h2>
       
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(registerSubmit)}>
             <div class="mb-4">
                 <label for="name" class="form-label">Nombre completo</label>
-                <input type="text" value={name} 
-                    onChange={({target}) => setName(target.value)} 
-                    class="form-control" name="name" id="name"></input>
+                <input type="text"
+                    class="form-control" name="name" id="name" {...register("name")}></input>
+                {errors.name && <ErrorMessage message={errors.name.message} />}
             </div>
             <div class="mb-4">
                 <label for="name" class="form-label">Nombre de usuario</label>
-                <input type="text" value={username} 
-                    onChange={({target}) => setUsername(target.value)} 
-                    class="form-control" name="name" id="name"></input>
+                <input type="text"
+                    class="form-control" name="name" id="name" {...register("username")}></input>
+                {errors.username && <ErrorMessage message={errors.username.message} />}
             </div>
             <div class="mb-4">
                 <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" value={email} 
-                    onChange={({target}) => setEmail(target.value)} 
-                    class="form-control" name="email" id="correo"></input>
+                <input type="email" 
+                    class="form-control" name="email" id="correo" {...register("email")}></input>
+                {errors.email && <ErrorMessage message={errors.email.message} />}
             </div>
             <div class="mb-4">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" value={password} 
-                    onChange={({target}) => setPassword(target.value)} 
-                    class="form-control" name="password" id="contra"></input>
+                <input type="password" 
+                    class="form-control" name="password" id="contra" {...register("password")}></input>
+                {errors.password && <ErrorMessage message={errors.password.message} />}
             </div>
             <div class="mb-4 form-check">
                 <input type="checkbox" class="form-check-input" name="connected"></input>
