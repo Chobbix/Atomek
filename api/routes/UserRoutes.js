@@ -10,5 +10,9 @@ router.put("/users/:id/image", userController.userUpdateImage);
 router.delete("/users/:id", userController.userDelete);
 
 router.post("/login", userController.userLogin);
+router.get("/users/:id/amount-likes", userController.userGetAmountOfLikes);
+router.get("/users/:id/amount-communities", userController.userGetAmountOfCommunities);
+router.get("/users/:id/amount-posts", userController.userGetAmountOfPosts);
+router.get("/users/:id/amount-subscriptions", userController.userGetAmountOfSubscriptions);
 
 module.exports = router;
