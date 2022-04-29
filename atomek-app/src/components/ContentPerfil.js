@@ -12,7 +12,7 @@ import Grafica from './Grafica'
 import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
 import { useParams } from 'react-router-dom';
-import { GetById, SetUserImage, Update } from '../services/UserServices'
+import { GetById, GetUserStats, SetUserImage, Update } from '../services/UserServices'
 import { FollowAddUserFollow } from '../services/FollowServices'
 import { SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices'
 import Moment from 'moment';
@@ -22,6 +22,7 @@ const ContPerfil = () => {
   
   const [userProfile, setUserProfile] = useState();
   const [userSesion, setUserSesion] = useState();
+  const [userStats, setUserStats] = useState();
   const [isOwner, setIsOwner] = useState();
   const [subscriptions, setSubscriptions] = useState([]);
   const params = useParams();
@@ -33,6 +34,9 @@ const ContPerfil = () => {
     
     const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(params.idUser);
     setSubscriptions(subscriptionsResponse);
+
+    const responseStats = await GetUserStats(params.idUser);
+    setUserStats(responseStats);
 
     if(params.idUser == userSession?._id) {
       setIsOwner(true);
@@ -219,7 +223,7 @@ const ContPerfil = () => {
                                 </div>
                                 </div>
       </div>
-      <Grafica />
+      <Grafica propUserLikes={userStats?.amount_likes} propUserCommunities={userStats?.amount_communities} propUserPosts={userStats?.amount_posts} propUserSubscriptions={userStats?.amount_subscriptions} />
 
     </body>
   )
