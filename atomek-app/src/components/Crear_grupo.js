@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import './Estilos/Crear_grupo_syle.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { CategoryCreate, CategoryGetAll } from '../services/CategoryServices'
+import ErrorMessage from './ErrorMessage';
+import CategoryCreationForm from './CategoryCreationForm';
+import { CategoryGetAll } from '../services/CategoryServices'
 import { CommunityCreate, communityAddUser } from '../services/CommunityServices'
+import { useForm } from 'react-hook-form';
+import { communitySchema } from '../validations/CommunitySchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Crear_grupo = () => {
-
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
-    const [category_id, setCategory_id] = useState('');
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(communitySchema)
+    });
 
     const [categories, setCategories] = useState([]);
     const [userSesion, setUserSesion] = useState();
@@ -29,28 +30,11 @@ const Crear_grupo = () => {
         }
     }
 
-    const handleCreateCategory = async (event) => {
+    const handleCreateCommunity = async (data) => {
         try {
-            await CategoryCreate({
-                title: category
-            });
-            getAllCategories();
-            setCategory('');
-            console.log("categoria registrada con exito");
-        }
-        catch(err) {
-            console.log(err);
-        }
-    }
+            const communityResponse = await CommunityCreate(data);
 
-    const handleCreateCommunity = async (event) => {
-        try {
-            const communityResponse = await CommunityCreate({
-                name: name,
-                description: description,
-                _category: category_id
-            });
-
+            // Add current user to its own created Community
             await communityAddUser({
                 communityId: communityResponse._id,
                 id: userSesion._id
@@ -63,6 +47,10 @@ const Crear_grupo = () => {
         }
     }
 
+    const onCategoryCreation = (data) => {
+        getAllCategories();
+    };
+
     useEffect(() => {
         getAllCategories();
         getUserSesion();
@@ -70,35 +58,27 @@ const Crear_grupo = () => {
 
     return (
         <div className='publicar'>
-            <input class="form-control form-control-lg" type="text" value={name} 
-                onChange={({target}) => setName(target.value)} 
-                placeholder="Nombre del grupo" aria-label=".form-control-lg example" />
-            <input class="form-control" type="text" value={description} 
-                onChange={({target}) => setDescription(target.value)} 
-                placeholder="Descripcion del grupo" aria-label="default input example" />
-            <select class="form-select" onChange={({target}) => setCategory_id(target.value)} id="validationDefault04" required>
-                <option selected disabled value="">Categoria...</option>
-                {categories.map((cat, index) => (
-                    <option key={index} value={cat._id}>{cat.title}</option>
-                ))}
-
-            </select>
-            <form class="row g-3">
-
-                <div class="col-auto">
-                    <input type="text" value={category} 
-                        onChange={({target}) => setCategory(target.value)} 
-                        class="form-control" id="inputPassword2" placeholder="Crear categoria" />
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn-plus" 
-                        onClick={handleCreateCategory}><FontAwesomeIcon icon={faPlus} /> </button>
-                </div>
-                <div class="d-grid gap-2">
-                    <button class="btn-img" type="button"
-                        onClick={handleCreateCommunity}>Crear grupo</button>
-                </div>
+            <form id='communityForm' onSubmit={handleSubmit(handleCreateCommunity)}>
+                <input class="form-control form-control-lg" type="text"
+                    placeholder="Nombre del grupo" aria-label=".form-control-lg example" {...register("name")} />
+                {errors.name && <ErrorMessage message={errors.name.message} />}
+                <input class="form-control" type="text"
+                    placeholder="Descripcion del grupo" aria-label="default input example" {...register("description")} />
+                {errors.description && <ErrorMessage message={errors.description.message} />}
+                <select class="form-select" id="validationDefault04" {...register("_category")} >
+                    <option selected disabled value="">Categoria...</option>
+                    {categories.map((cat, index) => (
+                        <option key={index} value={cat._id}>{cat.title}</option>
+                    ))}
+                </select>
+                {errors._category && <ErrorMessage message={errors._category.message} />}
             </form>
+            <div class="row g-3">
+                <CategoryCreationForm onCreation={onCategoryCreation} />
+                <div class="d-grid gap-2">
+                    <button class="btn-img" type="submit" form='communityForm'>Crear grupo</button>
+                </div>
+            </div>
         </div>
     )
 }
