@@ -63,10 +63,10 @@ const Publicacion = (props) => {
                 <div className='card-title'>
                     <div>
                     <p class="cardtext">{props.propPost?.body}</p>
-                    <div>
+                    <div className='image-container'>
                         {/* <Carrousel_publicacion/> */}
                         {(props.propPost?.image &&
-                            <img src={props.propPost?.image} class="imagen" alt='...' ></img>
+                            <img src={props.propPost?.image} class="image" alt='...' ></img>
                         )}
                     </div>      
                     </div>
