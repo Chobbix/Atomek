@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Estilos/Publicacion_style.css'
 import './Estilos/carrousel_style.css'
 // import Carrousel_publicacion from './carrousel_publicacion'
@@ -9,19 +9,22 @@ import { LikeAdd } from '../services/LikeServices'
 import Moment from 'moment';
 
 const Publicacion = (props) => {
+    const [isOwner, setIsOwner] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     Moment.locale('es');
 
     const handleAddLike = async (event, idPost) => {
         console.log(idPost);
-        try {
-            await LikeAdd({
-                _post: idPost,
-                _user: props?.propUserId
-            });
-        } 
-        catch (err) {
-            console.log(err);
-        }
+        setIsUpdating(true);
+        //try {
+        //    await LikeAdd({
+        //        _post: idPost,
+        //        _user: props?.propUserId
+        //    });
+        //} 
+        //catch (err) {
+        //    console.log(err);
+        //}
     }
 
     return (
@@ -39,19 +42,22 @@ const Publicacion = (props) => {
                         <h5 className='Fecha' > {Moment(props.propPost?.date_create).format('DD/MM/yyyy')}</h5>
                     </div>
                 </div>
-                <div id="Menupubli" className='MPubli'> 
-                <div className="dropdown text-end">
-                <a href="" className="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <FontAwesomeIcon icon={faEllipsisVertical}/>
-                </a>
-                <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    {/*  <li><a className="dropdown-item" href="#">New project...</a></li>
-                    <li><a className="dropdown-item" href="#">Settings</a></li> */}
-                    <li className="dropdown-item">Editar</li>
-                    <li className="dropdown-item">Elimiar</li>
-                </ul>
-                </div>
-                </div>
+                {
+                    props?.propUserId == props.propPost._user?._id ?
+                        <div id="Menupubli" className='MPubli'> 
+                        <div className="dropdown text-end">
+                        <a href="" className="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <FontAwesomeIcon icon={faEllipsisVertical}/>
+                        </a>
+                        <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                            <li className="dropdown-item">Editar</li>
+                            <li className="dropdown-item">Elimiar</li>
+                        </ul>
+                        </div>
+                        </div>
+                    :
+                        null
+                }
             </div>
             <div class="card-body">
                 <div className='card-title'>
@@ -70,9 +76,7 @@ const Publicacion = (props) => {
             </div>
             <div className='informacion'> 
             <FontAwesomeIcon icon={faStar}/>
-                <h6>150</h6>
-             
-                
+                <h6>{ props.propPost?.likesCount }</h6>
             </div>
             <div class="cardfooter ">
                 <div className='botones'>

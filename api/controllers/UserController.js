@@ -3,6 +3,7 @@ const User = require("../models/UserSchema");
 const Like = require("../models/LikeSchema")
 const Community = require("../models/CommunitySchema");
 const Post = require("../models/PostSchema");
+const Subscription = require("../models/SubscriptionSchema");
 const ImageUploader = require("../utils/ImageUploader");
 
 exports.userGetById = async (req, res) => {
@@ -159,7 +160,7 @@ exports.userGetAmountOfPosts = async (req, res) => {
 exports.userGetAmountOfSubscriptions = async (req, res) => {
     const { id } = req.params;
 
-    const amountSubscriptions = await Post
+    const amountSubscriptions = await Subscription
         .aggregate([
             { $match: { _user: mongoose.Types.ObjectId(id)} },
             { $count: "amount_subscriptions" }

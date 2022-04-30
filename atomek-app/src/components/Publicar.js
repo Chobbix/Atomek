@@ -6,7 +6,7 @@ import { StreakGetByCommunity } from '../services/StreakServices';
 import { PostCreate, PostUpdateImage } from '../services/PostServices';
 import { useNavigate } from 'react-router-dom';
 
-const Publicar = () => {
+const Publicar = (props) => {
 
     const [userSesion, setUserSesion] = useState();
     const [communities, setCommunities] = useState();
@@ -49,6 +49,7 @@ const Publicar = () => {
                 console.log(err);
             }
 
+            props.propHandleClickCreatePost();
             console.log("registrado con exito");
         }
     }

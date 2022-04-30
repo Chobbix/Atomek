@@ -12,6 +12,32 @@ const Content_Muro = (props) => {
     const [posts, setPosts] = useState([]);
     const [communities, setCommunities] = useState([]);
 
+
+    async function handleClickCreatePost() {
+
+        console.log("a");
+
+        try {
+            switch(props?.propParamId) {
+                case 'Mi-Muro':
+                    console.log("Muro");
+                    console.log(props);
+                    const postsMuro = await PostGetPostsByUserCommunities(props?.propUserId);
+                    setPosts(postsMuro);
+                    return;
+        
+                default:
+                    console.log("Comunidad");
+                    const postsCommunity = await PostGetPostsByCommunity(props?.propParamId);
+                    setPosts(postsCommunity);
+                    return;
+            }
+        }
+            catch(err) {
+            console.log(err);
+        }
+    }
+
     async function getInitialInformation() {
         try {
             switch(props?.propParamId) {
@@ -55,7 +81,7 @@ const Content_Muro = (props) => {
         switch(id) {
             case 'Mi-Muro':
                 return  <div class="contenedor_Muro bloque_contenedor_cursos">
-                            <Publicar />
+                            <Publicar propHandleClickCreatePost={handleClickCreatePost} />
 
                             {posts?.map((post, index) => (
                             <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
@@ -95,7 +121,7 @@ const Content_Muro = (props) => {
 
             default:
                 return <div class="contenedor_Muro bloque_contenedor_cursos">
-                            <Publicar />
+                            <Publicar propHandleClickCreatePost={handleClickCreatePost}/>
 
                             {posts?.map((post, index) => (
                             <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
