@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Estilos/Publicar_style.css'
+import logo from '../Imagenes/Atomeak LOGO.png'
 import { Link, useParams } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
 import { StreakGetByCommunity } from '../services/StreakServices';
@@ -15,6 +16,8 @@ const Publicar = (props) => {
     const [communityId, setCommunityId] = useState();
     const [streakId, setStreakId] = useState();
     const [body, setBody] = useState();
+    
+    const [imageBase64, setImageBase64] = useState('');
     const params = useParams();
     const navigate = useNavigate();
 
@@ -50,7 +53,18 @@ const Publicar = (props) => {
             }
 
             props.propHandleClickCreatePost();
+            setBody('');
+            setImageBase64('');
             console.log("registrado con exito");
+        }
+    }
+
+    const handleShowImage = (image) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(image[0]);
+        reader.onload = function() {
+            let base64 = reader.result;
+            setImageBase64(base64);
         }
     }
 
@@ -127,9 +141,19 @@ const Publicar = (props) => {
                     onChange={({target}) => setBody(target.value)}/>
                 <label for="floatingTextarea">Descripcion</label>
 
+
+                {
+                    imageBase64 != '' ?
+                        <div className='image-container'>
+                            <img src={imageBase64} className="image" alt="Responsive image"></img>
+                        </div>
+                    :
+                        null
+                }
+
                 <div class="grid ">
                     <div class="custom-file">
-                        <input type="file" class="inputfile" id="customFile" />
+                        <input type="file" class="inputfile" onChange={(e) => handleShowImage(e.target.files)} id="customFile" />
                     </div>
                 </div>
 
