@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import logo from '../Imagenes/Atomeak LOGO2.0.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
-import './Estilos/CrearRacha_style.css'
+import React, { useState, useEffect } from "react";
+import logo from "../Imagenes/Atomeak LOGO2.0.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faWrench } from "@fortawesome/free-solid-svg-icons";
+import "./Estilos/CrearRacha_style.css";
+import ErrorMessage from "./ErrorMessage";
+import TagCreationForm from "./TagCreationForm";
 import { Link } from "react-router-dom";
-import { communityGetComunitiesByUser } from '../services/CommunityServices'
-import { StreakCreate } from '../services/StreakServices'
-import { useNavigate } from 'react-router-dom'
-import { SubscriptionCreate } from '../services/SubscriptionServices'
-import { TagCreate, TagGetTagsByUser } from '../services/TagServices'
+import { communityGetComunitiesByUser } from "../services/CommunityServices";
+import { StreakCreate } from "../services/StreakServices";
+import { useNavigate } from "react-router-dom";
+import { SubscriptionCreate } from "../services/SubscriptionServices";
+import { TagCreate, TagGetTagsByUser } from "../services/TagServices";
+import { useForm } from "react-hook-form";
+import { streakSchema } from "../validations/StreakSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const ContRacha = () => {
-  const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  const [owner, setOwner] = useState('');
-  const [tagTitle, setTagTitle] = useState('');
-  const [tag_id, setTag_id] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(streakSchema),
+  });
+
   const navigate = useNavigate();
 
   const [userSesion, setUserSesion] = useState();
@@ -26,7 +34,7 @@ const ContRacha = () => {
   async function getInitialInformation() {
     try {
       const userJSON = localStorage.getItem("UserSession");
-      const usuario = (JSON.parse(userJSON));
+      const usuario = JSON.parse(userJSON);
       console.log(usuario);
       const data = await communityGetComunitiesByUser(usuario);
       const tagsResponse = await TagGetTagsByUser(usuario._id);
@@ -34,136 +42,157 @@ const ContRacha = () => {
       setTags(tagsResponse);
       setUserSesion(usuario);
       setCommunities(data);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
   }
 
-  const handleChangeTagInput = async (event) => {
-    let value = Array.from(event.target.selectedOptions, option => option.value);
-    setTag_id({values: value});
-  }
+  const handleCreateTag = async () => {
+    const tagsResponse = await TagGetTagsByUser(userSesion._id);
+    setTags(tagsResponse);
+  };
 
-  const handleCreateTag = async (event) => {
-    console.log(tagTitle);
-    try {
-      await TagCreate({
-        _user: userSesion._id,
-        title: tagTitle
-      })
+  const handleCreateStreak = async (data) => {
+    console.log(data);
+    return;
 
-      const tagsResponse = await TagGetTagsByUser(userSesion._id);
-      setTags(tagsResponse); 
-    }
-    catch(err) {
-      console.log(err);
-    }
-  }
-
-  const handleCreateStreak = async (event) => {
     var responseStreak;
     try {
-      if (owner != 1) {
+      if (data._community != 1) {
+        responseStreak = await StreakCreate(data);
+      } else {
         responseStreak = await StreakCreate({
-          title: name,
-          type: type,
-          _community: owner
-        });
-      }
-      else {
-        responseStreak = await StreakCreate({
-          title: name,
-          type: type,
-          _user: userSesion._id
+          title: data.title,
+          type: data.type,
+          _user: userSesion._id,
         });
       }
 
       await SubscriptionCreate({
         _id: responseStreak._id,
         _user: userSesion._id,
-        _tags: tags
+        _tags: data._tags,
       });
 
-      navigate('/atomek/URacha/' + responseStreak._id);
+      navigate("/atomek/URacha/" + responseStreak._id);
       console.log("streak registrado con exito");
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     getInitialInformation();
   }, []);
+
   return (
-
     <main>
-
       <div className="py-5 text-center">
         <h2>Creación de Racha</h2>
       </div>
-      <div className='contenido'>
+      <div className="contenido">
         <div className="row g-5">
           <div className="col-md-7 col-lg-8">
             <div className="contenido_text">
               <h4 className="mb-3">Datos de la racha</h4>
               <div className="row g-3">
-                <div className="col-12">
-                  <label for="text" className="form-label">Titulo de Racha</label>
-                  <input type="text" value={name}
-                    onChange={({ target }) => setName(target.value)}
-                    className="form-control" id="titulo" placeholder="Racha de ..."></input>
-                </div>
+                <form
+                  onSubmit={handleSubmit(handleCreateStreak)}
+                  id="streakForm"
+                  className="row g-3"
+                >
+                  <div className="col-12">
+                    <label for="text" className="form-label">
+                      Titulo de Racha
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="titulo"
+                      placeholder="Racha de ..."
+                      {...register("title")}
+                    ></input>
+                    {errors.title && (
+                      <ErrorMessage message={errors.title.message} />
+                    )}
+                  </div>
 
-                <div className="col-md-5">
-                  <label for="country" className="form-label">Racha</label>
-                  <select className="form-select" onChange={({ target }) => setOwner(target.value)} id="country" required>
-                    <option selected disabled value="">Elige...</option>
-                    <option value="1">Mio</option>
-                    {communities.map((com, index) => (
-                      <option key={index} value={com._id}>{com.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-md-5">
-                  <label for="country" className="form-label">Tipo de racha</label>
-                  <select className="form-select" onChange={({ target }) => setType(target.value)} id="country" required>
-                    <option selected disabled value="">Elige...</option>
-                    <option value="1">Foto</option>
-                    <option value="2">Texto</option>
-                  </select>
-                </div>
-                <div className="col-md-4">
-                  <label for="country" className="form-label">Etiqueta</label>
-                  <input type="text"  value={tagTitle}
-                    onChange={({ target }) => setTagTitle(target.value)}
-                    className="form-control" id="inputPassword2" placeholder="Crear etiqueta" />
-
-                </div>
-                <div className="col-md-1">
-                  <button type="submit" class="btn-plus " onClick={handleCreateTag}><FontAwesomeIcon icon={faPlus} /> </button>
-                </div>
-                <div className="col-md-5">
-                  <label for="country" className="form-label">Selecciona las etiquetas</label>
-                  <select className="form-select"
-                    onChange={(e) => {handleChangeTagInput(e)}} id="country" multiple="multiple" required >
-                    {tags?.map((tag, index) => (
-                      <option key={index} value={tag._id}>{tag.title}</option>
-                    ))}
-                  </select>
-                </div>
+                  <div className="col-md-5">
+                    <label for="country" className="form-label">
+                      Racha para...
+                    </label>
+                    <select
+                      className="form-select"
+                      id="country"
+                      {...register("_community")}
+                    >
+                      <option selected disabled value="">
+                        Elige...
+                      </option>
+                      <option value="1">Mi perfil</option>
+                      {communities.map((com, index) => (
+                        <option key={index} value={com._id}>
+                          {com.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors._community && (
+                      <ErrorMessage message={errors._community.message} />
+                    )}
+                  </div>
+                  <div className="col-md-5">
+                    <label for="country" className="form-label">
+                      Tipo de racha
+                    </label>
+                    <select
+                      className="form-select"
+                      id="country"
+                      {...register("type")}
+                    >
+                      <option selected disabled value="">
+                        Elige...
+                      </option>
+                      <option value="1">Foto</option>
+                      <option value="2">Texto</option>
+                    </select>
+                    {errors.type && (
+                      <ErrorMessage message={errors.type.message} />
+                    )}
+                  </div>
+                  <div className="col-md-5">
+                    <label for="country" className="form-label">
+                      Agregar etiquetas
+                    </label>
+                    <select
+                      className="form-select"
+                      id="country"
+                      multiple="multiple"
+                      {...register("_tags")}
+                    >
+                      {tags?.map((tag, index) => (
+                        <option key={index} value={tag._id}>
+                          {tag.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </form>
+                {userSesion?._id && <TagCreationForm userId={userSesion._id} onCreation={handleCreateTag} />}
               </div>
             </div>
           </div>
         </div>
       </div>
       <br></br>
-      <button className=" boton_final w-100 btn-lg" type="submit"
-        onClick={handleCreateStreak}>CREAR RACHA</button>
+      <button
+        className=" boton_final w-100 btn-lg"
+        type="submit"
+        form="streakForm"
+      >
+        CREAR RACHA
+      </button>
     </main>
+  );
+};
 
-  )
-}
-
-export default ContRacha
+export default ContRacha;
