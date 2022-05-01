@@ -9,6 +9,7 @@ import dormir from '../Imagenes/dormir.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faWrench, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Grafica from './Grafica'
+import ErrorMessage from './ErrorMessage';
 import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
 import { useParams } from 'react-router-dom';
@@ -17,8 +18,14 @@ import { FollowAddUserFollow } from '../services/FollowServices'
 import { SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices'
 import Moment from 'moment';
 import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form';
+import { userUpdateSchema } from '../validations/UserUpdateSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const ContPerfil = () => {
+  const {register, handleSubmit, formState: {errors}} = useForm({
+      resolver: yupResolver(userUpdateSchema)
+  });
   
   const [userProfile, setUserProfile] = useState();
   const [userSesion, setUserSesion] = useState();
@@ -86,13 +93,7 @@ const ContPerfil = () => {
     }
   }
 
-  const handleUpdateUserInfo = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const userId = form.dataset.userId;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
+  const handleUpdateUserInfo = async (data) => {
     // Remove empty strings
     Object.keys(data).forEach(key => {
       if (data[key] === '') {
@@ -100,12 +101,12 @@ const ContPerfil = () => {
       }
     });
 
-    await Update(data, userId);
+    await Update(data, userProfile?._id);
 
     try {
-      const responseUser = await GetById(userId);
+      const responseUser = await GetById(userProfile?._id);
       
-      if (userId == userSesion?._id) {
+      if (userProfile?._id == userSesion?._id) {
         setUserSesion(responseUser);
         localStorage.setItem('UserSession', JSON.stringify(responseUser));
       }
@@ -140,13 +141,22 @@ const ContPerfil = () => {
             <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">{userProfile?.followersCount}</p>
             { !isOwner? <button className='Seguirbtn btn' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button>: <p></p> }
           </div>
-          <form className="perfil-usuario-footer" onSubmit={handleUpdateUserInfo} data-user-id={userProfile?._id}>
+          <form className="perfil-usuario-footer" onSubmit={handleSubmit(handleUpdateUserInfo)} data-user-id={userProfile?._id}>
             <ul className="lista-datos">
-              <li><input type="text" name="username" defaultValue={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario"></input></li>
-              <li><input type="text" name="name" defaultValue={userProfile?.name} placeholder="Nombre" className="nombre" id="Nombre"></input></li>
+              <li>
+                <input type="text" defaultValue={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario" {...register("username")}></input>
+                {errors.username && <ErrorMessage message={errors.username.message} />}
+              </li>
+              <li>
+                <input type="text" defaultValue={userProfile?.name} placeholder="Nombre" className="nombre" id="Nombre" {...register("name")}></input>
+                {errors.name && <ErrorMessage message={errors.name.message} />}
+              </li>
             </ul>
             <ul className="lista-datos">
-              <li><input type="password" name="password" placeholder="Contraseña" className="input-cont" id="ContraUsuario"></input></li>
+              <li>
+                <input type="password" placeholder="Contraseña" className="input-cont" id="ContraUsuario" {...register("password")} ></input>
+                {errors.password && <ErrorMessage message={errors.password.message} />}
+              </li>
               <li><button type='submit'>Guardar</button></li>
             </ul>
           </form>
