@@ -13,7 +13,7 @@ const Content_Muro = (props) => {
     const [communities, setCommunities] = useState([]);
 
 
-    async function handleClickCreatePost() {
+    async function handleRefreshPosts() {
 
         console.log("a");
 
@@ -81,10 +81,10 @@ const Content_Muro = (props) => {
         switch(id) {
             case 'Mi-Muro':
                 return  <div class="contenedor_Muro bloque_contenedor_cursos">
-                            <Publicar propHandleClickCreatePost={handleClickCreatePost} />
+                            <Publicar propHandleClickCreatePost={handleRefreshPosts} />
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
+                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId} propHandleClickUpdatePost={handleRefreshPosts}/>
                             ))}
                         </div>;
 
@@ -121,10 +121,10 @@ const Content_Muro = (props) => {
 
             default:
                 return <div class="contenedor_Muro bloque_contenedor_cursos">
-                            <Publicar propHandleClickCreatePost={handleClickCreatePost}/>
+                            <Publicar propHandleClickCreatePost={handleRefreshPosts}/>
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId}/>
+                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId} propHandleClickUpdatePost={handleRefreshPosts}/>
                             ))}
                         </div>;
         }
