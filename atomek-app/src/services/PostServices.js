@@ -20,6 +20,16 @@ export const PostUpdate = async (req) => {
     }
 }
 
+export const PostDelete = async (req) => {
+    try {
+        const response = await axios.delete(`/posts/${req._id}`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const PostUpdateImage = async (id, image) => {
     try {
         const response = await axios.put(`/posts/${id}/image`, image, {

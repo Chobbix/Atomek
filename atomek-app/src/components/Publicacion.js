@@ -7,7 +7,7 @@ import { faPeopleCarry, faStar, faEllipsisVertical } from '@fortawesome/free-sol
 import { Link } from "react-router-dom";
 import { LikeAdd } from '../services/LikeServices'
 import Moment from 'moment';
-import { PostUpdate, PostUpdateImage } from '../services/PostServices'
+import { PostDelete, PostUpdate, PostUpdateImage } from '../services/PostServices'
 
 const Publicacion = (props) => {
     const [isOwner, setIsOwner] = useState(false);
@@ -57,16 +57,16 @@ const Publicacion = (props) => {
     }
 
     const handleDeletePost = async (event, idPost) => {
-        console.log(idPost);
-        //try {
-        //    await LikeAdd({
-        //        _post: idPost,
-        //        _user: props?.propUserId
-        //    });
-        //} 
-        //catch (err) {
-        //    console.log(err);
-        //}
+        try {
+            await PostDelete({
+                _id: idPost
+            });
+        } 
+        catch (err) {
+            console.log(err);
+        }
+        props.propHandleClickUpdatePost();
+        setIsUpdating(false)
     }
 
     const handleShowImage = (image) => {
