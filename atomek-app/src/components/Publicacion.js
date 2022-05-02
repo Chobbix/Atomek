@@ -7,11 +7,13 @@ import { faPeopleCarry, faStar, faEllipsisVertical } from '@fortawesome/free-sol
 import { Link } from "react-router-dom";
 import { LikeAdd } from '../services/LikeServices'
 import Moment from 'moment';
+import { PostUpdate, PostUpdateImage } from '../services/PostServices'
 
 const Publicacion = (props) => {
     const [isOwner, setIsOwner] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const [body, setBody] = useState();
+    const [image, setImage] = useState();
     const [imageBase64, setImageBase64] = useState('');
     Moment.locale('es');
 
@@ -29,31 +31,29 @@ const Publicacion = (props) => {
     }
 
     const handleEditPost = async (event, idPost) => {
-        console.log(imageBase64);
         setIsUpdating(true);
-        //try {
-        //    await LikeAdd({
-        //        _post: idPost,
-        //        _user: props?.propUserId
-        //    });
-        //} 
-        //catch (err) {
-        //    console.log(err);
-        //}
+    }
+
+    const handleCancelEditPost = async (event, idPost) => {
+        setIsUpdating(false);
     }
 
     const handleUpdatePost = async (event, idPost) => {
+        try {
+            await PostUpdate({
+                _id: idPost,
+                body: body
+            });
+
+            if (image) {
+                await PostUpdateImage(idPost, image);
+            }
+        } 
+        catch (err) {
+            console.log(err);
+        }
         props.propHandleClickUpdatePost();
         setIsUpdating(false)
-        //try {
-        //    await LikeAdd({
-        //        _post: idPost,
-        //        _user: props?.propUserId
-        //    });
-        //} 
-        //catch (err) {
-        //    console.log(err);
-        //}
     }
 
     const handleDeletePost = async (event, idPost) => {
@@ -76,10 +76,12 @@ const Publicacion = (props) => {
             let base64 = reader.result;
             setImageBase64(base64);
         }
+        setImage(image[0]);
     }
 
     async function getInitialInformation() {
         if(props.propPost?.image) setImageBase64(props.propPost?.image);
+        setBody(props.propPost?.body)
     }
 
     useEffect(() => {
@@ -183,7 +185,8 @@ const Publicacion = (props) => {
 
                     </div>
                     <div class="d-grid gap-2">
-                        <button class=" btn-img" type="button" onClick={handleUpdatePost}>Publicar</button>
+                        <button class=" btn-img" type="button" onClick={handleCancelEditPost}>Cancelar</button>
+                        <button class=" btn-img" type="button" onClick={(e) => handleUpdatePost(e, props.propPost?._id)}>Actualizar</button>
                     </div>
                 </div>
         }

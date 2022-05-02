@@ -10,6 +10,16 @@ export const PostCreate = async (req) => {
     }
 }
 
+export const PostUpdate = async (req) => {
+    try {
+        const response = await axios.put(`/posts/${req._id}`, req);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const PostUpdateImage = async (id, image) => {
     try {
         const response = await axios.put(`/posts/${id}/image`, image, {
