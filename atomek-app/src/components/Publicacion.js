@@ -114,8 +114,8 @@ const Publicacion = (props) => {
                                 <FontAwesomeIcon icon={faEllipsisVertical}/>
                                 </a>
                                 <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                                    <li className="dropdown-item" onClick={(e) => {handleEditPost(e, props.propPost?._id)}}>Editar</li>
-                                    <li className="dropdown-item" onClick={(e) => {handleDeletePost(e, props.propPost?._id)}}>Elimiar</li>
+                                    <li className="dropdown-item cursor-pointer" onClick={(e) => {handleEditPost(e, props.propPost?._id)}}>Editar</li>
+                                    <li className="dropdown-item cursor-pointer" onClick={(e) => {handleDeletePost(e, props.propPost?._id)}}>Elimiar</li>
                                 </ul>
                                 </div>
                                 </div>
