@@ -77,15 +77,26 @@ const ListStreaks = (props) => {
                                 <div className="d-flex justify-content-between">
                                     <strong className="text-light">{subscription._streak.title}</strong>
                                     <div>
-                                    <Link to={'/atomek/URacha/' + subscription._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPencil} value={subscription._id} /></a></Link> &ensp;
-                                    <Link to={'/atomek/URacha/' + subscription._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faTrash} value={subscription._id} /></a></Link> &ensp;
-                                    <Link to={'/atomek/URacha/' + subscription._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPlus} value={subscription._id} /></a></Link>
+                                        {
+                                            subscription._streak?._user ?
+                                                <>
+                                                <Link to={'/atomek/CRacha/' + subscription._streak._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPencil} value={subscription._id} /></a></Link> &ensp;
+                                                </>
+                                            :
+                                                null
+                                        }
+                                        <a className="text-light cursor-pointer"><FontAwesomeIcon icon={faTrash} value={subscription._id} /></a> &ensp;
+                                        <Link to={'/atomek/URacha/' + subscription._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPlus} value={subscription._id} /></a></Link> &ensp;
                                     </div>
                                 </div>
                                 <span className="text-light">Cantidad de veces hecha: {subscription.counter}</span>
                                 {
                                     subscription._streak.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>
                                         : <span className="d-block">Racha de tipo: Texto</span>
+                                }
+                                {
+                                    subscription._streak?._user ? <span className="d-block">Propietario: Yo</span>
+                                        : <span className="d-block">Propietario: Comunidad</span>
                                 }
                                 <span className="d-block">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</span>
                             </div>

@@ -6,8 +6,8 @@ import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
 import './Estilos/CrearRacha_style.css'
 import { Link } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
-import { StreakCreate } from '../services/StreakServices'
-import { useNavigate } from 'react-router-dom'
+import { StreakCreate, StreakGetById, StreakUpdate } from '../services/StreakServices'
+import { useNavigate, useParams } from 'react-router-dom'
 import { SubscriptionCreate } from '../services/SubscriptionServices'
 import { TagCreate, TagGetTagsByUser } from '../services/TagServices'
 
@@ -17,6 +17,7 @@ const ContRacha = () => {
   const [owner, setOwner] = useState('');
   const [tagTitle, setTagTitle] = useState('');
   const [tag_id, setTag_id] = useState([]);
+  const params = useParams();
   const navigate = useNavigate();
 
   const [userSesion, setUserSesion] = useState();
@@ -34,6 +35,11 @@ const ContRacha = () => {
       setTags(tagsResponse);
       setUserSesion(usuario);
       setCommunities(data);
+
+      if(params.idStreak) {
+        const responseStreak = await StreakGetById(params.idStreak);
+        setName(responseStreak.title);
+      }
     }
     catch (err) {
       console.log(err);
@@ -93,6 +99,22 @@ const ContRacha = () => {
     }
   }
 
+  const handleUpdateStreak = async (event) => {
+    try {
+
+      await StreakUpdate({
+        _id: params?.idStreak,
+        title: name
+      });
+
+      navigate('/atomek/Streaks/Community/Mi-Muro');
+      console.log("streak registrado con exito");
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     getInitialInformation();
   }, []);
@@ -101,7 +123,7 @@ const ContRacha = () => {
     <main>
 
       <div className="py-5 text-center">
-        <h2>Creación de Racha</h2>
+        {!params?.idStreak ? <h2>Creación de Racha</h2> : <h2>Modificación de Racha</h2>}
       </div>
       <div className='contenido'>
         <div className="row g-5">
@@ -116,51 +138,64 @@ const ContRacha = () => {
                     className="form-control" id="titulo" placeholder="Racha de ..."></input>
                 </div>
 
-                <div className="col-md-5">
-                  <label for="country" className="form-label">Racha</label>
-                  <select className="form-select" onChange={({ target }) => setOwner(target.value)} id="country" required>
-                    <option selected disabled value="">Elige...</option>
-                    <option value="1">Mio</option>
-                    {communities.map((com, index) => (
-                      <option key={index} value={com._id}>{com.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-md-5">
-                  <label for="country" className="form-label">Tipo de racha</label>
-                  <select className="form-select" onChange={({ target }) => setType(target.value)} id="country" required>
-                    <option selected disabled value="">Elige...</option>
-                    <option value="1">Foto</option>
-                    <option value="2">Texto</option>
-                  </select>
-                </div>
-                <div className="col-md-4">
-                  <label for="country" className="form-label">Etiqueta</label>
-                  <input type="text"  value={tagTitle}
-                    onChange={({ target }) => setTagTitle(target.value)}
-                    className="form-control" id="inputPassword2" placeholder="Crear etiqueta" />
+                {
+                  !params.idStreak ?
+                  <>
+                    <div className="col-md-5">
+                      <label for="country" className="form-label">Racha</label>
+                      <select className="form-select" onChange={({ target }) => setOwner(target.value)} id="country" required>
+                        <option selected disabled value="">Elige...</option>
+                        <option value="1">Mio</option>
+                        {communities.map((com, index) => (
+                          <option key={index} value={com._id}>{com.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-md-5">
+                      <label for="country" className="form-label">Tipo de racha</label>
+                      <select className="form-select" onChange={({ target }) => setType(target.value)} id="country" required>
+                        <option selected disabled value="">Elige...</option>
+                        <option value="1">Foto</option>
+                        <option value="2">Texto</option>
+                      </select>
+                    </div>
+                    <div className="col-md-4">
+                      <label for="country" className="form-label">Etiqueta</label>
+                      <input type="text"  value={tagTitle}
+                        onChange={({ target }) => setTagTitle(target.value)}
+                        className="form-control" id="inputPassword2" placeholder="Crear etiqueta" />
 
-                </div>
-                <div className="col-md-1">
-                  <button type="submit" class="btn-plus " onClick={handleCreateTag}><FontAwesomeIcon icon={faPlus} /> </button>
-                </div>
-                <div className="col-md-5">
-                  <label for="country" className="form-label">Selecciona las etiquetas</label>
-                  <select className="form-select"
-                    onChange={(e) => {handleChangeTagInput(e)}} id="country" multiple="multiple" required >
-                    {tags?.map((tag, index) => (
-                      <option key={index} value={tag._id}>{tag.title}</option>
-                    ))}
-                  </select>
-                </div>
+                    </div>
+                    <div className="col-md-1">
+                      <button type="submit" class="btn-plus " onClick={handleCreateTag}><FontAwesomeIcon icon={faPlus} /> </button>
+                    </div>
+                    <div className="col-md-5">
+                      <label for="country" className="form-label">Selecciona las etiquetas</label>
+                      <select className="form-select"
+                        onChange={(e) => {handleChangeTagInput(e)}} id="country" multiple="multiple" required >
+                        {tags?.map((tag, index) => (
+                          <option key={index} value={tag._id}>{tag.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                  :
+                  null
+                }
               </div>
             </div>
           </div>
         </div>
       </div>
       <br></br>
-      <button className=" boton_final w-100 btn-lg" type="submit"
-        onClick={handleCreateStreak}>CREAR RACHA</button>
+      { 
+        !params.idStreak ?
+          <button className=" boton_final w-100 btn-lg" type="submit"
+            onClick={handleCreateStreak}>CREAR RACHA</button>
+        :
+          <button className=" boton_final w-100 btn-lg" type="submit"
+            onClick={handleUpdateStreak}>ACTUALIZAR RACHA</button>
+      }
     </main>
 
   )
