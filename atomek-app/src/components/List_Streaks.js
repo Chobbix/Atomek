@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faCamera, faWrench, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
 import { CommunityGetComunityById } from '../services/CommunityServices';
-import { StreakGetByCommunity } from '../services/StreakServices';
-import { SubscriptionCreate, SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices';
+import { StreakDelete, StreakGetByCommunity } from '../services/StreakServices';
+import { SubscriptionCreate, SubscriptionDelete, SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices';
 import Moment from 'moment';
 
 const ListStreaks = (props) => {
@@ -26,6 +26,21 @@ const ListStreaks = (props) => {
                 _user: userSession._id
             });
             console.log('Se registro con exito');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleDeleteStreak = async (event, streakId, subscriptionId) => {
+        try {
+            await StreakDelete({
+                _id: streakId
+            });
+
+            await SubscriptionDelete({
+                _id: subscriptionId
+            });
         }
         catch (err) {
             console.log(err);
@@ -75,7 +90,7 @@ const ListStreaks = (props) => {
                             <svg className="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#6998AB" /><text x="50%" y="50%" fill="#6998AB" dy=".3em">32x32</text></svg>
                             <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
                                 <div className="d-flex justify-content-between">
-                                    <strong className="text-light">{subscription._streak.title}</strong>
+                                    <strong className="text-light">{subscription._streak?.title}</strong>
                                     <div>
                                         {
                                             subscription._streak?._user ?
@@ -85,13 +100,13 @@ const ListStreaks = (props) => {
                                             :
                                                 null
                                         }
-                                        <a className="text-light cursor-pointer"><FontAwesomeIcon icon={faTrash} value={subscription._id} /></a> &ensp;
+                                        <a className="text-light cursor-pointer"><FontAwesomeIcon onClick={(e) => { handleDeleteStreak(e, subscription._streak._id, subscription?._id) }} icon={faTrash} value={subscription._id} /></a> &ensp;
                                         <Link to={'/atomek/URacha/' + subscription._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPlus} value={subscription._id} /></a></Link> &ensp;
                                     </div>
                                 </div>
                                 <span className="text-light">Cantidad de veces hecha: {subscription.counter}</span>
                                 {
-                                    subscription._streak.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>
+                                    subscription._streak?.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>
                                         : <span className="d-block">Racha de tipo: Texto</span>
                                 }
                                 {
@@ -114,7 +129,7 @@ const ListStreaks = (props) => {
                                     </a>
                                 </div>
                                 {
-                                    streak.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>
+                                    streak?.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>
                                         : <span className="d-block">Racha de tipo: Texto</span>
                                 }
                                 <span className="d-block">Creado el: {Moment(streak.date_create).format('DD/MM/yyyy')}</span>

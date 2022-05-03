@@ -20,6 +20,16 @@ export const StreakUpdate = async (req) => {
     }
 }
 
+export const StreakDelete = async (req) => {
+    try {
+        const response = await axios.delete(`/streak/${req._id}`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const StreakGetById = async (req) => {
     try {
         const response = await axios.get(`/streak/${req}`,);

@@ -10,6 +10,16 @@ export const SubscriptionCreate = async (req) => {
     }
 }
 
+export const SubscriptionDelete = async (req) => {
+    try {
+        const response = await axios.delete(`/subscription/${req._id}`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const SubscriptionGetByStreakAndUser = async (req) => {
     try {
         const response = await axios.get(`/streak/${req._streak}/subscription/${req._user}/users`, req);
