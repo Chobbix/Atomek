@@ -27,6 +27,7 @@ function App() {
         <Route exact path="/atomek/Streaks/Community/:id" element={<StreaksCommunity />} />
         <Route exact path="/atomek/Crear" element={<CC />} />
         <Route exact path="/atomek/CRacha" element={<CrearRacha />} />
+        <Route exact path="/atomek/CRacha/:idStreak" element={<CrearRacha />} />
         <Route exact path="/atomek/URacha/:idStreak" element={<UpdtRacha />} />
         <Route exact path="/atomek/Responses/:idSubscription" element={<Responses />} />
 

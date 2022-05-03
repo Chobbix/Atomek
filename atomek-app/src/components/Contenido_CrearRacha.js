@@ -8,9 +8,9 @@ import ErrorMessage from "./ErrorMessage";
 import TagCreationForm from "./TagCreationForm";
 import { Link } from "react-router-dom";
 import { communityGetComunitiesByUser } from "../services/CommunityServices";
-import { StreakCreate } from "../services/StreakServices";
-import { useNavigate } from "react-router-dom";
-import { SubscriptionCreate } from "../services/SubscriptionServices";
+import { StreakCreate, StreakGetById, StreakUpdate } from '../services/StreakServices'
+import { useNavigate, useParams } from 'react-router-dom'
+import { SubscriptionCreate } from '../services/SubscriptionServices'
 import { TagCreate, TagGetTagsByUser } from "../services/TagServices";
 import { useForm } from "react-hook-form";
 import { streakSchema } from "../validations/StreakSchema";
@@ -25,6 +25,7 @@ const ContRacha = () => {
     resolver: yupResolver(streakSchema),
   });
 
+  const params = useParams();
   const navigate = useNavigate();
 
   const [userSesion, setUserSesion] = useState();
@@ -42,7 +43,13 @@ const ContRacha = () => {
       setTags(tagsResponse);
       setUserSesion(usuario);
       setCommunities(data);
-    } catch (err) {
+
+      if(params.idStreak) {
+        const responseStreak = await StreakGetById(params.idStreak);
+        // setName(responseStreak.title); ///////////////////////////////////
+      }
+    }
+    catch (err) {
       console.log(err);
     }
   }
@@ -81,6 +88,22 @@ const ContRacha = () => {
     }
   };
 
+  const handleUpdateStreak = async (event) => {
+    // try {
+
+    //   await StreakUpdate({
+    //     _id: params?.idStreak,
+    //     title: name
+    //   });
+
+    //   navigate('/atomek/Streaks/Community/Mi-Muro');
+    //   console.log("streak registrado con exito");
+    // }
+    // catch (err) {
+    //   console.log(err);
+    // }
+  }
+
   useEffect(() => {
     getInitialInformation();
   }, []);
@@ -88,7 +111,7 @@ const ContRacha = () => {
   return (
     <main>
       <div className="py-5 text-center">
-        <h2>Creación de Racha</h2>
+        {!params?.idStreak ? <h2>Creación de Racha</h2> : <h2>Modificación de Racha</h2>}
       </div>
       <div className="contenido">
         <div className="row g-5">
@@ -116,68 +139,72 @@ const ContRacha = () => {
                       <ErrorMessage message={errors.title.message} />
                     )}
                   </div>
-
-                  <div className="col-md-5">
-                    <label for="country" className="form-label">
-                      Racha para...
-                    </label>
-                    <select
-                      className="form-select"
-                      id="country"
-                      {...register("_community")}
-                    >
-                      <option selected disabled value="">
-                        Elige...
-                      </option>
-                      <option value="1">Mi perfil</option>
-                      {communities.map((com, index) => (
-                        <option key={index} value={com._id}>
-                          {com.name}
-                        </option>
-                      ))}
-                    </select>
-                    {errors._community && (
-                      <ErrorMessage message={errors._community.message} />
-                    )}
-                  </div>
-                  <div className="col-md-5">
-                    <label for="country" className="form-label">
-                      Tipo de racha
-                    </label>
-                    <select
-                      className="form-select"
-                      id="country"
-                      {...register("type")}
-                    >
-                      <option selected disabled value="">
-                        Elige...
-                      </option>
-                      <option value="1">Foto</option>
-                      <option value="2">Texto</option>
-                    </select>
-                    {errors.type && (
-                      <ErrorMessage message={errors.type.message} />
-                    )}
-                  </div>
-                  <div className="col-md-5">
-                    <label for="country" className="form-label">
-                      Agregar etiquetas
-                    </label>
-                    <select
-                      className="form-select"
-                      id="country"
-                      multiple="multiple"
-                      {...register("_tags")}
-                    >
-                      {tags?.map((tag, index) => (
-                        <option key={index} value={tag._id}>
-                          {tag.title}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  {
+                    !params.idStreak &&
+                    <>
+                      <div className="col-md-5">
+                        <label for="country" className="form-label">
+                          Racha para...
+                        </label>
+                        <select
+                          className="form-select"
+                          id="country"
+                          {...register("_community")}
+                        >
+                          <option selected disabled value="">
+                            Elige...
+                          </option>
+                          <option value="1">Mi perfil</option>
+                          {communities.map((com, index) => (
+                            <option key={index} value={com._id}>
+                              {com.name}
+                            </option>
+                          ))}
+                        </select>
+                        {errors._community && (
+                          <ErrorMessage message={errors._community.message} />
+                        )}
+                      </div>
+                      <div className="col-md-5">
+                        <label for="country" className="form-label">
+                          Tipo de racha
+                        </label>
+                        <select
+                          className="form-select"
+                          id="country"
+                          {...register("type")}
+                        >
+                          <option selected disabled value="">
+                            Elige...
+                          </option>
+                          <option value="1">Foto</option>
+                          <option value="2">Texto</option>
+                        </select>
+                        {errors.type && (
+                          <ErrorMessage message={errors.type.message} />
+                        )}
+                      </div>
+                      <div className="col-md-5">
+                        <label for="country" className="form-label">
+                          Agregar etiquetas
+                        </label>
+                        <select
+                          className="form-select"
+                          id="country"
+                          multiple="multiple"
+                          {...register("_tags")}
+                        >
+                          {tags?.map((tag, index) => (
+                            <option key={index} value={tag._id}>
+                              {tag.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  }
                 </form>
-                {userSesion?._id && <TagCreationForm userId={userSesion._id} onCreation={handleCreateTag} />}
+                {!params.idStreak && userSesion?._id && <TagCreationForm userId={userSesion._id} onCreation={handleCreateTag} />}
               </div>
             </div>
           </div>
@@ -189,7 +216,7 @@ const ContRacha = () => {
         type="submit"
         form="streakForm"
       >
-        CREAR RACHA
+        {params.idStreak ? "CREAR RACHA" : "ACTUALIZAR RACHA"}
       </button>
     </main>
   );

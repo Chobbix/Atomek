@@ -1,4 +1,9 @@
+const { default: mongoose } = require("mongoose");
 const User = require("../models/UserSchema");
+const Like = require("../models/LikeSchema")
+const Community = require("../models/CommunitySchema");
+const Post = require("../models/PostSchema");
+const Subscription = require("../models/SubscriptionSchema");
 const ImageUploader = require("../utils/ImageUploader");
 
 exports.userGetById = async (req, res) => {
@@ -100,3 +105,71 @@ exports.userUpdateImage = async (req, res) => {
         res.status(500).send({message: "Image could not be uploaded"});
     }
 }
+
+exports.userGetAmountOfLikes = async (req, res) => {
+    const { id } = req.params;
+
+    const amountLikes = await Like
+        .aggregate([
+            { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
+            { $count: "amount_likes" }
+        ]);
+
+    if (amountLikes) {
+        res.send(amountLikes[0]);
+    }
+    else {
+        res.status(404).send({message: "User not found"});
+    }
+};
+
+exports.userGetAmountOfCommunities = async (req, res) => {
+    const { id } = req.params;
+
+    const amountCommunities = await Community
+        .aggregate([
+            { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
+            { $count: "amount_communities" }
+        ]);
+
+    if (amountCommunities) {
+        res.send(amountCommunities[0]);
+    }
+    else {
+        res.status(404).send({message: "User not found"});
+    }
+};
+
+exports.userGetAmountOfPosts = async (req, res) => {
+    const { id } = req.params;
+
+    const amountPosts = await Post
+        .aggregate([
+            { $match: { _user: mongoose.Types.ObjectId(id)} },
+            { $count: "amount_posts" }
+        ]);
+
+    if (amountPosts) {
+        res.send(amountPosts[0]);
+    }
+    else {
+        res.status(404).send({message: "User not found"});
+    }
+};
+
+exports.userGetAmountOfSubscriptions = async (req, res) => {
+    const { id } = req.params;
+
+    const amountSubscriptions = await Subscription
+        .aggregate([
+            { $match: { _user: mongoose.Types.ObjectId(id)} },
+            { $count: "amount_subscriptions" }
+        ]);
+
+    if (amountSubscriptions) {
+        res.send(amountSubscriptions[0]);
+    }
+    else {
+        res.status(404).send({message: "User not found"});
+    }
+};

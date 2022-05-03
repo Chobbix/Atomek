@@ -99,7 +99,7 @@ exports.communityGetAmountOfUsers = async (req, res) => {
         ]);
 
     if (community) {
-        res.send(community);
+        res.send(community[0]);
     }
     else {
         res.status(404).send({message: "Community not found"});

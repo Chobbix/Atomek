@@ -4,7 +4,7 @@ import './Estilos/Scroll_style.css'
 import { Pie } from 'react-chartjs-2';
 import {Chart, Tooltip, Title, ArcElement, Legend} from 'chart.js'
 
-const Grafica = () => {
+const Grafica = (props) => {
     Chart.register(Tooltip, Title, ArcElement, Legend);
 
     const data = {
@@ -15,7 +15,7 @@ const Grafica = () => {
             'Rachas'
         ],
         datasets:[{
-            data:[100, 5, 50, 5],
+            data:[props.propUserLikes, props.propUserCommunities, props.propUserPosts, props.propUserSubscriptions],
             backgroundColor: ['#406882', '#212529', '#7AE0ED', '#666666']
         }]
     }

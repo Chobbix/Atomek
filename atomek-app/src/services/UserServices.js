@@ -57,3 +57,20 @@ export const SetUserImage = async (id, image) => {
         return err;
     }
 }
+
+export const GetUserStats = async (id) => {
+    try {
+        const likes = await axios.get(`/users/${id}/amount-likes`);
+        const communities = await axios.get(`/users/${id}/amount-communities`);
+        const posts = await axios.get(`/users/${id}/amount-posts`);
+        const subscriptions = await axios.get(`/users/${id}/amount-subscriptions`);
+
+        const response = Object.assign(likes.data, communities.data, posts.data, subscriptions.data);
+
+        console.log(response);
+        return response;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
