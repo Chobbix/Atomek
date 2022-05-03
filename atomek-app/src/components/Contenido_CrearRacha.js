@@ -60,8 +60,6 @@ const ContRacha = () => {
   };
 
   const handleCreateStreak = async (data) => {
-    console.log(data);
-    return;
 
     var responseStreak;
     try {
@@ -216,7 +214,7 @@ const ContRacha = () => {
         type="submit"
         form="streakForm"
       >
-        {params.idStreak ? "CREAR RACHA" : "ACTUALIZAR RACHA"}
+        {!params.idStreak ? "CREAR RACHA" : "ACTUALIZAR RACHA"}
       </button>
     </main>
   );

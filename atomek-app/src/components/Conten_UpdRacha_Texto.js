@@ -3,22 +3,35 @@ import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faWrench } from '@fortawesome/free-solid-svg-icons'
 import './Estilos/CrearRacha_style.css'
+import ErrorMessage from './ErrorMessage';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import { ResponseCreate } from '../services/ResponseServices'
 import { SubscriptionIncreaseCounter } from '../services/SubscriptionServices'
 
+import { useForm } from 'react-hook-form';
+import { responseSchema } from '../validations/ResponseSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const UpdateRacha = (props) => {
-  const [text, setText] = useState('');
-  const [note, setNote] = useState('');
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({
+      resolver: yupResolver(responseSchema),
+      defaultValues: {
+        type: props.propSubscription?._streak.type
+      }
+  });
+
+  useEffect(() => {
+    reset({type: props.propSubscription?._streak.type});
+  }, [props.propSubscription?._streak.type]);
+
   const navigate = useNavigate();
 
-  const handleCreateResponse = async (event) => {
+  const handleCreateResponse = async (data) => {
     try {
       await ResponseCreate({
-        text: text,
-        note: note,
+        text: data.text,
+        note: data.note,
         _subscription: props.propSubscription._id
       });
 
@@ -45,27 +58,27 @@ const UpdateRacha = (props) => {
             <div className="col-md-7 col-lg-8">
               <div className="contenido_text">
                 <h4 className="mb-3">Racha {props.propSubscription?._streak?.title} - DIA: {props.propSubscription?.counter}</h4>
-                <div className="row g-3">
+                <form className="row g-3" id='responseForm' onSubmit={handleSubmit(handleCreateResponse, (errorObj) => console.log(errorObj))} >
                   <div className="col-12">
+                    <input type='hidden' {...register("type")} />
                     <label for="text" className="form-label">Evidencia</label>
-                    <textarea type="text" value={text}
-                      onChange={({ target }) => setText(target.value)}
-                      className="form-control" id="titulo" placeholder="Era hace una vez..."></textarea>
+                    <textarea type="text"
+                      className="form-control" id="titulo" placeholder="Era hace una vez..." {...register("text")} ></textarea>
+                    {errors.text && <ErrorMessage message={errors.text.message} />}
                   </div>
                   <div className="col-md-5">
                     <label for="country" className="form-label">Notas</label>
-                    <input type="text" value={note}
-                      onChange={({ target }) => setNote(target.value)}
-                      className="form-control" id="titulo" placeholder="Hoy tuve un avance porque..."></input>
+                    <input type="text"
+                      className="form-control" id="titulo" placeholder="Hoy tuve un avance porque..." {...register("note")} />
+                    {errors.note && <ErrorMessage message={errors.note.message} />}
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
         <br></br>
-        <button className=" boton_final w-100 btn-lg"
-          onClick={handleCreateResponse} type="submit">ACTUALIZAR RACHA</button>
+        <button className=" boton_final w-100 btn-lg" type="submit" form='responseForm' >ACTUALIZAR RACHA</button>
       </main>
     </>
   )
