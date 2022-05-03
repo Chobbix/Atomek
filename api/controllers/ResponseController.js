@@ -84,7 +84,7 @@ exports.responseUpdateImage = async (req, res) => {
     const response = await Response.findById(id);
 
     if (!response) {
-        return res.status(404).send({message: "User not found. Could not update image"});
+        return res.status(404).send({message: "Response not found. Could not update image"});
     }
 
     const imageUploader = new ImageUploader();
@@ -92,7 +92,7 @@ exports.responseUpdateImage = async (req, res) => {
     const imageUrl = await imageUploader.upload(body, headers["content-type"]);
 
     if (imageUrl) {
-        await Response.updateOne({image: imageUrl});
+        await response.updateOne({image: imageUrl});
 
         res.send();
     }

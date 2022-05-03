@@ -10,6 +10,20 @@ export const ResponseCreate = async (req) => {
     }
 }
 
+export const SetResponseImage = async (id, image) => {
+    try {
+        const response = await axios.put(`/response/${id}/image`, image, {
+            headers: {
+                'Content-Type': image.type
+            }
+        });
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const ResponseGetResponsesBySubscription = async (req) => {
     try {
         const response = await axios.get(`/response/${req}/subscription`);
