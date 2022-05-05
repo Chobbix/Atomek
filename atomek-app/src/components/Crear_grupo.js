@@ -32,6 +32,7 @@ const Crear_grupo = () => {
 
     const handleCreateCommunity = async (data) => {
         try {
+            data._admin = userSesion._id;
             const communityResponse = await CommunityCreate(data);
 
             // Add current user to its own created Community

@@ -11,6 +11,7 @@ import StreaksCommunity from './pages/Streaks_Community';
 import CrearRacha from './pages/Crear_racha';
 import UpdtRacha from './pages/Update_racha';
 import Responses from './pages/Responses';
+import ViewAdmin from './pages/View_Admin';
 
 
 import { Routes, Route, Link } from "react-router-dom";
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/atomek/login" element={<Login />} />
         <Route exact path="/atomek/Perfil/:idUser" element={<Perfil />} />
         <Route exact path="/atomek/Muro/:id" element={<Muro />} />
+        <Route exact path="/atomek/Community/:id/View-Admin" element={<ViewAdmin />} />
         <Route exact path="/atomek/Streaks/Community/:id" element={<StreaksCommunity />} />
         <Route exact path="/atomek/Crear" element={<CC />} />
         <Route exact path="/atomek/CRacha" element={<CrearRacha />} />

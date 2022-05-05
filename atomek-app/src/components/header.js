@@ -3,13 +3,37 @@ import logo from '../Imagenes/Atomeak LOGO2.0.png'
 import './Estilos/header_style.css'
 import { Link } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import { CommunityGetComunityById } from '../services/CommunityServices';
 
 const Header = () => {
   const [userSesion, setUserSesion] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
   const params = useParams();
+
+  async function getIsAdmin() {
+    try {
+      const responseCommunity = await CommunityGetComunityById(params?.id);
+      if(responseCommunity?._admin) {
+        if(responseCommunity?._admin == userSesion?._id) { setIsAdmin(true); }
+        else { setIsAdmin(false); console.log('No admin1'); }
+      }
+      else {
+        console.log('No admin2');
+        setIsAdmin(false);
+      }
+    } catch (error) {
+      console.log('No admin3');
+      setIsAdmin(false);
+    }
+  }
 
   async function getUserSesion() {
     setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
+  }
+  
+  function renderAdminButton() {
+    getIsAdmin();
+    if (isAdmin == true) { return <Link to={"/atomek/Community/" + params.id + "/View-Admin"} className="nav-link px-2 link-light">Vista Admin</Link> }
   }
 
   useEffect(() => {
@@ -49,6 +73,9 @@ const Header = () => {
                 : params.id ? <Link to={"/atomek/Streaks/Community/" + params.id} className="nav-link px-2 link-light">Rachas de la Comunidad</Link>
                 : <Link to={"/atomek/Streaks/Community/Mi-Muro"} className="nav-link px-2 link-light">Mis Rachas</Link>
               }
+              </li>
+              <li>
+              { renderAdminButton() }
               </li>
             </ul>
 

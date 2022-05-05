@@ -5,12 +5,16 @@ const ImageUploader = require("../utils/ImageUploader");
 exports.communityGetById = async (req, res) => {
     const { id } = req.params;
 
-    const community = await Community.findById(id).populate("_category").populate("_users");
-
-    if (community) {
-        res.send(community);
+    try {
+        const community = await Community.findById(id).populate("_category").populate("_users");
+        if (community) {
+            res.send(community);
+        }
+        else {
+            res.status(404).send({message: "Community not found"});
+        }
     }
-    else {
+    catch(err) {
         res.status(404).send({message: "Community not found"});
     }
 };

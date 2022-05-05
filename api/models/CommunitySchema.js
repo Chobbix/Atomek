@@ -24,6 +24,10 @@ const communitySchema = new mongoose.Schema({
         ref: "category",
         required: true,
     },
+    _admin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
     _users: [
         {
             type: mongoose.Schema.Types.ObjectId,

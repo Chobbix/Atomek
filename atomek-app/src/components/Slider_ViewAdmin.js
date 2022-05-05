@@ -1,0 +1,94 @@
+import React, { useState, useEffect } from 'react'
+import './Estilos/Slider_style.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAlignJustify, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Link, useParams } from "react-router-dom";
+import { communityGetComunitiesByUser } from '../services/CommunityServices'
+import ListStreaks from './List_Streaks';
+
+const SliderViewAdmin = () => {
+
+    const [communities, setCommunities] = useState([]);
+    const params = useParams();
+
+    async function getInitialInformation() {
+        try {
+            const userJSON = localStorage.getItem("UserSession");
+            const usuario = (JSON.parse(userJSON));
+            const data = await communityGetComunitiesByUser(usuario);
+            setCommunities(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    function returnContentStreaks() {
+        const userJSON = localStorage.getItem("UserSession");
+        const usuario = (JSON.parse(userJSON));
+    }
+
+    useEffect(() => {
+        getInitialInformation();
+    }, []);
+
+    return (
+        <body id="fonditobonito" className="fonditobonito">
+            <div class="menus">
+                <input type="radio" id="Muro" name="categoria" value="preguntas" checked />
+                <input type="radio" id="Descubrir" name="categoria" value="Respuestas" />
+                <input type="radio" id="Crear" name="categoria" value="diplomas" />
+                <input type="radio" id="Grupos" name="categoria" value="guardado" />
+
+
+                <input type="radio" id="GrupoAll" name="categoria" value="guardado" />
+
+                <input type="radio" id="TuGrupoAll" name="categoria" value="guardado" />
+
+                <div className="Grupo">
+                    <div class="canvas2">
+
+                        <Link to="/atomek/Muro/Mi-Muro" key={params.id}>
+                            <label for="Muro" className="item grupo1">
+                                <h4 >Tu Muro</h4>
+                            </label>
+                        </Link>
+                        <Link to="/atomek/Muro/Descubrir">
+                            <label for="Descubrir" className="item grupo1">
+                                <h4 >Descubrir</h4>
+                            </label>
+                        </Link>
+                        <Link to="/atomek/Muro/Crear-Grupo">
+                            <label for="Crear" className="item grupo1">
+                                <h4 >Crear Grupo</h4>
+                            </label>
+                        </Link>
+
+                        <h1 className="subtitulo"> Tus Grupos </h1>
+
+                        {communities?.slice(0,5).map((com, index) => (
+                            <Link key={index} to={"/atomek/Muro/" + com._id}>
+                                <label key={index} for={"TuGrupo" + index} className="item grupo1">
+                                    <h6 key={index}>{com.name}</h6>
+                                </label>
+                            </Link>
+                        ))}
+
+                        <label for="TuGrupoAll" className="item grupo1">
+                            <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="Muro" id="Registro">
+                    <div class="bloque-contenido">
+                        {returnContentStreaks()}
+                    </div>
+                </div>
+            </div>
+        </body>
+    )
+};
+
+export default SliderViewAdmin;
