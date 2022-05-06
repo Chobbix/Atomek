@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlignJustify, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
 import { communityGetComunitiesByUser } from '../services/CommunityServices'
-import ListStreaks from './List_Streaks';
+import Update_grupo from './Update_grupo';
+import ListStreaksAdmin from './List_Streaks_Admin';
 
 const SliderViewAdmin = () => {
 
@@ -23,9 +24,11 @@ const SliderViewAdmin = () => {
         }
     }
 
-    function returnContentStreaks() {
+    function returnContentAdminView() {
         const userJSON = localStorage.getItem("UserSession");
         const usuario = (JSON.parse(userJSON));
+
+        return <><Update_grupo /> <ListStreaksAdmin key={params?.id} propParamId={params?.id} propUserId={usuario?._id}  /></>
     }
 
     useEffect(() => {
@@ -83,7 +86,7 @@ const SliderViewAdmin = () => {
 
                 <div class="Muro" id="Registro">
                     <div class="bloque-contenido">
-                        {returnContentStreaks()}
+                        {returnContentAdminView()}
                     </div>
                 </div>
             </div>
