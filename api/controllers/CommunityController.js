@@ -160,10 +160,10 @@ exports.communityGetComunitiesByUser = async (req, res) => {
     let community;
 
     if (negate == true) {
-        community = await Community.find({_users: {$ne: id}});
+        community = await Community.find({_users: {$ne: id}, active: true});
     }
     else {
-        community = await Community.find({_users: id});
+        community = await Community.find({_users: id, active: true});
     }
     
     if (community) {

@@ -65,6 +65,21 @@ const Update_grupo = () => {
         }
     }
 
+    const handleDeleteCommunity = async (event) => {
+        try {
+            await CommunityUpdate({
+                _id: params.id,
+                active: false
+            });
+
+            console.log("comunidad eliminada con exito");
+            navigate('/atomek/Muro/Mi-Muro');
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
+
     const onCategoryCreation = (data) => {
         getAllCategories();
     };
@@ -99,7 +114,7 @@ const Update_grupo = () => {
                 <CategoryCreationForm onCreation={onCategoryCreation} />
                 <div class="d-grid gap-2">
                     <button class="btn-img" type="submit" form='communityForm'>Actualizar informacion</button>
-                    <button class="btn-danger" type="submit" form='communityForm'>Eliminar grupo</button>
+                    <button class="btn-danger" onClick={handleDeleteCommunity}>Eliminar grupo</button>
                 </div>
             </div>
         </div>

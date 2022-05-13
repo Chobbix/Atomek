@@ -15,6 +15,10 @@ const streakSchema = new mongoose.Schema({
         type : Date, 
         default: Date.now 
     },
+    active: {
+        type: Boolean,
+        default: true
+    },
     _community: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,

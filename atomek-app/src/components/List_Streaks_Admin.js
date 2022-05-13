@@ -37,10 +37,6 @@ const ListStreaksAdmin = (props) => {
             await StreakDelete({
                 _id: streakId
             });
-
-            await SubscriptionDelete({
-                _id: subscriptionId
-            });
         }
         catch (err) {
             console.log(err);
@@ -83,8 +79,8 @@ const ListStreaksAdmin = (props) => {
                             <div className="d-flex justify-content-between">
                                 <strong className="text-light">{streak.title}</strong>
                                 <div>
-                                    <a className="text-light cursor-pointer" onClick={(e) => { handleCreateSubscription(e, streak._id) }}> <FontAwesomeIcon icon={faTrash} value={streak._id} /> </a> &ensp;
                                     <Link to={'/atomek/CRacha/' + streak._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPencil} value={streak._id} /></a></Link> &ensp;
+                                    <a className="text-light cursor-pointer" onClick={(e) => { handleDeleteStreak(e, streak._id) }}> <FontAwesomeIcon icon={faTrash} value={streak._id} /> </a> &ensp;
                                 </div>
                             </div>
                             {

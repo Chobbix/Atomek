@@ -19,6 +19,10 @@ const communitySchema = new mongoose.Schema({
         type : Date, 
         default: Date.now 
     },
+    active: {
+        type: Boolean,
+        default: true
+    },
     _category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "category",
