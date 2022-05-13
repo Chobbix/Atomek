@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faCamera, faWrench, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
 import { CommunityGetComunityById } from '../services/CommunityServices';
-import { StreakDelete, StreakGetByCommunity } from '../services/StreakServices';
+import { StreakDelete, StreakGetByCommunity, StreakUpdate } from '../services/StreakServices';
 import { SubscriptionCreate, SubscriptionDelete, SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices';
 import Moment from 'moment';
 
@@ -32,11 +32,15 @@ const ListStreaksAdmin = (props) => {
         }
     }
 
-    const handleDeleteStreak = async (event, streakId, subscriptionId) => {
+    const handleDeleteStreak = async (event, streakId) => {
         try {
-            await StreakDelete({
-                _id: streakId
+            await StreakUpdate({
+                _id: streakId,
+                active: false
             });
+
+            const streaksResponse = await StreakGetByCommunity(props.propParamId);
+            setStreaks(streaksResponse);
         }
         catch (err) {
             console.log(err);

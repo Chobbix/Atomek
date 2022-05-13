@@ -62,7 +62,7 @@ exports.streakDelete = async (req, res) => {
 exports.streakGetByCommunity = async (req, res) => {
     const { communityId } = req.params;
 
-    const streak = await Streak.find({_community: communityId}).populate("_community").populate("_user");
+    const streak = await Streak.find({_community: communityId, active: true}).populate("_community").populate("_user");
 
     if (streak) {
         res.send(streak);

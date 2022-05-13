@@ -13,24 +13,25 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { SubscriptionCreate } from '../services/SubscriptionServices'
 import { TagCreate, TagGetTagsByUser } from "../services/TagServices";
 import { useForm } from "react-hook-form";
-import { streakSchema } from "../validations/StreakSchema";
+import { streakSchema, streakUpdateSchema } from "../validations/StreakSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const ContRacha = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(streakSchema),
+    resolver: yupResolver(!params.idStreak ? streakSchema : streakUpdateSchema),
   });
-
-  const params = useParams();
-  const navigate = useNavigate();
 
   const [userSesion, setUserSesion] = useState();
   const [communities, setCommunities] = useState([]);
   const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState();
 
   async function getInitialInformation() {
     try {
@@ -46,7 +47,7 @@ const ContRacha = () => {
 
       if(params.idStreak) {
         const responseStreak = await StreakGetById(params.idStreak);
-        // setName(responseStreak.title); ///////////////////////////////////
+        setTitle(responseStreak.title); ///////////////////////////////////
       }
     }
     catch (err) {
@@ -86,20 +87,20 @@ const ContRacha = () => {
     }
   };
 
-  const handleUpdateStreak = async (event) => {
-    // try {
+  const handleUpdateStreak = async (data) => {
+    try {
 
-    //   await StreakUpdate({
-    //     _id: params?.idStreak,
-    //     title: name
-    //   });
+      await StreakUpdate({
+        _id: params?.idStreak,
+        title: data.title
+      });
 
-    //   navigate('/atomek/Streaks/Community/Mi-Muro');
-    //   console.log("streak registrado con exito");
-    // }
-    // catch (err) {
-    //   console.log(err);
-    // }
+      navigate('/atomek/Streaks/Community/Mi-Muro');
+      console.log("streak actualizado con exito");
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   useEffect(() => {
@@ -118,7 +119,7 @@ const ContRacha = () => {
               <h4 className="mb-3">Datos de la racha</h4>
               <div className="row g-3">
                 <form
-                  onSubmit={handleSubmit(handleCreateStreak)}
+                  onSubmit={!params.idStreak ? handleSubmit(handleCreateStreak) : handleSubmit(handleUpdateStreak)}
                   id="streakForm"
                   className="row g-3"
                 >
@@ -131,6 +132,7 @@ const ContRacha = () => {
                       className="form-control"
                       id="titulo"
                       placeholder="Racha de ..."
+                      defaultValue={title}
                       {...register("title")}
                     ></input>
                     {errors.title && (
