@@ -30,7 +30,7 @@ const Response = (props) => {
                                 <p className="cardtext">{props.propResponse?.text}</p>
                             :
                                 <div className='image-container'>
-                                    <img src={require('../Imagenes/maribb.jpg')} className="image" alt="Responsive image"></img>
+                                    <img src={props.propResponse?.image} className="image" alt="Responsive image"></img>
                                 </div>
                         }
                     </div>
