@@ -88,7 +88,9 @@ const Content_Muro = (props) => {
                             <Publicar propHandleClickCreatePost={handleRefreshPosts} />
 
                             {posts?.map((post, index) => (
-                            <Publicacion key={index} propPost={post} propUserId={props?.propUserId} propHandleClickUpdatePost={handleRefreshPosts}/>
+                                post._community?.active == true ?
+                                    <Publicacion key={index} propPost={post} propUserId={props?.propUserId} propHandleClickUpdatePost={handleRefreshPosts}/>
+                                : null
                             ))}
                         </div>;
 
@@ -99,7 +101,7 @@ const Content_Muro = (props) => {
                             <div class="hileras">
                                 {communities.map((community) => (
                                     <div className="bloque">
-                                        <GruposBloque_style image={community.image} name={community.name} />
+                                        <GruposBloque_style propCommunityId={community?._id} propUserId={props?.propUserId} name={community?.name} />
                                     </div>
                                 ))}
                             </div>

@@ -112,10 +112,10 @@ exports.postGetPostsByUserCommunities = async (req, res) => {
     const communities = await Community.find({_users: userId}).select('_id');
 
     const posts = await Post.find({
-        '_community': { $in: 
+        _community: { $in: 
             communities
         }
-    }).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
+    }).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name active").sort({date_create: -1});
 
     res.send(posts);
 };
