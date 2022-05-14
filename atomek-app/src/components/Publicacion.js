@@ -3,9 +3,9 @@ import './Estilos/Publicacion_style.css'
 import './Estilos/carrousel_style.css'
 // import Carrousel_publicacion from './carrousel_publicacion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPeopleCarry, faStar, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import { faPeopleCarry, faStar, faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
-import { LikeAdd } from '../services/LikeServices'
+import { LikeAdd, LikeDelete } from '../services/LikeServices'
 import Moment from 'moment';
 import { PostDelete, PostUpdate, PostUpdateImage } from '../services/PostServices'
 
@@ -15,19 +15,33 @@ const Publicacion = (props) => {
     const [body, setBody] = useState();
     const [image, setImage] = useState();
     const [imageBase64, setImageBase64] = useState('');
+    const [isLiked, setIsLiked] = useState(false);
     Moment.locale('es');
 
     const handleAddLike = async (event, idPost) => {
         console.log(idPost);
-        //try {
-        //    await LikeAdd({
-        //        _post: idPost,
-        //        _user: props?.propUserId
-        //    });
-        //} 
-        //catch (err) {
-        //    console.log(err);
-        //}
+        try {
+            await LikeAdd({
+                _post: idPost,
+                _user: props?.propUserId
+            });
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleRemoveLike = async (event, idPost) => {
+        console.log(idPost);
+        try {
+            await LikeDelete({
+                _post: idPost,
+                _user: props?.propUserId
+            });
+        } 
+        catch (err) {
+            console.log(err);
+        }
     }
 
     const handleEditPost = async (event, idPost) => {
@@ -143,10 +157,15 @@ const Publicacion = (props) => {
                         <h6>{ props.propPost?.likesCount }</h6>
                     </div>
                     <div class="cardfooter ">
-                        <div className='botones'>
-                            <button className='btn_reaccion'
-                                onClick={(e) => {handleAddLike(e, props.propPost?._id)}}> <FontAwesomeIcon icon={faStar} /> Felicitar </button>
-                            <button className='btn_reaccion'> <FontAwesomeIcon icon={faPeopleCarry} /> Unise al reto </button>
+                        <div className='botones row'>
+                            {
+                                !isLiked ?
+                                    <button className='btn_reaccion'
+                                        onClick={(e) => {handleAddLike(e, props.propPost?._id)}}> <FontAwesomeIcon icon={faStar} /> Felicitar </button>
+                                :
+                                    <button className='btn_reaccion'
+                                        onClick={(e) => {handleRemoveLike(e, props.propPost?._id)}}> <FontAwesomeIcon icon={faCheck} /> Anular </button>
+                            }
                         </div>
                     </div>
                 </div>

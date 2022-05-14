@@ -154,8 +154,8 @@ exports.communityAddCategory = async (req, res) => {
 
 exports.communityGetComunitiesByUser = async (req, res) => {
     const { id } = req.params;
-    const { query } = req;
-    const negate = query.negate ?? false;
+    const { body } = req;
+    const negate = body.negate ?? false;
 
     let community;
 
@@ -165,6 +165,19 @@ exports.communityGetComunitiesByUser = async (req, res) => {
     else {
         community = await Community.find({_users: id, active: true});
     }
+    
+    if (community) {
+        res.send(community);
+    }
+    else {
+        res.status(404).send({message: "Community not found"});
+    }
+};
+
+exports.communityGetComunitiesDiscover = async (req, res) => {
+    const { id } = req.params;
+
+    const community = await Community.find({_users: {$ne: id}, active: true});
     
     if (community) {
         res.send(community);

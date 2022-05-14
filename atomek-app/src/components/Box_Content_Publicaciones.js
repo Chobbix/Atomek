@@ -4,7 +4,7 @@ import Crear_grupo from "./Crear_grupo";
 import GruposBloque_style from "./GruposBloque_style";
 import Publicar from "./Publicar";
 import { Link, useParams } from "react-router-dom";
-import { communityGetComunitiesByUser } from '../services/CommunityServices';
+import { communityGetComunitiesByUser, CommunityGetComunitiesDiscover } from '../services/CommunityServices';
 import { PostGetPostsByCommunity, PostGetPostsByUserCommunities } from '../services/PostServices';
 
 const Content_Muro = (props) => {
@@ -50,7 +50,9 @@ const Content_Muro = (props) => {
     
                 case 'Descubrir':
                     console.log("Descubrir");
-                    const exploreCommunities = await communityGetComunitiesByUser({_id: props?.propUserId}, true);
+                    const exploreCommunities = await CommunityGetComunitiesDiscover({
+                        _id: props?.propUserId
+                    });
                     setCommunities(exploreCommunities);
                     console.log(exploreCommunities);
                     return;
@@ -60,7 +62,9 @@ const Content_Muro = (props) => {
 
                 case 'All-Grupos':
                     console.log("Descubrir");
-                    const communitiesResponse = await communityGetComunitiesByUser({_id: props?.propUserId}, true);
+                    const communitiesResponse = await communityGetComunitiesByUser({
+                        _id: props?.propUserId
+                    });
                     setCommunities(communitiesResponse);
                     console.log(communitiesResponse);
                     return;

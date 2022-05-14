@@ -40,11 +40,19 @@ export const CommunityGetComunityById = async (req) => {
     }
 }
 
-export const communityGetComunitiesByUser = async (req, negate = false) => {
+export const communityGetComunitiesByUser = async (req) => {
     try {
-        const response = await axios.get(`/users/${req._id}/communities`, {
-            params: {negate}
-        });
+        const response = await axios.get(`/users/${req._id}/communities`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
+export const CommunityGetComunitiesDiscover = async (req) => {
+    try {
+        const response = await axios.get(`/users/${req._id}/communities-discover`);
         return response.data;
     } catch (err) {
         console.log(err);
