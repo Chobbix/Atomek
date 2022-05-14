@@ -29,3 +29,13 @@ export const LikeDelete = async (req) => {
         return err;
     }
 }
+
+export const LikeGetIsLiked = async (req) => {
+    try {
+        const response = await axios.get(`/posts/${req._post}/user/${req._user}`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

@@ -95,3 +95,17 @@ exports.likeRemove = async (req, res) => {
 
     res.send();
 };
+
+exports.likeGetIsLiked = async (req, res) => {
+    const { postId } = req.params;
+    const { userId } = req.params;
+
+    const postResponse = await Like.find({_post: postId, _users: userId});
+
+    if (postResponse == '') {
+        res.send( {isLiked: false} );
+        return;
+    }
+
+    res.send( {isLiked: true} );
+};

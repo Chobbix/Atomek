@@ -5,7 +5,7 @@ import './Estilos/carrousel_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleCarry, faStar, faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
-import { LikeAdd, LikeDelete } from '../services/LikeServices'
+import { LikeAdd, LikeDelete, LikeGetIsLiked } from '../services/LikeServices'
 import Moment from 'moment';
 import { PostDelete, PostUpdate, PostUpdateImage } from '../services/PostServices'
 
@@ -16,6 +16,7 @@ const Publicacion = (props) => {
     const [image, setImage] = useState();
     const [imageBase64, setImageBase64] = useState('');
     const [isLiked, setIsLiked] = useState(false);
+    const [countLikes, setCountLikes] = useState(0);
     Moment.locale('es');
 
     const handleAddLike = async (event, idPost) => {
@@ -29,6 +30,9 @@ const Publicacion = (props) => {
         catch (err) {
             console.log(err);
         }
+
+        setCountLikes(countLikes + 1);
+        setIsLiked(true);
     }
 
     const handleRemoveLike = async (event, idPost) => {
@@ -42,6 +46,9 @@ const Publicacion = (props) => {
         catch (err) {
             console.log(err);
         }
+
+        setCountLikes(countLikes - 1);
+        setIsLiked(false);
     }
 
     const handleEditPost = async (event, idPost) => {
@@ -95,7 +102,15 @@ const Publicacion = (props) => {
 
     async function getInitialInformation() {
         if(props.propPost?.image) setImageBase64(props.propPost?.image);
-        setBody(props.propPost?.body)
+        setBody(props.propPost?.body);
+        setCountLikes(props.propPost?.likesCount);
+
+        const response = await LikeGetIsLiked({
+            _post: props.propPost?._id,
+            _user: props?.propUserId
+        });
+
+        setIsLiked(response.isLiked);
     }
 
     useEffect(() => {
@@ -154,7 +169,7 @@ const Publicacion = (props) => {
                     </div>
                     <div className='informacion'> 
                     <FontAwesomeIcon icon={faStar}/>
-                        <h6>{ props.propPost?.likesCount }</h6>
+                        <h6>{ countLikes }</h6>
                     </div>
                     <div class="cardfooter ">
                         <div className='botones row'>
