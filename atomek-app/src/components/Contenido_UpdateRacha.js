@@ -2,7 +2,7 @@ import React, {Component, useEffect, useState} from 'react'
 import ContTextRacha from '../components/Conten_UpdRacha_Texto';
 import ContImagRacha from '../components/Conten_UpdRacha_Imagen';
 import { StreakGetById } from '../services/StreakServices';
-import { SubscriptionGetByStreakAndUser } from '../services/SubscriptionServices';
+import { SubscriptionGetById, SubscriptionGetByStreakAndUser } from '../services/SubscriptionServices';
 import { useParams } from 'react-router-dom';
 
 const RenderizadoTipoRacha = () => {
@@ -16,10 +16,7 @@ const RenderizadoTipoRacha = () => {
       const userJSON = localStorage.getItem("UserSession");
       const usuario = (JSON.parse(userJSON));
 
-      const responseSubscription = await SubscriptionGetByStreakAndUser({
-        _streak: params.idStreak,
-        _user: usuario._id
-      });
+      const responseSubscription = await SubscriptionGetById(params.idStreak);
 
       if(responseSubscription._streak.type == 1) { setTipo(false); }
       else { setTipo(true); }
