@@ -1,4 +1,6 @@
+const { default: mongoose } = require("mongoose");
 const Streak = require("../models/StreakSchema");
+const Subscription = require("../models/SubscriptionSchema");
 
 exports.streakGetById = async (req, res) => {
     const { id } = req.params;
@@ -66,6 +68,34 @@ exports.streakGetByCommunity = async (req, res) => {
 
     if (streak) {
         res.send(streak);
+    }
+    else {
+        res.status(404).send({message: "Streak not found"});
+    }
+};
+
+exports.streakGetByCommunityIfUserIsSubscribed = async (req, res) => {
+    const { communityId } = req.params;
+    const { userId } = req.params;
+
+    const reponseSubscriptions = await Subscription
+        .aggregate([
+            { $match: { _user: mongoose.Types.ObjectId(userId)} },
+            { 
+                $group: { 
+                    _id: "$_user",
+                    subscriptions: { $push: "$_streak" } 
+                }
+            }
+        ]);
+
+    //const streak = await Streak
+    //    .aggregate([
+    //        { $match: { _community: mongoose.Types.ObjectId(communityId)} }
+    //    ]);
+
+    if (reponseSubscriptions) {
+        res.send(reponseSubscriptions[0]);
     }
     else {
         res.status(404).send({message: "Streak not found"});
