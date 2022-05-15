@@ -7,16 +7,20 @@ import { StreakGetByCommunity } from "../services/StreakServices";
 import { PostCreate, PostUpdateImage } from "../services/PostServices";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { postSchema } from "../validations/PostSchema";
+import { postCommunitySchema, postSchema } from "../validations/PostSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const Publicar = (props) => {
+
+  const params = useParams();
+  const navigate = useNavigate();
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(postSchema),
+    resolver: yupResolver(params.id == "Mi-Muro" ? postSchema : postCommunitySchema),
   });
 
   const [userSesion, setUserSesion] = useState();
@@ -24,8 +28,6 @@ const Publicar = (props) => {
   const [streaks, setStreaks] = useState();
 
   const [imageBase64, setImageBase64] = useState("");
-  const params = useParams();
-  const navigate = useNavigate();
 
   async function handleOnChangeCommunity(communityValue) {
     setStreaks(await StreakGetByCommunity(communityValue));
@@ -36,6 +38,8 @@ const Publicar = (props) => {
       try {
         const fileInput = document.getElementById("customFile");
         const image = fileInput.files[0];
+
+        if (params.id != 'Mi-Muro') { data._communityId = params.id }
 
         const responseData = await PostCreate({
           _community: data._communityId,
