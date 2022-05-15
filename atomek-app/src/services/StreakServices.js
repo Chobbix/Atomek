@@ -49,3 +49,13 @@ export const StreakGetByCommunity = async (req) => {
         return err;
     }
 }
+
+export const StreakGetByCommunityIfUserIsSubscribed = async (req) => {
+    try {
+        const response = await axios.get(`/community/${req._community}/user/${req._user}/is-subscribed`,);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

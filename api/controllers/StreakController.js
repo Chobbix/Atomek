@@ -84,18 +84,39 @@ exports.streakGetByCommunityIfUserIsSubscribed = async (req, res) => {
             { 
                 $group: { 
                     _id: "$_user",
-                    subscriptions: { $push: "$_streak" } 
+                    subscriptions_streak: { $push: "$_streak" } 
                 }
             }
         ]);
 
-    //const streak = await Streak
-    //    .aggregate([
-    //        { $match: { _community: mongoose.Types.ObjectId(communityId)} }
-    //    ]);
+    let streak;
 
-    if (reponseSubscriptions) {
-        res.send(reponseSubscriptions[0]);
+    if (reponseSubscriptions != ''){
+        streak = await Streak
+            .aggregate([
+                { $match: { _community: mongoose.Types.ObjectId(communityId)} },
+                { 
+                    $project: { 
+                        title: "$title",
+                        type: "$type",
+                        _community: "$_community",
+                        date_create: "$date_create",
+                        isSubscribed: { 
+                            $cond: { if: { $in: [ "$_id", reponseSubscriptions[0].subscriptions_streak ] }, then: true, else: false }
+                        }
+                    }
+                }
+            ]);
+    }
+    else {
+        streak = await Streak
+            .aggregate([
+                { $match: { _community: mongoose.Types.ObjectId(communityId)} }
+            ]);
+    }
+
+    if (streak) {
+        res.send(streak);
     }
     else {
         res.status(404).send({message: "Streak not found"});

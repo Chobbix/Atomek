@@ -1,8 +1,9 @@
 import { axiosBase as axios } from "./Config";
 
 export const SubscriptionCreate = async (req) => {
+    console.log(req);
     try {
-        const response = await axios.post(`/streak/${req._id}/subscription`, req);
+        const response = await axios.post(`/streak/${req._streak}/subscription`, req);
         return response.data;
     } catch (err) {
         console.log(err);

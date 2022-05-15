@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import './Estilos/Slider_style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faCamera, faWrench, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faCheck, faCamera, faWrench, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
 import { CommunityGetComunityById } from '../services/CommunityServices';
-import { StreakDelete, StreakGetByCommunity } from '../services/StreakServices';
+import { StreakDelete, StreakGetByCommunity, StreakGetByCommunityIfUserIsSubscribed } from '../services/StreakServices';
 import { SubscriptionCreate, SubscriptionDelete, SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices';
 import Moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const ListStreaks = (props) => {
 
@@ -16,13 +17,14 @@ const ListStreaks = (props) => {
     const [streakId, setStreakId] = useState('');
     const [userSession, setUserSession] = useState();
     const [isUserSubscription, setIsUserSubscription] = useState(false);
+    const Navigate = useNavigate();
     const params = useParams();
     Moment.locale('es');
 
     const handleCreateSubscription = async (event, streakId) => {
         try {
             await SubscriptionCreate({
-                _id: streakId,
+                _streak: streakId,
                 _user: userSession._id
             });
             console.log('Se registro con exito');
@@ -30,6 +32,7 @@ const ListStreaks = (props) => {
         catch (err) {
             console.log(err);
         }
+        Navigate('/atomek/Streaks/Community/Mi-Muro');
     }
 
     const handleDeleteStreak = async (event, streakId, subscriptionId) => {
@@ -65,7 +68,7 @@ const ListStreaks = (props) => {
                 const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(usuario._id);
                 setSubscriptions(subscriptionsResponse);
 
-                const streaksResponse = await StreakGetByCommunity(props.propParamId);
+                const streaksResponse = await StreakGetByCommunityIfUserIsSubscribed({_community: props?.propParamId, _user: usuario?._id});
                 setStreaks(streaksResponse);
             }
         }
@@ -124,9 +127,16 @@ const ListStreaks = (props) => {
                             <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
                                 <div className="d-flex justify-content-between">
                                     <strong className="text-light">{streak.title}</strong>
-                                    <a className="text-light cursor-pointer" onClick={(e) => { handleCreateSubscription(e, streak._id) }}>
-                                        <FontAwesomeIcon icon={faPlus} value={streak._id} />
-                                    </a>
+                                    {
+                                        streak.isSubscribed != true ?
+                                        <a className="text-light cursor-pointer" onClick={(e) => { handleCreateSubscription(e, streak._id) }}>
+                                            <FontAwesomeIcon icon={faPlus} value={streak._id} />
+                                        </a>
+                                        :
+                                        <a className="text-light">
+                                            <FontAwesomeIcon icon={faCheck}/>
+                                        </a>
+                                    }
                                 </div>
                                 {
                                     streak?.type == 1 ? <span className="d-block">Racha de tipo: Imagen</span>
