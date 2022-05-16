@@ -5,6 +5,11 @@ exports.categoryGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const category = await Category.findById(id);
 
     if (category) {
@@ -20,6 +25,11 @@ exports.categoryCreate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const category = new Category(body);
 
     await category
@@ -39,6 +49,11 @@ exports.categoryUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const category = await Category.findById(id);
 
     if (category) {
@@ -54,6 +69,11 @@ exports.categoryDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const category = await Category.findById(id);
 
     if (category) {
@@ -69,6 +89,11 @@ exports.categoryGetAll = async (req, res) => {
     const auth = req.get('authorization');
     const category = await Category.find();
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     if (category) {
         res.send(category);
     }

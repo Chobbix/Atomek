@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const CategoryCreate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/category`, req);
+        const response = await axios.post(`/category`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -15,7 +15,7 @@ export const CategoryCreate = async (req) => {
 export const CategoryGetAll = async () => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/category`);
+        const response = await axios.get(`/category`, config);
         return response.data;
     } catch (err) {
         console.log(err);

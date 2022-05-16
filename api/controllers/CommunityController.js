@@ -7,6 +7,11 @@ exports.communityGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+
     try {
         const community = await Community.findById(id).populate("_category").populate("_users");
         if (community) {
@@ -25,6 +30,11 @@ exports.communityCreate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const community = new Community(body);
 
     await community
@@ -44,6 +54,11 @@ exports.communityUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const community = await Community.findById(id);
 
     if (community) {
@@ -87,6 +102,11 @@ exports.communityDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const community = await Community.findById(id);
 
     if (community) {
@@ -102,6 +122,11 @@ exports.communityGetAmountOfUsers = async (req, res) => {
     var { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     id = mongoose.Types.ObjectId(id);
     const community = await Community
         .aggregate([
@@ -122,6 +147,11 @@ exports.communityAddUser = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const community = await Community.findById(id);
 
     if (community) {
@@ -144,6 +174,11 @@ exports.communityAddCategory = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const community = await Community.findById(id);
 
     if (community) {
@@ -167,6 +202,11 @@ exports.communityGetComunitiesByUser = async (req, res) => {
     const auth = req.get('authorization');
     const negate = body.negate ?? false;
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     let community;
 
     if (!verifyToken(auth)) {
@@ -191,7 +231,13 @@ exports.communityGetComunitiesByUser = async (req, res) => {
 
 exports.communityGetComunitiesDiscover = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const community = await Community.find({_users: {$ne: id}, active: true});
     
     if (community) {

@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const StreakCreate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/streak`, req);
+        const response = await axios.post(`/streak`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -15,7 +15,7 @@ export const StreakCreate = async (req) => {
 export const StreakUpdate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.put(`/streak/${req._id}`, req);
+        const response = await axios.put(`/streak/${req._id}`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -26,7 +26,7 @@ export const StreakUpdate = async (req) => {
 export const StreakDelete = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.delete(`/streak/${req._id}`);
+        const response = await axios.delete(`/streak/${req._id}`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -37,7 +37,7 @@ export const StreakDelete = async (req) => {
 export const StreakGetById = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/streak/${req}`,);
+        const response = await axios.get(`/streak/${req}`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -48,7 +48,7 @@ export const StreakGetById = async (req) => {
 export const StreakGetByCommunity = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/community/${req}/streaks`,);
+        const response = await axios.get(`/community/${req}/streaks`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -59,7 +59,7 @@ export const StreakGetByCommunity = async (req) => {
 export const StreakGetByCommunityIfUserIsSubscribed = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/community/${req._community}/user/${req._user}/is-subscribed`,);
+        const response = await axios.get(`/community/${req._community}/user/${req._user}/is-subscribed`, config);
         return response.data;
     } catch (err) {
         console.log(err);

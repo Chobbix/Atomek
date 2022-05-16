@@ -6,6 +6,11 @@ exports.responseGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const response = await Response.findById(id).populate("_subscription");
 
     if (response) {
@@ -20,6 +25,11 @@ exports.responseCreate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const response = new Response(body);
 
     await response
@@ -39,6 +49,11 @@ exports.responseUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const response = await Response.findById(id);
 
     if (response) {
@@ -54,6 +69,11 @@ exports.responseDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const response = await Response.findById(id);
 
     if (response) {
@@ -69,6 +89,11 @@ exports.responsesGetByIdSubscription = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const response = await Response.find({_subscription: id}).sort({date_create: -1});
 
     if (response) {

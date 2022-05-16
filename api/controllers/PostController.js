@@ -7,6 +7,11 @@ exports.postGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const post = await Post.findById(id).populate("_user", "username image");
 
     if (post) {
@@ -20,6 +25,11 @@ exports.postGetAll = async (req, res) => {
     const { communityId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const posts = await Post.find({_community: communityId}).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
 
     res.send(posts);
@@ -31,6 +41,11 @@ exports.postCreate = async (req, res) => {
     const auth = req.get('authorization');
     body._community = communityId;
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const post = new Post(body);
 
     try {
@@ -77,6 +92,11 @@ exports.postUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const post = await Post.findById(id);
 
     if (post) {
@@ -91,6 +111,11 @@ exports.postUpdate = async (req, res) => {
 exports.postDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
+    
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
     
     const post = await Post.findById(id);
 
@@ -107,6 +132,11 @@ exports.postGetPostsByUser = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const posts = await Post.find({_user: userId}).populate("_user", "username image")
                                                 .populate("_streak", "_id title")
                                                 .populate("_community", "_id name");
@@ -118,6 +148,11 @@ exports.postGetPostsByUserCommunities = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const communities = await Community.find({_users: userId}).select('_id');
 
     const posts = await Post.find({

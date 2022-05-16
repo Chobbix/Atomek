@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const GetById = async (id) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/users/${id}`);
+        const response = await axios.get(`/users/${id}`, config);
         console.log(response);
         return response.data;
     } catch (err) {
@@ -37,7 +37,7 @@ export const Create = async (req) => {
 export const Update = async (data, id) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.put(`/users/${id}`, data);
+        const response = await axios.put(`/users/${id}`, data, config);
         console.log(response);
         return response.data;
     } catch (error) {
@@ -65,10 +65,10 @@ export const SetUserImage = async (id, image) => {
 export const GetUserStats = async (id) => {
     try {
         const config = getConfigHeader();
-        const likes = await axios.get(`/users/${id}/amount-likes`);
-        const communities = await axios.get(`/users/${id}/amount-communities`);
-        const posts = await axios.get(`/users/${id}/amount-posts`);
-        const subscriptions = await axios.get(`/users/${id}/amount-subscriptions`);
+        const likes = await axios.get(`/users/${id}/amount-likes`, config);
+        const communities = await axios.get(`/users/${id}/amount-communities`, config);
+        const posts = await axios.get(`/users/${id}/amount-posts`, config);
+        const subscriptions = await axios.get(`/users/${id}/amount-subscriptions`, config);
 
         const response = Object.assign(likes.data, communities.data, posts.data, subscriptions.data);
 

@@ -7,6 +7,11 @@ exports.streakGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const streak = await Streak.findById(id).populate("_community").populate("_user");
 
     if (streak) {
@@ -21,6 +26,11 @@ exports.streakCreate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const streak = new Streak(body);
 
     await streak
@@ -40,6 +50,11 @@ exports.streakUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const streak = await Streak.findById(id);
 
     if (streak) {
@@ -55,6 +70,11 @@ exports.streakDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const streak = await Streak.findById(id);
 
     if (streak) {
@@ -70,6 +90,11 @@ exports.streakGetByCommunity = async (req, res) => {
     const { communityId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const streak = await Streak.find({_community: communityId, active: true}).populate("_community").populate("_user");
 
     if (streak) {
@@ -85,6 +110,11 @@ exports.streakGetByCommunityIfUserIsSubscribed = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const reponseSubscriptions = await Subscription
         .aggregate([
             { $match: { _user: mongoose.Types.ObjectId(userId)} },

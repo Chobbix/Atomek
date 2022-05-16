@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const ResponseCreate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/response`, req);
+        const response = await axios.post(`/response`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -30,7 +30,7 @@ export const SetResponseImage = async (id, image) => {
 export const ResponseGetResponsesBySubscription = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/response/${req}/subscription`);
+        const response = await axios.get(`/response/${req}/subscription`, config);
         return response.data;
     } catch (err) {
         console.log(err);

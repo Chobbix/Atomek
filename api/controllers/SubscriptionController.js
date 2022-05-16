@@ -5,6 +5,11 @@ exports.subscriptionGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = await Subscription.findById(id).populate("_user").populate("_streak").populate("_tags");
 
     if (subscription) {
@@ -21,6 +26,11 @@ exports.subscriptionCreate = async (req, res) => {
     const auth = req.get('authorization');
     body._streak = streakId;
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = new Subscription(body);
 
     await subscription
@@ -40,6 +50,11 @@ exports.subscriptionUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = await Subscription.findById(id);
 
     if (subscription) {
@@ -55,6 +70,11 @@ exports.subscriptionDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = await Subscription.findById(id);
 
     if (subscription) {
@@ -71,6 +91,11 @@ exports.subscriptionGetSubscriptionByStreakAndUser = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = await Subscription.findOne({ _streak: streakId, _user: userId }).populate("_user").populate("_streak").populate("_tags");
 
     if (subscription) {
@@ -85,6 +110,11 @@ exports.subscriptionIncreaseCounter = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = await Subscription.findById(id);
 
     if (subscription) {
@@ -102,6 +132,11 @@ exports.subscriptionGetSubscriptionsByUser = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const subscription = await Subscription.find({ _user: userId }).populate("_streak").sort({date_create: -1});
 
     if (subscription) {

@@ -5,7 +5,7 @@ export const SubscriptionCreate = async (req) => {
     console.log(req);
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/streak/${req._streak}/subscription`, req);
+        const response = await axios.post(`/streak/${req._streak}/subscription`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -16,7 +16,7 @@ export const SubscriptionCreate = async (req) => {
 export const SubscriptionDelete = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.delete(`/subscription/${req._id}`);
+        const response = await axios.delete(`/subscription/${req._id}`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -27,7 +27,7 @@ export const SubscriptionDelete = async (req) => {
 export const SubscriptionGetByStreakAndUser = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/streak/${req._streak}/subscription/${req._user}/users`, req);
+        const response = await axios.get(`/streak/${req._streak}/subscription/${req._user}/users`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -38,7 +38,7 @@ export const SubscriptionGetByStreakAndUser = async (req) => {
 export const SubscriptionGetById = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/subscription/${req}`);
+        const response = await axios.get(`/subscription/${req}`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -49,7 +49,7 @@ export const SubscriptionGetById = async (req) => {
 export const SubscriptionIncreaseCounter = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.put(`/subscription/${req._id}/increase-counter`);
+        const response = await axios.put(`/subscription/${req._id}/increase-counter`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -60,7 +60,7 @@ export const SubscriptionIncreaseCounter = async (req) => {
 export const SubscriptionGetSubscriptionsByUser = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/users/${req}/subscriptions`);
+        const response = await axios.get(`/users/${req}/subscriptions`, config);
         return response.data;
     } catch (err) {
         console.log(err);

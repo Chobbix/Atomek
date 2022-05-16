@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const TagCreate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/users/${req._user}/tags`, req);
+        const response = await axios.post(`/users/${req._user}/tags`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -15,7 +15,7 @@ export const TagCreate = async (req) => {
 export const TagGetTagsByUser = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/users/${req}/tags`);
+        const response = await axios.get(`/users/${req}/tags`, config);
         return response.data;
     } catch (err) {
         console.log(err);

@@ -7,6 +7,11 @@ exports.likeGetAll = async (req, res) => {
     const { postId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const post = await Post.findById(postId);
 
     if (!post) {
@@ -29,6 +34,11 @@ exports.likeAdd = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const post = await Post.findById(postId);
 
     if (!post) {
@@ -71,6 +81,11 @@ exports.likeRemove = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const post = await Post.findById(postId);
 
     if (!post) {
@@ -105,6 +120,11 @@ exports.likeGetIsLiked = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const postResponse = await Like.find({_post: postId, _users: userId});
 
     if (postResponse == '') {

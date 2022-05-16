@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const LikeGetPostLikes = async (req, negate = false) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/posts/${req._post}/likes`);
+        const response = await axios.get(`/posts/${req._post}/likes`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -15,7 +15,7 @@ export const LikeGetPostLikes = async (req, negate = false) => {
 export const LikeAdd = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/posts/${req._post}/likes`, req);
+        const response = await axios.post(`/posts/${req._post}/likes`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -26,7 +26,7 @@ export const LikeAdd = async (req) => {
 export const LikeDelete = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.delete(`/posts/${req._post}/likes/${req._user}`);
+        const response = await axios.delete(`/posts/${req._post}/likes/${req._user}`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -37,7 +37,7 @@ export const LikeDelete = async (req) => {
 export const LikeGetIsLiked = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/posts/${req._post}/user/${req._user}`);
+        const response = await axios.get(`/posts/${req._post}/user/${req._user}`, config);
         return response.data;
     } catch (err) {
         console.log(err);

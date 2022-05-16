@@ -5,6 +5,11 @@ exports.tagGetAll = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const tags = await Tag.find({_user: userId});
 
     res.send(tags);
@@ -16,6 +21,11 @@ exports.tagCreate = async (req, res) => {
     const auth = req.get('authorization');
     body._user = userId;
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const tag = new Tag(body);
 
     try {
@@ -34,6 +44,11 @@ exports.tagUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const tag = Tag.findById(id);
 
     if (tag) {
@@ -49,6 +64,11 @@ exports.tagDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const tag = Tag.findById(id);
 
     if (tag) {

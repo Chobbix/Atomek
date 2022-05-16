@@ -6,6 +6,11 @@ exports.followGetAll = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const user = await User.findById(userId);
 
     if (!user) {
@@ -28,6 +33,11 @@ exports.followAdd = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const user = await User.findById(userId);
 
     if (!user) {
@@ -72,6 +82,11 @@ exports.followRemove = async (req, res) => {
     const { followUserId } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const user = await User.findById(userId);
 
     if (!user) {

@@ -12,6 +12,11 @@ exports.userGetById = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const user = await User.findById(id);
 
     if (user) {
@@ -78,6 +83,11 @@ exports.userUpdate = async (req, res) => {
     const { body } = req;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const user = await User.findById(id);
 
     if (user) {
@@ -94,6 +104,11 @@ exports.userDelete = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const user = await User.findById(id);
 
     if (user) {
@@ -138,6 +153,11 @@ exports.userGetAmountOfLikes = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const amountLikes = await Like
         .aggregate([
             { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
@@ -156,6 +176,11 @@ exports.userGetAmountOfCommunities = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const amountCommunities = await Community
         .aggregate([
             { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
@@ -174,6 +199,11 @@ exports.userGetAmountOfPosts = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const amountPosts = await Post
         .aggregate([
             { $match: { _user: mongoose.Types.ObjectId(id)} },
@@ -192,6 +222,11 @@ exports.userGetAmountOfSubscriptions = async (req, res) => {
     const { id } = req.params;
     const auth = req.get('authorization');
 
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
     const amountSubscriptions = await Subscription
         .aggregate([
             { $match: { _user: mongoose.Types.ObjectId(id)} },

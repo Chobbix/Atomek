@@ -4,7 +4,7 @@ import { axiosBase as axios } from "./Config";
 export const CommunityCreate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.post(`/community`, req);
+        const response = await axios.post(`/community`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -15,7 +15,7 @@ export const CommunityCreate = async (req) => {
 export const CommunityUpdate = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.put(`/community/${req._id}`, req);
+        const response = await axios.put(`/community/${req._id}`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -26,7 +26,7 @@ export const CommunityUpdate = async (req) => {
 export const communityAddUser = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.put(`/community/${req.communityId}/add-user`, req);
+        const response = await axios.put(`/community/${req.communityId}/add-user`, req, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -37,7 +37,7 @@ export const communityAddUser = async (req) => {
 export const CommunityGetComunityById = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/community/${req}`);
+        const response = await axios.get(`/community/${req}`, config);
         return response.data;
     } catch (err) {
         console.log(err);
@@ -59,7 +59,7 @@ export const communityGetComunitiesByUser = async (req) => {
 export const CommunityGetComunitiesDiscover = async (req) => {
     try {
         const config = getConfigHeader();
-        const response = await axios.get(`/users/${req._id}/communities-discover`);
+        const response = await axios.get(`/users/${req._id}/communities-discover`, config);
         return response.data;
     } catch (err) {
         console.log(err);
