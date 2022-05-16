@@ -1,6 +1,7 @@
 const Post = require("../models/PostSchema");
 const Community = require("../models/CommunitySchema");
 const ImageUploader = require("../utils/ImageUploader");
+const verifyToken = require("../utils/TokenVerify");
 
 exports.postGetById = async (req, res) => {
     const { id } = req.params;

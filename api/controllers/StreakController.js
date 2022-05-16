@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Streak = require("../models/StreakSchema");
 const Subscription = require("../models/SubscriptionSchema");
+const verifyToken = require("../utils/TokenVerify");
 
 exports.streakGetById = async (req, res) => {
     const { id } = req.params;

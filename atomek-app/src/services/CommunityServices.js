@@ -1,3 +1,4 @@
+import getConfigHeader from "../functions/getConfigHeader";
 import { axiosBase as axios } from "./Config";
 
 export const CommunityCreate = async (req) => {
@@ -42,7 +43,8 @@ export const CommunityGetComunityById = async (req) => {
 
 export const communityGetComunitiesByUser = async (req) => {
     try {
-        const response = await axios.get(`/users/${req._id}/communities`);
+        const config = getConfigHeader();
+        const response = await axios.get(`/users/${req._id}/communities`, config);
         return response.data;
     } catch (err) {
         console.log(err);

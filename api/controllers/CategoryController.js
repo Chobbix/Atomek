@@ -1,4 +1,5 @@
 const Category = require("../models/CategorySchema");
+const verifyToken = require("../utils/TokenVerify");
 
 exports.categoryGetById = async (req, res) => {
     const { id } = req.params;

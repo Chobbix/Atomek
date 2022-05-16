@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Community = require("../models/CommunitySchema");
 const ImageUploader = require("../utils/ImageUploader");
+const verifyToken = require("../utils/TokenVerify");
 
 exports.communityGetById = async (req, res) => {
     const { id } = req.params;
@@ -155,9 +156,15 @@ exports.communityAddCategory = async (req, res) => {
 exports.communityGetComunitiesByUser = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
     const negate = body.negate ?? false;
 
     let community;
+
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
 
     if (negate == true) {
         community = await Community.find({_users: {$ne: id}, active: true});

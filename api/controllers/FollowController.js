@@ -1,5 +1,6 @@
 const Follow = require("../models/FollowSchema");
 const User = require("../models/UserSchema");
+const verifyToken = require("../utils/TokenVerify");
 
 exports.followGetAll = async (req, res) => {
     const { userId } = req.params;

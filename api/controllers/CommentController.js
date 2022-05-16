@@ -1,4 +1,5 @@
 const Comment = require("../models/CommentSchema");
+const verifyToken = require("../utils/TokenVerify");
 
 exports.commentGetAll = async (req, res) => {
     const { postId } = req.params;
