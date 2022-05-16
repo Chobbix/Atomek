@@ -1,7 +1,9 @@
+import getConfigHeader from "../functions/getConfigHeader";
 import { axiosBase as axios } from "./Config";
 
 export const ResponseCreate = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.post(`/response`, req);
         return response.data;
     } catch (err) {
@@ -12,6 +14,7 @@ export const ResponseCreate = async (req) => {
 
 export const SetResponseImage = async (id, image) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.put(`/response/${id}/image`, image, {
             headers: {
                 'Content-Type': image.type
@@ -26,6 +29,7 @@ export const SetResponseImage = async (id, image) => {
 
 export const ResponseGetResponsesBySubscription = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.get(`/response/${req}/subscription`);
         return response.data;
     } catch (err) {

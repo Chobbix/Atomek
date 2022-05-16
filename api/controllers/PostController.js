@@ -5,6 +5,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.postGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const post = await Post.findById(id).populate("_user", "username image");
 
@@ -17,6 +18,7 @@ exports.postGetById = async (req, res) => {
 
 exports.postGetAll = async (req, res) => {
     const { communityId } = req.params;
+    const auth = req.get('authorization');
 
     const posts = await Post.find({_community: communityId}).populate("_user", "username image").populate("_streak", "_id title").populate("_community", "_id name").sort({date_create: -1});
 
@@ -26,6 +28,7 @@ exports.postGetAll = async (req, res) => {
 exports.postCreate = async (req, res) => {
     const { communityId } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
     body._community = communityId;
 
     const post = new Post(body);
@@ -44,6 +47,7 @@ exports.postCreate = async (req, res) => {
 exports.postUpdateImage = async (req, res) => {
     const { id } = req.params;
     const { body, headers } = req;
+    const auth = req.get('authorization');
 
     if (!req.is("image/*")) {
         return res.status(415).send({message: "Unsupported media type. Should be an image file"});
@@ -71,6 +75,7 @@ exports.postUpdateImage = async (req, res) => {
 exports.postUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const post = await Post.findById(id);
 
@@ -85,6 +90,7 @@ exports.postUpdate = async (req, res) => {
 
 exports.postDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
     
     const post = await Post.findById(id);
 
@@ -99,6 +105,7 @@ exports.postDelete = async (req, res) => {
 
 exports.postGetPostsByUser = async (req, res) => {
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const posts = await Post.find({_user: userId}).populate("_user", "username image")
                                                 .populate("_streak", "_id title")
@@ -109,6 +116,7 @@ exports.postGetPostsByUser = async (req, res) => {
 
 exports.postGetPostsByUserCommunities = async (req, res) => {
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const communities = await Community.find({_users: userId}).select('_id');
 

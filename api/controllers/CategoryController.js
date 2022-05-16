@@ -3,6 +3,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.categoryGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const category = await Category.findById(id);
 
@@ -17,6 +18,7 @@ exports.categoryGetById = async (req, res) => {
 
 exports.categoryCreate = async (req, res) => {
     const { body } = req;
+    const auth = req.get('authorization');
 
     const category = new Category(body);
 
@@ -35,6 +37,7 @@ exports.categoryCreate = async (req, res) => {
 exports.categoryUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const category = await Category.findById(id);
 
@@ -49,6 +52,7 @@ exports.categoryUpdate = async (req, res) => {
 
 exports.categoryDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const category = await Category.findById(id);
 
@@ -62,6 +66,7 @@ exports.categoryDelete = async (req, res) => {
 };
 
 exports.categoryGetAll = async (req, res) => {
+    const auth = req.get('authorization');
     const category = await Category.find();
 
     if (category) {

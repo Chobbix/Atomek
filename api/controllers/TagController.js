@@ -3,6 +3,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.tagGetAll = async (req, res) => {
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const tags = await Tag.find({_user: userId});
 
@@ -12,6 +13,7 @@ exports.tagGetAll = async (req, res) => {
 exports.tagCreate = async (req, res) => {
     const { userId } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
     body._user = userId;
 
     const tag = new Tag(body);
@@ -30,6 +32,7 @@ exports.tagCreate = async (req, res) => {
 exports.tagUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const tag = Tag.findById(id);
 
@@ -44,6 +47,7 @@ exports.tagUpdate = async (req, res) => {
 
 exports.tagDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const tag = Tag.findById(id);
 

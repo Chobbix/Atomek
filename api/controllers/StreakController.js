@@ -5,6 +5,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.streakGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const streak = await Streak.findById(id).populate("_community").populate("_user");
 
@@ -18,6 +19,7 @@ exports.streakGetById = async (req, res) => {
 
 exports.streakCreate = async (req, res) => {
     const { body } = req;
+    const auth = req.get('authorization');
 
     const streak = new Streak(body);
 
@@ -36,6 +38,7 @@ exports.streakCreate = async (req, res) => {
 exports.streakUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const streak = await Streak.findById(id);
 
@@ -50,6 +53,7 @@ exports.streakUpdate = async (req, res) => {
 
 exports.streakDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const streak = await Streak.findById(id);
 
@@ -64,6 +68,7 @@ exports.streakDelete = async (req, res) => {
 
 exports.streakGetByCommunity = async (req, res) => {
     const { communityId } = req.params;
+    const auth = req.get('authorization');
 
     const streak = await Streak.find({_community: communityId, active: true}).populate("_community").populate("_user");
 
@@ -78,6 +83,7 @@ exports.streakGetByCommunity = async (req, res) => {
 exports.streakGetByCommunityIfUserIsSubscribed = async (req, res) => {
     const { communityId } = req.params;
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const reponseSubscriptions = await Subscription
         .aggregate([

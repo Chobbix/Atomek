@@ -1,7 +1,9 @@
+import getConfigHeader from "../functions/getConfigHeader";
 import { axiosBase as axios } from "./Config";
 
 export const GetById = async (id) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.get(`/users/${id}`);
         console.log(response);
         return response.data;
@@ -34,6 +36,7 @@ export const Create = async (req) => {
 
 export const Update = async (data, id) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.put(`/users/${id}`, data);
         console.log(response);
         return response.data;
@@ -45,6 +48,7 @@ export const Update = async (data, id) => {
 
 export const SetUserImage = async (id, image) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.put(`/users/${id}/image`, image, {
             headers: {
                 'Content-Type': image.type
@@ -60,6 +64,7 @@ export const SetUserImage = async (id, image) => {
 
 export const GetUserStats = async (id) => {
     try {
+        const config = getConfigHeader();
         const likes = await axios.get(`/users/${id}/amount-likes`);
         const communities = await axios.get(`/users/${id}/amount-communities`);
         const posts = await axios.get(`/users/${id}/amount-posts`);

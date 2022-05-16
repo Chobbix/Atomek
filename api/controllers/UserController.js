@@ -10,6 +10,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.userGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const user = await User.findById(id);
 
@@ -75,6 +76,7 @@ exports.userCreate = async (req, res) => {
 exports.userUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const user = await User.findById(id);
 
@@ -90,6 +92,7 @@ exports.userUpdate = async (req, res) => {
 
 exports.userDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const user = await User.findById(id);
 
@@ -106,6 +109,7 @@ exports.userDelete = async (req, res) => {
 exports.userUpdateImage = async (req, res) => {
     const { id } = req.params;
     const { body, headers } = req;
+    const auth = req.get('authorization');
 
     if (!req.is("image/*")) {
         return res.status(415).send({message: "Unsupported media type. Should be an image file"});
@@ -132,6 +136,7 @@ exports.userUpdateImage = async (req, res) => {
 
 exports.userGetAmountOfLikes = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const amountLikes = await Like
         .aggregate([
@@ -149,6 +154,7 @@ exports.userGetAmountOfLikes = async (req, res) => {
 
 exports.userGetAmountOfCommunities = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const amountCommunities = await Community
         .aggregate([
@@ -166,6 +172,7 @@ exports.userGetAmountOfCommunities = async (req, res) => {
 
 exports.userGetAmountOfPosts = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const amountPosts = await Post
         .aggregate([
@@ -183,6 +190,7 @@ exports.userGetAmountOfPosts = async (req, res) => {
 
 exports.userGetAmountOfSubscriptions = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const amountSubscriptions = await Subscription
         .aggregate([

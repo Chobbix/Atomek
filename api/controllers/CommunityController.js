@@ -5,6 +5,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.communityGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     try {
         const community = await Community.findById(id).populate("_category").populate("_users");
@@ -22,6 +23,7 @@ exports.communityGetById = async (req, res) => {
 
 exports.communityCreate = async (req, res) => {
     const { body } = req;
+    const auth = req.get('authorization');
 
     const community = new Community(body);
 
@@ -40,6 +42,7 @@ exports.communityCreate = async (req, res) => {
 exports.communityUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const community = await Community.findById(id);
 
@@ -55,6 +58,7 @@ exports.communityUpdate = async (req, res) => {
 exports.communityUpdateImage = async (req, res) => {
     const { id } = req.params;
     const { body, headers } = req;
+    const auth = req.get('authorization');
 
     if (!req.is("image/*")) {
         return res.status(415).send({message: "Unsupported media type. Should be an image file"});
@@ -81,6 +85,7 @@ exports.communityUpdateImage = async (req, res) => {
 
 exports.communityDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const community = await Community.findById(id);
 
@@ -95,6 +100,7 @@ exports.communityDelete = async (req, res) => {
 
 exports.communityGetAmountOfUsers = async (req, res) => {
     var { id } = req.params;
+    const auth = req.get('authorization');
 
     id = mongoose.Types.ObjectId(id);
     const community = await Community
@@ -114,6 +120,7 @@ exports.communityGetAmountOfUsers = async (req, res) => {
 exports.communityAddUser = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const community = await Community.findById(id);
 
@@ -135,6 +142,7 @@ exports.communityAddUser = async (req, res) => {
 exports.communityAddCategory = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const community = await Community.findById(id);
 

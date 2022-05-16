@@ -4,6 +4,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.followGetAll = async (req, res) => {
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const user = await User.findById(userId);
 
@@ -25,6 +26,7 @@ exports.followGetAll = async (req, res) => {
 exports.followAdd = async (req, res) => {
     const { userId } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const user = await User.findById(userId);
 
@@ -68,6 +70,7 @@ exports.followAdd = async (req, res) => {
 exports.followRemove = async (req, res) => {
     const { userId } = req.params;
     const { followUserId } = req.params;
+    const auth = req.get('authorization');
 
     const user = await User.findById(userId);
 

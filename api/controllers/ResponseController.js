@@ -4,6 +4,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.responseGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const response = await Response.findById(id).populate("_subscription");
 
@@ -17,6 +18,7 @@ exports.responseGetById = async (req, res) => {
 
 exports.responseCreate = async (req, res) => {
     const { body } = req;
+    const auth = req.get('authorization');
 
     const response = new Response(body);
 
@@ -35,6 +37,7 @@ exports.responseCreate = async (req, res) => {
 exports.responseUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const response = await Response.findById(id);
 
@@ -49,6 +52,7 @@ exports.responseUpdate = async (req, res) => {
 
 exports.responseDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const response = await Response.findById(id);
 
@@ -63,6 +67,7 @@ exports.responseDelete = async (req, res) => {
 
 exports.responsesGetByIdSubscription = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const response = await Response.find({_subscription: id}).sort({date_create: -1});
 
@@ -77,6 +82,7 @@ exports.responsesGetByIdSubscription = async (req, res) => {
 exports.responseUpdateImage = async (req, res) => {
     const { id } = req.params;
     const { body, headers } = req;
+    const auth = req.get('authorization');
 
     if (!req.is("image/*")) {
         return res.status(415).send({message: "Unsupported media type. Should be an image file"});

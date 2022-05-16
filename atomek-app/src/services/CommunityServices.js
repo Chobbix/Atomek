@@ -3,6 +3,7 @@ import { axiosBase as axios } from "./Config";
 
 export const CommunityCreate = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.post(`/community`, req);
         return response.data;
     } catch (err) {
@@ -13,6 +14,7 @@ export const CommunityCreate = async (req) => {
 
 export const CommunityUpdate = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.put(`/community/${req._id}`, req);
         return response.data;
     } catch (err) {
@@ -23,6 +25,7 @@ export const CommunityUpdate = async (req) => {
 
 export const communityAddUser = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.put(`/community/${req.communityId}/add-user`, req);
         return response.data;
     } catch (err) {
@@ -33,6 +36,7 @@ export const communityAddUser = async (req) => {
 
 export const CommunityGetComunityById = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.get(`/community/${req}`);
         return response.data;
     } catch (err) {
@@ -54,6 +58,7 @@ export const communityGetComunitiesByUser = async (req) => {
 
 export const CommunityGetComunitiesDiscover = async (req) => {
     try {
+        const config = getConfigHeader();
         const response = await axios.get(`/users/${req._id}/communities-discover`);
         return response.data;
     } catch (err) {

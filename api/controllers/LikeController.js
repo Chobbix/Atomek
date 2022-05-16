@@ -5,6 +5,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.likeGetAll = async (req, res) => {
     const { postId } = req.params;
+    const auth = req.get('authorization');
 
     const post = await Post.findById(postId);
 
@@ -26,6 +27,7 @@ exports.likeGetAll = async (req, res) => {
 exports.likeAdd = async (req, res) => {
     const { postId } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const post = await Post.findById(postId);
 
@@ -67,6 +69,7 @@ exports.likeAdd = async (req, res) => {
 exports.likeRemove = async (req, res) => {
     const { postId } = req.params;
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const post = await Post.findById(postId);
 
@@ -100,6 +103,7 @@ exports.likeRemove = async (req, res) => {
 exports.likeGetIsLiked = async (req, res) => {
     const { postId } = req.params;
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const postResponse = await Like.find({_post: postId, _users: userId});
 

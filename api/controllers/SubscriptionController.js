@@ -3,6 +3,7 @@ const verifyToken = require("../utils/TokenVerify");
 
 exports.subscriptionGetById = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const subscription = await Subscription.findById(id).populate("_user").populate("_streak").populate("_tags");
 
@@ -17,6 +18,7 @@ exports.subscriptionGetById = async (req, res) => {
 exports.subscriptionCreate = async (req, res) => {
     const { streakId } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
     body._streak = streakId;
 
     const subscription = new Subscription(body);
@@ -36,6 +38,7 @@ exports.subscriptionCreate = async (req, res) => {
 exports.subscriptionUpdate = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
+    const auth = req.get('authorization');
 
     const subscription = await Subscription.findById(id);
 
@@ -50,6 +53,7 @@ exports.subscriptionUpdate = async (req, res) => {
 
 exports.subscriptionDelete = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const subscription = await Subscription.findById(id);
 
@@ -65,6 +69,7 @@ exports.subscriptionDelete = async (req, res) => {
 exports.subscriptionGetSubscriptionByStreakAndUser = async (req, res) => {
     const { streakId } = req.params;
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const subscription = await Subscription.findOne({ _streak: streakId, _user: userId }).populate("_user").populate("_streak").populate("_tags");
 
@@ -78,6 +83,7 @@ exports.subscriptionGetSubscriptionByStreakAndUser = async (req, res) => {
 
 exports.subscriptionIncreaseCounter = async (req, res) => {
     const { id } = req.params;
+    const auth = req.get('authorization');
 
     const subscription = await Subscription.findById(id);
 
@@ -94,6 +100,7 @@ exports.subscriptionIncreaseCounter = async (req, res) => {
 
 exports.subscriptionGetSubscriptionsByUser = async (req, res) => {
     const { userId } = req.params;
+    const auth = req.get('authorization');
 
     const subscription = await Subscription.find({ _user: userId }).populate("_streak").sort({date_create: -1});
 
