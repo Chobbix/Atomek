@@ -1,4 +1,5 @@
 const { default: mongoose } = require("mongoose");
+const jwt = require('jsonwebtoken');
 const User = require("../models/UserSchema");
 const Like = require("../models/LikeSchema")
 const Community = require("../models/CommunitySchema");
@@ -25,7 +26,18 @@ exports.userLogin = async (req, res) => {
     const user = await User.findOne({email: body.email, password: body.password});
 
     if (user) {
-        res.send(user);
+        const userToken = jwt.sign({ _id: user._id, username: user.username }, '123123123');
+
+        res.send({
+            _id: user._id,
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            followersCount: user.followersCount,
+            date_create: user.date_create,
+            image: user.image,
+            userToken
+        });
     }
     else {
         res.status(404).send({message: "User not found"});
@@ -41,7 +53,18 @@ exports.userCreate = async (req, res) => {
         await user.save();
 
         console.log("Succesful user creation", user);
-        res.send(user);
+        
+        const userToken = jwt.sign({ _id: user._id, username: user.username }, '123123123');
+        res.send({
+            _id: user._id,
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            followersCount: user.followersCount,
+            date_create: user.date_create,
+            image: user.image,
+            userToken
+        });
     } catch (e) {
         console.log("Could not create a user", e);
         res.status(500).send(e);
