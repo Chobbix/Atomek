@@ -16,10 +16,10 @@ import { userUpdateSchema } from '../validations/UserUpdateSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const ContPerfil = () => {
-  const {register, handleSubmit, formState: {errors}} = useForm({
-      resolver: yupResolver(userUpdateSchema)
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(userUpdateSchema)
   });
-  
+
   const [userProfile, setUserProfile] = useState();
   const [userSesion, setUserSesion] = useState();
   const [userStats, setUserStats] = useState();
@@ -31,14 +31,14 @@ const ContPerfil = () => {
   async function getInitialInformation() {
     let userSession = JSON.parse(localStorage.getItem("UserSession"));
     setUserSesion(userSession);
-    
+
     const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(params.idUser);
     setSubscriptions(subscriptionsResponse);
 
     const responseStats = await GetUserStats(params.idUser);
     setUserStats(responseStats);
 
-    if(params.idUser == userSession?._id) {
+    if (params.idUser == userSession?._id) {
       setIsOwner(true);
       setUserProfile(userSession);
     }
@@ -48,20 +48,20 @@ const ContPerfil = () => {
         setIsOwner(false);
         setUserProfile(responseUser);
       }
-      catch(err) {
+      catch (err) {
         console.log(err);
       }
     }
   }
 
-  const handleFollowUser = async(event) => {
+  const handleFollowUser = async (event) => {
     try {
       await FollowAddUserFollow({
         _id: userSesion._id,
         followUser: userProfile._id
       })
     }
-    catch(err) {
+    catch (err) {
       console.log(err);
     }
   }
@@ -102,7 +102,7 @@ const ContPerfil = () => {
 
     try {
       const responseUser = await GetById(userProfile?._id);
-      
+
       if (userProfile?._id == userSesion?._id) {
         setUserSesion(responseUser);
         localStorage.setItem('UserSession', JSON.stringify(responseUser));
@@ -124,8 +124,8 @@ const ContPerfil = () => {
         <div className="perfil-usuario-header">
           <div className="perfil-usuario-portada">
             <div className="perfil-usuario-avatar">
-              <img src={userProfile?.image  ?? `https://avatars.dicebear.com/api/bottts/${userProfile?._id}.svg`} alt="img-avatar" width={160} height={165}></img>
-              <input id="imageFileInput" type="file" onChange={handleUpdateUserImage} style={{display: 'none'}} />
+              <img src={userProfile?.image ?? `https://avatars.dicebear.com/api/bottts/${userProfile?._id}.svg`} alt="img-avatar" width={160} height={165}></img>
+              <input id="imageFileInput" type="file" onChange={handleUpdateUserImage} style={{ display: 'none' }} />
               <button type="button" onClick={handleChangeUserImage} className="boton-avatar">
                 <FontAwesomeIcon icon={faCamera} />
               </button>
@@ -136,7 +136,7 @@ const ContPerfil = () => {
           <div className="perfil-usuario-bio" id='info'>
             <h3 className="titulo">{userProfile?.username}</h3>
             <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">{userProfile?.followersCount}</p>
-            { !isOwner? <button className='Seguirbtn btn' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button>: <p></p> }
+            {!isOwner ? <button className='Seguirbtn btn' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button> : <p></p>}
           </div>
           <form className="perfil-usuario-footer" onSubmit={handleSubmit(handleUpdateUserInfo)} data-user-id={userProfile?._id}>
             <ul className="lista-datos">
@@ -158,33 +158,91 @@ const ContPerfil = () => {
             </ul>
           </form>
           <div className="herramientas">
-            { !isOwner? <p></p>: <a href="" className="boton-redes facebook"><FontAwesomeIcon icon={faWrench} /></a> }
+            {!isOwner ? <p></p> : <a href="" className="boton-redes facebook"><FontAwesomeIcon icon={faWrench} /></a>}
           </div>
         </div>
       </section>
 
-      <div className="album py-5 bg-light" id='album'>
+      <div className="album py-5" id='album'>
         <div className="container">
+          <h2>Rachas activas</h2>
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {subscriptions?.map((subscription, index) => (
+              subscription.active == true ?
+              <div className="col" key={index}>
+                <div className="card shadow-sm">
+                  <div className="card-body">
+                    <Link to={'/atomek/Responses/' + subscription._id}><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
+                    <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
+                    <div className="d-flex justify-content-between align-items-center">
 
-          {subscriptions?.map((subscription, index) => (
-            <div className="col" key={index}>
-              <div className="card shadow-sm">
-                <div className="card-body">
-                  <Link to={'/atomek/Responses/' + subscription._id}><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
-                  <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>
+                      {
+                        subscription._tags != '' ?
+                          <small className="text-muted">Etiquetas: 
+                            <ul>
+                              {subscription?._tags.map((tag, indexes) => (
+                                <li>{tag.title}</li>
+                              ))}
+                            </ul>
+                          </small>
+                        : null
+                      }
+
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-            
+              : null
+            ))}
           </div>
         </div>
       </div>
-      <Grafica propUserLikes={userStats?.amount_likes} propUserCommunities={userStats?.amount_communities} propUserPosts={userStats?.amount_posts} propUserSubscriptions={userStats?.amount_subscriptions} />
+
+      <div className="album py-5" id='album'>
+        <div className="container">
+          <h2>Rachas inactivas</h2>
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {subscriptions?.map((subscription, index) => (
+              subscription.active == false ?
+              <div className="col" key={index}>
+                <div className="card shadow-sm">
+                  <div className="card-body">
+                    <Link to={'/atomek/Responses/' + subscription._id}><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
+                    <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      
+                    {
+                      subscription._tags != '' ?
+                        <small className="text-muted">Etiquetas: 
+                          <ul>
+                            {subscription?._tags.map((tag, indexes) => (
+                              <li>{tag.title}</li>
+                            ))}
+                          </ul>
+                        </small>
+                      : null
+                    }
+
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              : null
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      <div className="container">
+        <h2>Estadisticas</h2>
+        <Grafica propUserLikes={userStats?.amount_likes} propUserCommunities={userStats?.amount_communities} propUserPosts={userStats?.amount_posts} propUserSubscriptions={userStats?.amount_subscriptions} />
+      </div>
     </body>
   )
 }

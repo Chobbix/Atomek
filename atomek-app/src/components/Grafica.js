@@ -25,7 +25,6 @@ const Grafica = (props) => {
 
     return (
         <div className='grafica-container'>
-            <p className="text-black" id='RachaCateg'>Estadisticas</p>
             <div style={{width: '100%', height: 'auto'}}>
                 <Pie data={data} options={opciones} />
             </div>

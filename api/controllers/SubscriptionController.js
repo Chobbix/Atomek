@@ -137,7 +137,7 @@ exports.subscriptionGetSubscriptionsByUser = async (req, res) => {
         return;
     }
     
-    const subscription = await Subscription.find({ _user: userId }).populate("_streak").sort({date_create: -1});
+    const subscription = await Subscription.find({ _user: userId }).populate("_streak").populate('_tags').sort({date_create: -1});
 
     if (subscription) {
         res.send(subscription);
