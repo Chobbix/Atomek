@@ -119,7 +119,7 @@ const Content_Muro = (props) => {
                             <div class="row">
                                 {communities.map((community) => (
                                     <div className="mb-3 col-sm-12 col-mb-6 col-xl-6">
-                                        <GruposBloque_style image={community.image} category={community._category?.title} name={community.name} />
+                                        <GruposBloque_style propCommunityId={community?._id} image={community.image} category={community._category?.title} name={community.name} />
                                     </div>
                                 ))}
                             </div>

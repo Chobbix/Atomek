@@ -153,7 +153,6 @@ const Publicacion = (props) => {
                         }
                     </div>
                     <div class="card-body">
-                        <div className='card-title'>
                             <div>
                             <p class="cardtext">{props.propPost?.body}</p>
                             <div className='image-container'>
@@ -165,7 +164,6 @@ const Publicacion = (props) => {
                             </div>
                             
                                     
-                        </div>
                     </div>
                     <div className='informacion'> 
                     <FontAwesomeIcon icon={faStar}/>

@@ -7,6 +7,7 @@ import { CommunityCreate, communityAddUser } from '../services/CommunityServices
 import { useForm } from 'react-hook-form';
 import { communitySchema } from '../validations/CommunitySchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 
 const Crear_grupo = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -15,6 +16,7 @@ const Crear_grupo = () => {
 
     const [categories, setCategories] = useState([]);
     const [userSesion, setUserSesion] = useState();
+    const Navigate = useNavigate();
 
     async function getUserSesion() {
         setUserSesion(JSON.parse(localStorage.getItem("UserSession")));
@@ -42,6 +44,7 @@ const Crear_grupo = () => {
             });
 
             console.log("comunidad registrada con exito");
+            Navigate('/atomek/Community/'+ communityResponse._id +'/View-Admin')
         }
         catch(err) {
             console.log(err);

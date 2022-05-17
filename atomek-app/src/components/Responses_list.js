@@ -29,15 +29,22 @@ const Responses_list = () => {
 
     return (
         <div className="Response-Container" id="Registro">
-            {responses?.map((response, index) => (
-                <Response key={index} 
-                        propUsername={userSesion?.username} 
-                        propUserImage={userSesion?.image} 
-                        propResponse={response} 
-                        propSubscriptionName={subscription?._streak.title} 
-                        propSubscriptionType={subscription?._streak.type} 
-                />
-            ))}
+            {
+                responses != '' ?
+                    responses?.map((response, index) => (
+                        <Response key={index} 
+                                propUsername={userSesion?.username} 
+                                propUserImage={userSesion?.image} 
+                                propResponse={response} 
+                                propSubscriptionName={subscription?._streak.title} 
+                                propSubscriptionType={subscription?._streak.type} 
+                        />
+                    ))
+                :
+                    <div className='row text-center'>
+                        <h2>Esta racha no tiene respuestas</h2>
+                    </div>
+            }
         </div>
     );
 };
