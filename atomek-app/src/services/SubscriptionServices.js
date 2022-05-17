@@ -13,6 +13,18 @@ export const SubscriptionCreate = async (req) => {
     }
 }
 
+export const SubscriptionUpdate = async (req) => {
+    console.log(req);
+    try {
+        const config = getConfigHeader();
+        const response = await axios.put(`/subscription/${req._id}`, req, config);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
 export const SubscriptionDelete = async (req) => {
     try {
         const config = getConfigHeader();

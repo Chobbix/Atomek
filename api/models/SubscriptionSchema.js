@@ -12,6 +12,10 @@ const subscriptionSchema = new mongoose.Schema({
         type : Date, 
         default: Date.now 
     },
+    active: {
+        type: Boolean,
+        default: true
+    },
     _user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

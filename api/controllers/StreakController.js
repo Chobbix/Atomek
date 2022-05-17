@@ -137,6 +137,7 @@ exports.streakGetByCommunityIfUserIsSubscribed = async (req, res) => {
                         title: "$title",
                         type: "$type",
                         _community: "$_community",
+                        active: "$active",
                         date_create: "$date_create",
                         isSubscribed: { 
                             $cond: { if: { $in: [ "$_id", reponseSubscriptions[0].subscriptions_streak ] }, then: true, else: false }
