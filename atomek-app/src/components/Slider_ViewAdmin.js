@@ -49,7 +49,7 @@ const SliderViewAdmin = () => {
                 <input type="radio" id="TuGrupoAll" name="categoria" value="guardado" />
 
                 <div className="Grupo">
-                    <div class="canvas2">
+                    <div class="canvas2 row">
 
                         <Link to="/atomek/Muro/Mi-Muro" key={params.id}>
                             <label for="Muro" className="item grupo1">
@@ -77,9 +77,11 @@ const SliderViewAdmin = () => {
                             </Link>
                         ))}
 
-                        <label for="TuGrupoAll" className="item grupo1">
-                            <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
-                        </label>
+                        <Link to={"/atomek/Muro/All-Grupos"}>
+                            <label for="TuGrupoAll" className="item grupo1">
+                                <h6 className="todos"><FontAwesomeIcon icon={faAlignJustify} /> Ver todos tus grupos</h6>
+                            </label>
+                        </Link>
                     </div>
                 </div>
 

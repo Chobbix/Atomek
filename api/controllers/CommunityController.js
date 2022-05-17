@@ -215,10 +215,10 @@ exports.communityGetComunitiesByUser = async (req, res) => {
     }
 
     if (negate == true) {
-        community = await Community.find({_users: {$ne: id}, active: true});
+        community = await Community.find({_users: {$ne: id}, active: true}).populate("_category");
     }
     else {
-        community = await Community.find({_users: id, active: true});
+        community = await Community.find({_users: id, active: true}).populate("_category");
     }
     
     if (community) {
@@ -238,7 +238,7 @@ exports.communityGetComunitiesDiscover = async (req, res) => {
         return;
     }
     
-    const community = await Community.find({_users: {$ne: id}, active: true});
+    const community = await Community.find({_users: {$ne: id}, active: true}).populate("_category");
     
     if (community) {
         res.send(community);

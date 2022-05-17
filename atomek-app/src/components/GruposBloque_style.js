@@ -21,7 +21,8 @@ const GruposBloque_style = (props) => {
         <div>
             <div class="card" >
                 <div class="cardbody">
-                    <h3 className='text'>{props.name}</h3>
+                    <h3 className=''>{props.name}</h3>
+                    <h5 className='text-muted'>Categoria: {props.category}</h5>
                     <button className='btn_unirse' onClick={(e) => {handleJoinCommunity(e, props.propCommunityId)}}>Unirse al grupo</button>
                 </div>
             </div>

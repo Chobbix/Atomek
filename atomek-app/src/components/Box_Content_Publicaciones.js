@@ -98,10 +98,10 @@ const Content_Muro = (props) => {
                 return  <div class="contenedor_Descubrir  " id="Registro">
                             <br></br>
                             <h3>Te puede gustar</h3>
-                            <div class="hileras">
+                            <div class="row">
                                 {communities.map((community) => (
-                                    <div className="bloque">
-                                        <GruposBloque_style propCommunityId={community?._id} propUserId={props?.propUserId} name={community?.name} />
+                                    <div className="mb-3 col-sm-12 col-mb-6 col-xl-6">
+                                        <GruposBloque_style propCommunityId={community?._id} category={community._category?.title} propUserId={props?.propUserId} name={community?.name} />
                                     </div>
                                 ))}
                             </div>
@@ -116,10 +116,10 @@ const Content_Muro = (props) => {
                 return  <div class="contenedor_Descubrir  " id="Registro">
                             <br></br>
                             <h3>Tus Grupos:</h3>
-                            <div class="hileras">
+                            <div class="row">
                                 {communities.map((community) => (
-                                    <div className="bloque">
-                                        <GruposBloque_style image={community.image} name={community.name} />
+                                    <div className="mb-3 col-sm-12 col-mb-6 col-xl-6">
+                                        <GruposBloque_style image={community.image} category={community._category?.title} name={community.name} />
                                     </div>
                                 ))}
                             </div>

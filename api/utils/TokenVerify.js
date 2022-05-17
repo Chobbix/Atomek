@@ -8,15 +8,12 @@ function verifyToken (auth) {
 
     let decodeToken = {}
 
-    console.log(token);
     try {
         decodeToken = jwt.verify(token, '123123123');
     } catch (error) {
         console.log("Token invalido");
         return false;
     }
-
-    console.log(decodeToken);
     
     if (!token || !decodeToken._id) {
         return false;

@@ -74,13 +74,13 @@ const ContRacha = () => {
         });
       }
 
-      await SubscriptionCreate({
-        _id: responseStreak._id,
+      const responseSubscription = await SubscriptionCreate({
+        _streak: responseStreak._id,
         _user: userSesion._id,
         _tags: data._tags,
       });
 
-      navigate("/atomek/URacha/" + responseStreak._id);
+      navigate("/atomek/URacha/" + responseSubscription._id);
       console.log("streak registrado con exito");
     } catch (err) {
       console.log(err);
