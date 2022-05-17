@@ -50,6 +50,7 @@ const TagCreationForm = (props) => {
         <input value={userId} type="hidden" {...register("_user")} />
       </div>
       <div className="col-md-1">
+        <br/>
         <button type="submit" class="btn-plus ">
           <FontAwesomeIcon icon={faPlus} />{" "}
         </button>
