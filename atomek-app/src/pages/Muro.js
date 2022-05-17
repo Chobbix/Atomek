@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box_muro from '../components/Box_muro'
 import { useNavigate } from 'react-router-dom';
 import validateUserSession from '../functions/validateUserSession';
 
 const Muro = () => {
   const Navigate = useNavigate();
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    //if (validateUserSession()) { Navigate('/atomek/login') }
+    const validate = validateUserSession();
+    if (validate == true) { setIsValid(true); }
+    else { Navigate('/atomek/login'); }
   }, []);
 
   return (
-    <Box_muro/>
+    isValid == true ? 
+      <Box_muro/>
+    : null
   )
 }
 
