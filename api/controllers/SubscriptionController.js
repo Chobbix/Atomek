@@ -108,12 +108,6 @@ exports.subscriptionGetSubscriptionByStreakAndUser = async (req, res) => {
 
 exports.subscriptionIncreaseCounter = async (req, res) => {
     const { id } = req.params;
-    const auth = req.get('authorization');
-
-    if (!verifyToken(auth)) {
-        res.status(401).send({message: "Token invalid"});
-        return;
-    }
     
     const subscription = await Subscription.findById(id);
 
