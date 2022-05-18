@@ -16,13 +16,16 @@ exports.userGetById = async (req, res) => {
         res.status(401).send({message: "Token invalid"});
         return;
     }
-    
-    const user = await User.findById(id);
+    try {
+        const user = await User.findById(id);
 
-    if (user) {
-        res.send(user);
-    }
-    else {
+        if (user) {
+            res.send(user);
+        }
+        else {
+            res.status(404).send({message: "User not found"});
+        }
+    } catch (error) {
         res.status(404).send({message: "User not found"});
     }
 };
@@ -157,19 +160,24 @@ exports.userGetAmountOfLikes = async (req, res) => {
         res.status(401).send({message: "Token invalid"});
         return;
     }
-    
-    const amountLikes = await Like
+
+    try {
+        const amountLikes = await Like
         .aggregate([
             { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
             { $count: "amount_likes" }
         ]);
 
-    if (amountLikes) {
-        res.send(amountLikes[0]);
-    }
-    else {
+        if (amountLikes) {
+            res.send(amountLikes[0]);
+        }
+        else {
+            res.status(404).send({message: "User not found"});
+        }
+    } catch (error) {
         res.status(404).send({message: "User not found"});
     }
+    
 };
 
 exports.userGetAmountOfCommunities = async (req, res) => {
@@ -180,17 +188,21 @@ exports.userGetAmountOfCommunities = async (req, res) => {
         res.status(401).send({message: "Token invalid"});
         return;
     }
-    
-    const amountCommunities = await Community
+
+    try {
+        const amountCommunities = await Community
         .aggregate([
             { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
             { $count: "amount_communities" }
         ]);
 
-    if (amountCommunities) {
-        res.send(amountCommunities[0]);
-    }
-    else {
+        if (amountCommunities) {
+            res.send(amountCommunities[0]);
+        }
+        else {
+            res.status(404).send({message: "User not found"});
+        }
+    } catch (error) {
         res.status(404).send({message: "User not found"});
     }
 };
@@ -204,16 +216,20 @@ exports.userGetAmountOfPosts = async (req, res) => {
         return;
     }
     
-    const amountPosts = await Post
+    try {
+        const amountPosts = await Post
         .aggregate([
             { $match: { _user: mongoose.Types.ObjectId(id)} },
             { $count: "amount_posts" }
         ]);
 
-    if (amountPosts) {
-        res.send(amountPosts[0]);
-    }
-    else {
+        if (amountPosts) {
+            res.send(amountPosts[0]);
+        }
+        else {
+            res.status(404).send({message: "User not found"});
+        }
+    } catch (error) {
         res.status(404).send({message: "User not found"});
     }
 };
@@ -227,16 +243,20 @@ exports.userGetAmountOfSubscriptions = async (req, res) => {
         return;
     }
     
-    const amountSubscriptions = await Subscription
+    try {
+        const amountSubscriptions = await Subscription
         .aggregate([
             { $match: { _user: mongoose.Types.ObjectId(id)} },
             { $count: "amount_subscriptions" }
         ]);
 
-    if (amountSubscriptions) {
-        res.send(amountSubscriptions[0]);
-    }
-    else {
+        if (amountSubscriptions) {
+            res.send(amountSubscriptions[0]);
+        }
+        else {
+            res.status(404).send({message: "User not found"});
+        }
+    } catch (error) {
         res.status(404).send({message: "User not found"});
     }
 };

@@ -132,17 +132,21 @@ exports.subscriptionGetSubscriptionsByUser = async (req, res) => {
     const { userId } = req.params;
     const auth = req.get('authorization');
 
-    if (!verifyToken(auth)) {
-        res.status(401).send({message: "Token invalid"});
-        return;
-    }
+    try {
+        if (!verifyToken(auth)) {
+            res.status(401).send({message: "Token invalid"});
+            return;
+        }
+        
+        const subscription = await Subscription.find({ _user: userId }).populate("_streak").populate('_tags').sort({date_create: -1});
     
-    const subscription = await Subscription.find({ _user: userId }).populate("_streak").populate('_tags').sort({date_create: -1});
-
-    if (subscription) {
-        res.send(subscription);
-    }
-    else {
+        if (subscription) {
+            res.send(subscription);
+        }
+        else {
+            res.status(404).send({message: "subscription not found"});
+        }
+    } catch (err) {
         res.status(404).send({message: "subscription not found"});
     }
 };

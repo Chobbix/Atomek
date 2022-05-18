@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { userUpdateSchema } from '../validations/UserUpdateSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 
 const ContPerfil = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -24,8 +25,10 @@ const ContPerfil = () => {
   const [userSesion, setUserSesion] = useState();
   const [userStats, setUserStats] = useState();
   const [isOwner, setIsOwner] = useState();
+  const [isError, setIsError] = useState(true);
   const [subscriptions, setSubscriptions] = useState([]);
   const params = useParams();
+  const Navigate = useNavigate();
   Moment.locale('es');
 
   async function getInitialInformation() {
@@ -33,9 +36,12 @@ const ContPerfil = () => {
     setUserSesion(userSession);
 
     const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(params.idUser);
-    setSubscriptions(subscriptionsResponse);
+    if (subscriptionsResponse.isAxiosError) { Navigate('/atomek/Error'); }
 
     const responseStats = await GetUserStats(params.idUser);
+    if (responseStats.isAxiosError) { Navigate('/atomek/Error'); }
+
+    setSubscriptions(subscriptionsResponse);
     setUserStats(responseStats);
 
     if (params.idUser == userSession?._id) {
@@ -43,14 +49,11 @@ const ContPerfil = () => {
       setUserProfile(userSession);
     }
     else {
-      try {
-        const responseUser = await GetById(params.idUser);
-        setIsOwner(false);
-        setUserProfile(responseUser);
-      }
-      catch (err) {
-        console.log(err);
-      }
+      const responseUser = await GetById(params.idUser);
+      if (responseStats.isAxiosError) { Navigate('/atomek/Error'); }
+
+      setIsOwner(false);
+      setUserProfile(responseUser);
     }
   }
 

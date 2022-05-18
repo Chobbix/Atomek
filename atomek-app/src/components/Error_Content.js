@@ -1,13 +1,9 @@
 import React from 'react'
 import './Estilos/Response_style.css'
-import pp from '../Imagenes/picture_perfil.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
-import Moment from 'moment';
 
 const ErrorContent = (props) => {
-    Moment.locale('es');
-
     return (
         <div className="Response-Container" id="Registro">
             <div className="tarjetamuro ">
