@@ -122,16 +122,19 @@ const Publicacion = (props) => {
         { 
             isUpdating != true ?
                 <div class="tarjetamuro ">
+                    <div className='row'>
+                        <h1 className='grupo-header text-center'>{props.propPost._community?.name}</h1>
+                    </div>
                     <div class="cardheader">
-                        <div>
+                        <div className='row'>
                             <Link to={"/atomek/Perfil/" + props.propPost._user?._id}>
                             <img src={props.propPost._user?.image  ?? `https://avatars.dicebear.com/api/bottts/${props.propPost._user?._id}.svg`} alt="img-avatar" className='perfil'></img>
                             </Link>
                         </div>
-                        <div>
-                            <h4 className='grupo'>{props.propPost._community?.name}</h4>
+                        <div className='row'>
+                            <h4 className='grupo'>{props.propPost._streak?.title}</h4>
                             <div className='informacion'>
-                                <h5 className='usuario' >{props.propPost._user?.username} </h5>
+                                <h5 className='usuario' >{props.propPost._user?.username} </h5>  &ensp;
                                 <h5 className='Fecha' > {Moment(props.propPost?.date_create).format('DD/MM/yyyy')}</h5>
                             </div>
                         </div>

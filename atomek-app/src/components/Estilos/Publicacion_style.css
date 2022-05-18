@@ -30,6 +30,12 @@
    
 }
 
+.grupo-header{
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+   
+}
+
 .cardfooter{
     border-top: 1px solid rgb(86, 93, 94);
    padding: 5px;
