@@ -12,6 +12,7 @@ import CrearRacha from './pages/Crear_racha';
 import UpdtRacha from './pages/Update_racha';
 import Responses from './pages/Responses';
 import ViewAdmin from './pages/View_Admin';
+import Error from './pages/Error';
 
 
 import { Routes, Route, Link } from "react-router-dom";
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/atomek/CRacha/:idStreak" element={<CrearRacha />} />
         <Route exact path="/atomek/URacha/:idStreak" element={<UpdtRacha />} />
         <Route exact path="/atomek/Responses/:idSubscription" element={<Responses />} />
+        <Route exact path="/atomek/Error" element={<Error />} />
 
       </Routes>
     
