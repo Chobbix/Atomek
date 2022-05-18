@@ -33,6 +33,7 @@ const Responses_list = () => {
                 responses != '' ?
                     responses?.map((response, index) => (
                         <Response key={index} 
+                                propIdUser={userSesion?._id} 
                                 propUsername={userSesion?.username} 
                                 propUserImage={userSesion?.image} 
                                 propResponse={response} 

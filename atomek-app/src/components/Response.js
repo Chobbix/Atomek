@@ -13,7 +13,7 @@ const Response = (props) => {
             <div className="tarjetamuro ">
                 <div className="cardheader">
                     <div>
-                        <img src={props?.propUserImage} alt="img-avatar" className='perfil'></img>
+                        <img src={props?.propUserImage ?? `https://avatars.dicebear.com/api/bottts/${props.propIdUser?._id}.svg`} alt="img-avatar" className='perfil'></img>
                     </div>
                     <div>
                         <h4 className='grupo'>Racha: {props?.propSubscriptionName}</h4>

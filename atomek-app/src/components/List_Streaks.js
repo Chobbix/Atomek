@@ -41,6 +41,9 @@ const ListStreaks = (props) => {
                 _id: subscriptionId,
                 active: false
             });
+
+            const subscriptionsResponse = await SubscriptionGetSubscriptionsByUser(userSession._id);
+            setSubscriptions(subscriptionsResponse);
         }
         catch (err) {
             console.log(err);

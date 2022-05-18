@@ -107,6 +107,7 @@ const ContPerfil = () => {
       const responseUser = await GetById(userProfile?._id);
 
       if (userProfile?._id == userSesion?._id) {
+        responseUser.userToken = userSesion.userToken;
         setUserSesion(responseUser);
         localStorage.setItem('UserSession', JSON.stringify(responseUser));
       }
