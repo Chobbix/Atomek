@@ -80,9 +80,14 @@ const ContPerfil = () => {
     if (imageFile) {
       await SetUserImage(userSesion?._id, imageFile);
 
-      if (params.id == userSesion?._id) {
+      console.log(params?.idUser)
+      console.log(userSesion?._id)
+
+      if (params?.idUser == userSesion?._id) {
         try {
-          const responseUser = await GetById(params.id);
+          const responseUser = await GetById(params.idUser);
+          responseUser.userToken = userSesion.userToken;
+
           setUserSesion(responseUser);
           setUserProfile(responseUser);
           localStorage.setItem('UserSession', JSON.stringify(responseUser));
@@ -129,45 +134,50 @@ const ContPerfil = () => {
           <div className="perfil-usuario-portada">
             <div className="perfil-usuario-avatar">
               <img src={userProfile?.image ?? `https://avatars.dicebear.com/api/bottts/${userProfile?._id}.svg`} alt="img-avatar" width={160} height={165}></img>
-              <input id="imageFileInput" type="file" onChange={handleUpdateUserImage} style={{ display: 'none' }} />
-              <button type="button" onClick={handleChangeUserImage} className="boton-avatar">
-                <FontAwesomeIcon icon={faCamera} />
-              </button>
+              {
+              isOwner == true ?
+              <>
+                <input id="imageFileInput" type="file" onChange={handleUpdateUserImage} style={{ display: 'none' }} />
+                <button type="button" onClick={handleChangeUserImage} className="boton-avatar">
+                  <FontAwesomeIcon icon={faCamera} />
+                </button>
+              </>
+              : null
+              }
             </div>
           </div>
         </div>
         <div className="perfil-usuario-body">
           <div className="perfil-usuario-bio" id='info'>
             <h3 className="titulo">{userProfile?.username}</h3>
-            <h8 className="Seguidores">Seguidores:</h8><tr></tr><p className="seguidorescant">{userProfile?.followersCount}</p>
-            {!isOwner ? <button className='Seguirbtn btn' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button> : <p></p>}
+            <div className='row'>
+              <h8 className="Seguidores">Seguidores: {userProfile?.followersCount}</h8>
+              {!isOwner ? <button className='btn btn-guardar mt-3' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button> : null}
+            </div>
           </div>
           {
             isOwner == true ?
             <form className="perfil-usuario-footer" onSubmit={handleSubmit(handleUpdateUserInfo)} data-user-id={userProfile?._id}>
               <ul className="lista-datos">
                 <li>
-                  <input type="text" defaultValue={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario" id="NombreUsuario" {...register("username")}></input>
+                  <input type="text" defaultValue={userProfile?.username} placeholder="Nombre de Usuario" className="Nombre-usuario form-control" id="NombreUsuario" {...register("username")}></input>
                   {errors.username && <ErrorMessage message={errors.username.message} />}
                 </li>
                 <li>
-                  <input type="text" defaultValue={userProfile?.name} placeholder="Nombre" className="nombre" id="Nombre" {...register("name")}></input>
+                  <input type="text" defaultValue={userProfile?.name} placeholder="Nombre" className="nombre form-control" id="Nombre" {...register("name")}></input>
                   {errors.name && <ErrorMessage message={errors.name.message} />}
                 </li>
               </ul>
               <ul className="lista-datos">
                 <li>
-                  <input type="password" placeholder="Contraseña" className="input-cont" id="ContraUsuario" {...register("password")} ></input>
+                  <input type="password" placeholder="Contraseña" className="input-cont form-control" id="ContraUsuario" {...register("password")} ></input>
                   {errors.password && <ErrorMessage message={errors.password.message} />}
                 </li>
-                <li><button type='submit'>Guardar</button></li>
+                <li><button type='submit' className='btn btn-guardar'>Guardar</button></li>
               </ul>
             </form>
             : null
           }
-          <div className="herramientas">
-            {!isOwner ? <p></p> : <a href="" className="boton-redes facebook"><FontAwesomeIcon icon={faWrench} /></a>}
-          </div>
         </div>
       </section>
 
@@ -180,7 +190,12 @@ const ContPerfil = () => {
               <div className="col" key={index}>
                 <div className="card shadow-sm">
                   <div className="card-body">
-                    <Link to={'/atomek/Responses/' + subscription._id}><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
+                    {
+                      isOwner == true ?
+                        <Link to={'/atomek/Responses/' + subscription._id} className='text-decoration-none'><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
+                      :
+                        <p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p>
+                    }
                     <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
                     <div className="d-flex justify-content-between align-items-center">
 
@@ -211,39 +226,45 @@ const ContPerfil = () => {
 
       <div className="album py-5" id='album'>
         <div className="container">
-          <h2>Rachas inactivas</h2>
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {subscriptions?.map((subscription, index) => (
-              subscription.active == false ?
-              <div className="col" key={index}>
-                <div className="card shadow-sm">
-                  <div className="card-body">
-                    <Link to={'/atomek/Responses/' + subscription._id}><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
-                    <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      
-                    {
-                      subscription._tags != '' ?
-                        <small className="text-muted">Etiquetas: 
-                          <ul>
-                            {subscription?._tags.map((tag, indexes) => (
-                              <li>{tag.title}</li>
-                            ))}
-                          </ul>
-                        </small>
-                      : null
-                    }
+          {
+          isOwner == true ?
+          <>
+            <h2>Rachas inactivas</h2>
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              {subscriptions?.map((subscription, index) => (
+                subscription.active == false ?
+                <div className="col" key={index}>
+                  <div className="card shadow-sm">
+                    <div className="card-body">
+                      <Link to={'/atomek/Responses/' + subscription._id} className='text-decoration-none'><p className="card-text text-black" id='RachaCateg'>{subscription._streak?.title}</p></Link>
+                      <p className="card-text text-black">Has cumplido {subscription?.counter} veces esta racha</p>
+                      <div className="d-flex justify-content-between align-items-center">
+                        
+                      {
+                        subscription._tags != '' ?
+                          <small className="text-muted">Etiquetas: 
+                            <ul>
+                              {subscription?._tags.map((tag, indexes) => (
+                                <li>{tag.title}</li>
+                              ))}
+                            </ul>
+                          </small>
+                        : null
+                      }
 
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <small className="text-muted">Suscrito el: {Moment(subscription.date_create).format('DD/MM/yyyy')}</small>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              : null
-            ))}
-          </div>
+                : null
+              ))}
+            </div>
+          </>
+          : null
+          }
         </div>
       </div>
       

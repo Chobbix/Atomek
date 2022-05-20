@@ -153,7 +153,7 @@ exports.postGetPostsByUserCommunities = async (req, res) => {
         return;
     }
     
-    const communities = await Community.find({_users: userId}).select('_id');
+    const communities = await Community.find({_users: userId, active: true}).select('_id');
 
     const posts = await Post.find({
         _community: { $in: 

@@ -192,7 +192,7 @@ exports.userGetAmountOfCommunities = async (req, res) => {
     try {
         const amountCommunities = await Community
         .aggregate([
-            { $match: { _users: {$eq: mongoose.Types.ObjectId(id)} } },
+            { $match: { _users: {$eq: mongoose.Types.ObjectId(id)}, active: true } },
             { $count: "amount_communities" }
         ]);
 

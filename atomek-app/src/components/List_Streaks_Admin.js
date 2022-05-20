@@ -84,7 +84,7 @@ const ListStreaksAdmin = (props) => {
                                 <strong className="text-light">{streak.title}</strong>
                                 <div>
                                     <Link to={'/atomek/CRacha/' + streak._id}><a className="text-light cursor-pointer"><FontAwesomeIcon icon={faPencil} value={streak._id} /></a></Link> &ensp;
-                                    <a className="text-light cursor-pointer" onClick={(e) => { handleDeleteStreak(e, streak._id) }}> <FontAwesomeIcon icon={faTrash} value={streak._id} /> </a> &ensp;
+                                    <a className="text-light cursor-pointer text-decoration-none" onClick={(e) => { handleDeleteStreak(e, streak._id) }}> <FontAwesomeIcon icon={faTrash} value={streak._id} /> </a> &ensp;
                                 </div>
                             </div>
                             {

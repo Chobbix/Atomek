@@ -258,3 +258,11 @@ body #CuerpoPerfil{
     margin-right: 27%;
     text-align: center;
 }
+
+.btn-guardar {
+    border: none;
+    background-color: #92A9BD !important;
+    padding: 6px;
+    border-radius: 3px;
+    width: 49%;
+}
