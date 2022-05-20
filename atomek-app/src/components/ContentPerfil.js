@@ -7,7 +7,7 @@ import './Estilos/ContPerfil_style.css'
 import './Estilos/Scroll_style.css'
 import { useParams } from 'react-router-dom';
 import { GetById, GetUserStats, SetUserImage, Update } from '../services/UserServices'
-import { FollowAddUserFollow } from '../services/FollowServices'
+import { FollowAddUserFollow, FollowGetIsFollowed, FollowGetUserFollows, FollowRemoveUserFollow } from '../services/FollowServices'
 import { SubscriptionGetSubscriptionsByUser } from '../services/SubscriptionServices'
 import Moment from 'moment';
 import { Link } from 'react-router-dom'
@@ -26,6 +26,7 @@ const ContPerfil = () => {
   const [userStats, setUserStats] = useState();
   const [isOwner, setIsOwner] = useState();
   const [isError, setIsError] = useState(true);
+  const [isFollowed, setIsFollowed] = useState(false);
   const [subscriptions, setSubscriptions] = useState([]);
   const params = useParams();
   const Navigate = useNavigate();
@@ -55,6 +56,14 @@ const ContPerfil = () => {
       setIsOwner(false);
       setUserProfile(responseUser);
     }
+
+		const responseIsFollowed = await FollowGetIsFollowed({
+			userId: userSession?._id,
+			followUserId: params.idUser
+		})
+
+		if (responseIsFollowed.isFollowed == true) { setIsFollowed(true); }
+		else { setIsFollowed(false); }
   }
 
   const handleFollowUser = async (event) => {
@@ -63,6 +72,26 @@ const ContPerfil = () => {
         _id: userSesion._id,
         followUser: userProfile._id
       })
+
+      setIsFollowed(true);
+      const responseUser = await GetById(params.idUser);
+      setUserProfile(responseUser);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleUnFollowUser = async (event) => {
+    try {
+      await FollowRemoveUserFollow({
+        _id: userSesion._id,
+        followUser: userProfile._id
+      })
+
+      setIsFollowed(false);
+      const responseUser = await GetById(params.idUser);
+      setUserProfile(responseUser);
     }
     catch (err) {
       console.log(err);
@@ -152,7 +181,12 @@ const ContPerfil = () => {
             <h3 className="titulo">{userProfile?.username}</h3>
             <div className='row'>
               <h8 className="Seguidores">Seguidores: {userProfile?.followersCount}</h8>
-              {!isOwner ? <button className='btn btn-guardar mt-3' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button> : null}
+              {!isOwner ? 
+                isFollowed ? 
+                  <button className='btn btn-guardar mt-3' id='btnseguir' onClick={handleUnFollowUser}>Dejar de seguir</button> 
+                : 
+                  <button className='btn btn-guardar mt-3' id='btnseguir' onClick={handleFollowUser}>Seguir Cuenta</button> 
+              : null}
             </div>
           </div>
           {

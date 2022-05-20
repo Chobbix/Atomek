@@ -35,3 +35,15 @@ export const FollowRemoveUserFollow = async (req) => {
         return err;
     }
 }
+
+export const FollowGetIsFollowed = async (req) => {
+    try {
+        const config = getConfigHeader();
+        const response = await axios.get(`/users/${req.userId}/is-followed/${req.followUserId}`, config);
+        console.log(response);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}

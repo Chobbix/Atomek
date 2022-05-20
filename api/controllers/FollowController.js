@@ -115,3 +115,34 @@ exports.followRemove = async (req, res) => {
 
     res.send();
 };
+
+exports.followIsFollowed = async (req, res) => {
+    const { userId } = req.params;
+    const { followUserId } = req.params;
+    const auth = req.get('authorization');
+
+    if (!verifyToken(auth)) {
+        res.status(401).send({message: "Token invalid"});
+        return;
+    }
+    
+    const user = await User.findById(userId);
+
+    if (!user) {
+        res.status(404).send({message: "User not found"});
+        return;
+    }
+
+    const follow = await Follow.findOne({_user: userId, _follows: {$eq: followUserId}});
+
+    if (follow) {
+        res.send({isFollowed: true});
+        return;
+    }
+    else {
+        res.send({isFollowed: false});
+        return;
+    }
+
+    res.send([]);
+};
