@@ -52,18 +52,20 @@ const ContPerfil = () => {
     else {
       const responseUser = await GetById(params.idUser);
       if (responseStats.isAxiosError) { Navigate('/atomek/Error'); }
+      else {
+
+        const responseIsFollowed = await FollowGetIsFollowed({
+          userId: userSession?._id,
+          followUserId: params.idUser
+        })
+        
+        if (responseIsFollowed.isFollowed == true) { setIsFollowed(true); }
+        else { setIsFollowed(false); }
+      }
 
       setIsOwner(false);
       setUserProfile(responseUser);
     }
-
-		const responseIsFollowed = await FollowGetIsFollowed({
-			userId: userSession?._id,
-			followUserId: params.idUser
-		})
-
-		if (responseIsFollowed.isFollowed == true) { setIsFollowed(true); }
-		else { setIsFollowed(false); }
   }
 
   const handleFollowUser = async (event) => {

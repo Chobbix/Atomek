@@ -63,7 +63,7 @@ const Crear_grupo = () => {
     return (
         <div className='publicar'>
             <form id='communityForm' onSubmit={handleSubmit(handleCreateCommunity)}>
-                <input class="form-control form-control-lg" type="text"
+                <input class="form-control form-control-lg" autocomplete="off" type="text"
                     placeholder="Nombre del grupo" aria-label=".form-control-lg example" {...register("name")} />
                 {errors.name && <ErrorMessage message={errors.name.message} />}
                 <input class="form-control" type="text"
