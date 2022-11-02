@@ -1,10 +1,11 @@
-# Programacion-Web-2
+# Atomek
 
-<h3>Integrantes: <br></h3>
-Victor Francisco Perez Martell 1848625 <br>
-Bryan Emmanuel Duarte Lozano 1877435 <br>
-Angel Corona Esquivel 1851121 <br>
-Brenda Hernández García 1843135 <br><br>
+<h3>Colaboradores: <br></h3>
+<a href="https://github.com/Chobbix">@Chobbix</a> - <b>Back-End / Full-stack</b> <br>
+<a href="https://github.com/VFPM">@VFPM</a> (cuenta inactiva de @Chobbix) - <b>Back-End / Full-stack</b> <br>
+<a href="https://github.com/cyandestructor">@cyandestructor</a> - <b>Back-End</b> <br>
+<a href="https://github.com/AngelC84">@AngelC84</a> - <b>Front-End</b> <br>
+<a href="https://github.com/bre23a">@bre23a</a> - <b>Front-End</b> <br>
 
 <h3>Atomek <br></h3>
 Una aplicacion web enfocada en la creacion de rachas, estas rachas pueden ser peronales o con una comunidad, podrás conocer gente, publicar tus avances,
